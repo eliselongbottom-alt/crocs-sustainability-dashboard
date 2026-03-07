@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crocs Sustainability Marketing Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">&#9752;</span>
+        <div>
+          <h1>Crocs Sustainability Tracker</h1>
+          <p class="subtitle">Peer Marketing Intelligence Dashboard</p>
+        </div>
+      </div>
+      <div class="header-meta">
+        <span class="last-updated" id="lastUpdated"></span>
+        <button class="btn-refresh" onclick="refreshData()">Refresh Data</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Positioning Summary Banner -->
+    <section class="positioning-banner" id="positioningBanner">
+      <div class="banner-content">
+        <h2>Crocs Positioning Summary</h2>
+        <div class="positioning-grid" id="positioningGrid"></div>
+      </div>
+    </section>
+
+    <!-- KPI Row -->
+    <section class="kpi-row" id="kpiRow"></section>
+
+    <!-- Charts Row -->
+    <section class="charts-row">
+      <div class="card chart-card">
+        <h3>Sustainability Messaging Volume (12-Month Trend)</h3>
+        <canvas id="trendChart"></canvas>
+      </div>
+      <div class="card chart-card">
+        <h3>Pillar Focus Breakdown by Brand</h3>
+        <canvas id="pillarChart"></canvas>
+      </div>
+    </section>
+
+    <!-- Competitor Detail Table -->
+    <section class="card">
+      <h3>Peer Sustainability Marketing Scorecard</h3>
+      <div class="table-controls">
+        <input type="text" id="searchInput" placeholder="Filter brands..." onkeyup="filterTable()">
+        <select id="sortSelect" onchange="sortTable()">
+          <option value="overall">Sort: Overall Score</option>
+          <option value="name">Sort: Name</option>
+          <option value="volume">Sort: Campaign Volume</option>
+          <option value="sentiment">Sort: Consumer Sentiment</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table id="scorecard">
+          <thead>
+            <tr>
+              <th>Brand</th>
+              <th>Overall Score</th>
+              <th>Campaign Volume</th>
+              <th>Key Pillars</th>
+              <th>Consumer Sentiment</th>
+              <th>Recent Initiative</th>
+              <th>Trend</th>
+            </tr>
+          </thead>
+          <tbody id="scorecardBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Trend Insights -->
+    <section class="two-col">
+      <div class="card">
+        <h3>Emerging Sustainability Themes</h3>
+        <div id="themeBubbles" class="theme-bubbles"></div>
+      </div>
+      <div class="card">
+        <h3>Crocs Gap Analysis</h3>
+        <canvas id="gapChart"></canvas>
+      </div>
+    </section>
+
+    <!-- Recent Campaigns Feed -->
+    <section class="card">
+      <h3>Recent Peer Campaigns</h3>
+      <div class="campaign-feed" id="campaignFeed"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Crocs Sustainability Marketing Intelligence &mdash; Internal Use Only</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
