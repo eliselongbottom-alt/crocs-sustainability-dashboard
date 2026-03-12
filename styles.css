@@ -610,6 +610,55 @@ tr.is-crocs:hover { background: #D4EDCF; }
   margin-bottom: 0.75rem;
 }
 
+.jb-regional {
+  margin: 0.75rem 0 0.5rem;
+}
+.jb-regional-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+}
+.jb-regional-grid {
+  display: flex;
+  gap: 0.4rem;
+  align-items: flex-end;
+}
+.jb-regional-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+.jb-regional-bar-wrap {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: flex-end;
+  background: #f3f4f6;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.jb-regional-bar {
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.3s ease;
+  min-height: 2px;
+}
+.jb-regional-score {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.jb-regional-label {
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
 .jb-stage-banner {
   font-size: 0.78rem;
   padding: 0.6rem 0.8rem;

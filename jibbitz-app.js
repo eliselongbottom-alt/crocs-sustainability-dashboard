@@ -99,6 +99,21 @@ function renderJbTrends(data) {
         <span class="jb-source">${t.source}</span>
         <span class="jb-days">${t.daysTrending}d trending</span>
       </div>
+      ${t.regional ? `
+      <div class="jb-regional">
+        <div class="jb-regional-title">Regional Relevance</div>
+        <div class="jb-regional-grid">
+          ${Object.entries(t.regional).map(([region, score]) => `
+            <div class="jb-regional-item">
+              <div class="jb-regional-bar-wrap">
+                <div class="jb-regional-bar" style="height:${score}%;background:${score >= 80 ? '#43B02A' : score >= 55 ? '#f59e0b' : '#e0e0e0'}"></div>
+              </div>
+              <div class="jb-regional-score">${score}</div>
+              <div class="jb-regional-label">${region}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>` : ''}
       <div class="jb-stage-banner" style="background:${stageInfo.color}15;border-left:3px solid ${stageInfo.color};color:${stageInfo.color}">
         ${stageInfo.icon || ''} ${t.stageDetail}
       </div>

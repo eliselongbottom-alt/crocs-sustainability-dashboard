@@ -8,6 +8,31 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+  <!-- Password Gate -->
+  <div id="passwordGate" style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#F5F7F4;">
+    <div style="background:#fff;padding:2.5rem 2rem;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,0.1);text-align:center;width:320px;">
+      <svg viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg" style="height:36px;width:auto;margin-bottom:1.2rem;">
+        <g fill="#43B02A">
+          <path d="M10,60 C10,27 30,5 65,5 C85,5 100,12 110,25 L95,42 C88,33 78,27 65,27 C45,27 35,42 35,60 C35,78 45,93 65,93 C78,93 88,87 95,78 L110,95 C100,108 85,115 65,115 C30,115 10,93 10,60Z"/>
+          <path d="M125,45 L148,45 L148,58 C155,48 165,43 178,43 L178,67 C175,66 172,65 168,65 C158,65 150,70 148,78 L148,115 L125,115Z"/>
+          <path d="M185,80 C185,58 202,43 225,43 C248,43 265,58 265,80 C265,102 248,117 225,117 C202,117 185,102 185,80Z M208,80 C208,93 215,100 225,100 C235,100 242,93 242,80 C242,67 235,60 225,60 C215,60 208,67 208,80Z"/>
+          <path d="M275,80 C275,58 292,43 315,43 C330,43 340,48 348,58 L333,72 C328,66 323,62 315,62 C305,62 298,69 298,80 C298,91 305,98 315,98 C323,98 328,94 333,88 L348,102 C340,112 330,117 315,117 C292,117 275,102 275,80Z"/>
+        </g>
+      </svg>
+      <h2 style="font-size:1.1rem;font-weight:700;color:#1D1D1B;margin-bottom:0.3rem;">Marketing Intelligence</h2>
+      <p style="font-size:0.8rem;color:#6b7280;margin-bottom:1.5rem;">Internal use only — enter password to continue</p>
+      <input id="passwordInput" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')checkPassword()"
+        style="width:100%;padding:0.65rem 1rem;border:1.5px solid #e0e0e0;border-radius:8px;font-size:0.95rem;margin-bottom:0.75rem;outline:none;"/>
+      <button onclick="checkPassword()"
+        style="width:100%;padding:0.65rem;background:#43B02A;color:#fff;border:none;border-radius:8px;font-size:0.95rem;font-weight:600;cursor:pointer;">
+        Enter
+      </button>
+      <p id="passwordError" style="color:#ef4444;font-size:0.8rem;margin-top:0.6rem;display:none;">Incorrect password. Try again.</p>
+    </div>
+  </div>
+
+  <div id="appContent" style="display:none;">
   <header>
     <div class="header-inner">
       <div class="logo">
@@ -190,6 +215,21 @@
     <p>Crocs Marketing Intelligence &mdash; Internal Use Only</p>
   </footer>
 
+  </div> <!-- /appContent -->
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById('passwordInput').value;
+      if (input === 'Crocs') {
+        document.getElementById('passwordGate').style.display = 'none';
+        document.getElementById('appContent').style.display = 'block';
+      } else {
+        document.getElementById('passwordError').style.display = 'block';
+        document.getElementById('passwordInput').value = '';
+        document.getElementById('passwordInput').focus();
+      }
+    }
+  </script>
   <script src="data.js"></script>
   <script src="jibbitz-data.js"></script>
   <script src="app.js"></script>
