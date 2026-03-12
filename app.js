@@ -17,6 +17,7 @@ function renderAll() {
   renderScorecard();
   renderThemeBubbles();
   renderGapChart();
+  renderActions();
   renderCampaignFeed();
 }
 
@@ -292,6 +293,122 @@ function renderGapChart() {
       },
     },
   });
+}
+
+// --- Recommended Actions ---
+function renderActions() {
+  const crocs = BRANDS.crocs;
+  const peers = Object.values(BRANDS).filter(b => !b.isSelf);
+  const actions = [];
+
+  // 1. Gap analysis: find biggest gaps vs peer average
+  GAP_DIMENSIONS.forEach((dim, i) => {
+    const gap = GAP_DATA.peerAverage[i] - GAP_DATA.crocs[i];
+    const leaderGap = GAP_DATA.leader[i] - GAP_DATA.crocs[i];
+    if (gap > 10) {
+      actions.push({
+        priority: gap > 20 ? "high" : "medium",
+        type: "Close Gap",
+        title: `Strengthen ${dim}`,
+        rationale: `Crocs scores ${GAP_DATA.crocs[i]} vs. peer avg ${GAP_DATA.peerAverage[i]} and leader ${GAP_DATA.leader[i]}. ${gap > 20 ? "This is a critical blind spot competitors are exploiting." : "Closing this gap would improve competitive positioning."}`,
+        score: gap,
+        metric: { label: `${GAP_DATA.crocs[i]} → ${GAP_DATA.peerAverage[i]} target`, pct: Math.round((GAP_DATA.crocs[i] / GAP_DATA.peerAverage[i]) * 100) },
+      });
+    }
+  });
+
+  // 2. Missing pillars that multiple competitors use
+  const pillarCounts = {};
+  peers.forEach(b => b.pillars.forEach(p => { pillarCounts[p] = (pillarCounts[p] || 0) + 1; }));
+  Object.entries(pillarCounts)
+    .filter(([p]) => !crocs.pillars.includes(p))
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .forEach(([pillar, count]) => {
+      const brandsUsing = peers.filter(b => b.pillars.includes(pillar)).map(b => b.name);
+      actions.push({
+        priority: count >= 4 ? "high" : "medium",
+        type: "Adopt Pillar",
+        title: `Add "${pillar}" to sustainability messaging`,
+        rationale: `${count} of ${peers.length} peers actively market this pillar (${brandsUsing.slice(0, 3).join(", ")}${brandsUsing.length > 3 ? "..." : ""}). Crocs has no presence here — adding it would broaden appeal and fill a messaging gap.`,
+        score: count * 10,
+        metric: { label: `${count}/${peers.length} peers active`, pct: Math.round((count / peers.length) * 100) },
+      });
+    });
+
+  // 3. Emerging themes Crocs should watch
+  const topThemes = EMERGING_THEMES.filter(t => t.weight >= 75).slice(0, 2);
+  topThemes.forEach(theme => {
+    actions.push({
+      priority: theme.weight >= 85 ? "high" : "medium",
+      type: "Emerging Trend",
+      title: `Develop a ${theme.label} initiative`,
+      rationale: `"${theme.label}" has a trend strength of ${theme.weight}/100 and is gaining rapid traction industry-wide. Early movers here will own the narrative before it becomes table stakes.`,
+      score: theme.weight,
+      metric: { label: `Trend strength: ${theme.weight}/100`, pct: theme.weight },
+    });
+  });
+
+  // 4. Volume gap vs leaders
+  const avgPeerVolume = Math.round(peers.reduce((s, b) => s + b.campaignVolume, 0) / peers.length);
+  if (crocs.campaignVolume < avgPeerVolume) {
+    const volumeGap = avgPeerVolume - crocs.campaignVolume;
+    const topCompetitor = peers.reduce((a, b) => a.campaignVolume > b.campaignVolume ? a : b);
+    actions.push({
+      priority: volumeGap > 20 ? "high" : "medium",
+      type: "Increase Visibility",
+      title: `Scale campaign volume from ${crocs.campaignVolume} to ${avgPeerVolume}+`,
+      rationale: `Crocs runs ${crocs.campaignVolume} campaigns vs. peer avg of ${avgPeerVolume}. ${topCompetitor.name} leads with ${topCompetitor.campaignVolume}. Higher volume correlates with stronger sentiment scores across tracked brands.`,
+      score: volumeGap,
+      metric: { label: `${crocs.campaignVolume}/${avgPeerVolume} peer avg`, pct: Math.round((crocs.campaignVolume / avgPeerVolume) * 100) },
+    });
+  }
+
+  // 5. Learn from top-performing peer campaigns
+  const highEngagement = RECENT_CAMPAIGNS.filter(c => c.brand !== "Crocs" && c.engagement === "Very High");
+  if (highEngagement.length > 0) {
+    const examples = highEngagement.map(c => `${c.brand}'s "${c.title}"`).join(" and ");
+    actions.push({
+      priority: "medium",
+      type: "Competitive Response",
+      title: `Study and respond to high-engagement peer campaigns`,
+      rationale: `${examples} achieved "Very High" engagement. Analyze their formats, channels, and messaging frameworks to inform Crocs' next campaign cycle.`,
+      score: 30,
+      metric: { label: `${highEngagement.length} campaigns to study`, pct: 60 },
+    });
+  }
+
+  // 6. Sentiment improvement opportunity
+  const sentimentLeader = peers.reduce((a, b) => a.sentimentScore > b.sentimentScore ? a : b);
+  if (sentimentLeader.sentimentScore - crocs.sentimentScore > 8) {
+    actions.push({
+      priority: "low",
+      type: "Brand Perception",
+      title: `Close sentiment gap with ${sentimentLeader.name}`,
+      rationale: `${sentimentLeader.name} leads consumer sentiment at ${sentimentLeader.sentimentScore}% vs. Crocs' ${crocs.sentimentScore}%. Their approach: ${sentimentLeader.recentInitiative.substring(0, 80)}...`,
+      score: sentimentLeader.sentimentScore - crocs.sentimentScore,
+      metric: { label: `${crocs.sentimentScore}% → ${sentimentLeader.sentimentScore}% target`, pct: Math.round((crocs.sentimentScore / sentimentLeader.sentimentScore) * 100) },
+    });
+  }
+
+  // Sort: high first, then by score
+  const priorityOrder = { high: 0, medium: 1, low: 2 };
+  actions.sort((a, b) => (priorityOrder[a.priority] - priorityOrder[b.priority]) || (b.score - a.score));
+
+  // Render
+  const grid = document.getElementById("actionsGrid");
+  grid.innerHTML = actions.map(a => `
+    <div class="action-card">
+      <span class="action-priority priority-${a.priority}">${a.priority} priority</span>
+      <div class="action-type">${a.type}</div>
+      <div class="action-title">${a.title}</div>
+      <div class="action-rationale">${a.rationale}</div>
+      <div class="action-metric">
+        <div class="action-metric-bar"><div class="action-metric-fill" style="width:${a.metric.pct}%"></div></div>
+        <span>${a.metric.label}</span>
+      </div>
+    </div>
+  `).join("");
 }
 
 // --- Campaign Feed ---
