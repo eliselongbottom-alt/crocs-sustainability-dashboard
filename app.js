@@ -1,7 +1,8 @@
 // Sustainability Marketing Dashboard - Application Logic
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderAll();
+  // Sustainability tab renders on demand (not the default tab)
+  window._sustainabilityInitialized = false;
 });
 
 function renderAll() {

@@ -12,6 +12,11 @@ function initJibbitz() {
   renderJbWins();
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  window._jbInitialized = true;
+  initJibbitz();
+});
+
 // --- Tab Navigation ---
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -23,6 +28,9 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     if (tab === 'jibbitz' && !window._jbInitialized) {
       window._jbInitialized = true;
       initJibbitz();
+    } else if (tab === 'sustainability' && !window._sustainabilityInitialized) {
+      window._sustainabilityInitialized = true;
+      renderAll();
     }
   });
 });
