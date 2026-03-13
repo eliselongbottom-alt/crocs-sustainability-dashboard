@@ -144,6 +144,7 @@ function renderJbTrends(data) {
       <div class="jb-stage-banner" style="background:${stageInfo.color}15;border-left:3px solid ${stageInfo.color};color:${stageInfo.color}">
         ${stageInfo.icon || ''} ${t.stageDetail}
       </div>
+      <button class="jb-design-brief-btn" onclick="openDesignModal('${t.id}')">🎨 Generate Design Brief</button>
     </div>`;
   }).join('');
 }
@@ -446,4 +447,154 @@ function renderJbWins() {
       <div class="jb-win-lesson"><strong>Lesson:</strong> ${w.lessonsLearned}</div>
     </div>
   `).join('');
+}
+
+// ─── Design Brief Modal ────────────────────────────────────────────────────
+
+function openDesignModal(trendId) {
+  const trend = JIBBITZ_TRENDS.find(t => t.id === trendId);
+  if (!trend) return;
+
+  document.getElementById('designModalTitle').textContent = trend.name;
+  document.getElementById('designModalBody').innerHTML = buildDesignBriefHTML(trend);
+  document.getElementById('designBriefModal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDesignModal(e) {
+  if (e && e.target !== document.getElementById('designBriefModal')) return;
+  document.getElementById('designBriefModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function buildDesignBriefHTML(trend) {
+  const concepts = getCharmConcepts(trend);
+  const palette  = getCharmPalette(trend);
+  const packFmt  = getPackFormat(trend);
+
+  const topRegions = Object.entries(trend.regional)
+    .sort((a, b) => b[1] - a[1]).slice(0, 3);
+  const topAudience = Object.entries(trend.audience)
+    .sort((a, b) => b[1] - a[1]).slice(0, 2);
+
+  const urgency = trend.velocity >= 80
+    ? { label: 'Rush — Act Now', rec: 'Target 30-day concept-to-brief window. This trend has a short cultural shelf life.', bg: '#fef2f2', border: '#ef4444', color: '#b91c1c' }
+    : trend.velocity >= 60
+    ? { label: 'Fast-track', rec: 'Target 60-day window. Trend is still accelerating — prioritise over standard pipeline.', bg: '#fffbeb', border: '#f59e0b', color: '#92400e' }
+    : { label: 'Standard timeline', rec: 'No urgency. Re-evaluate in 3–4 weeks before committing resources.', bg: '#f3f4f6', border: '#9ca3af', color: '#6b7280' };
+
+  const pricing = trend.jibbitzScore >= 90
+    ? '$7.99–$9.99 (premium / limited edition)'
+    : trend.jibbitzScore >= 75
+    ? '$5.99–$7.99 (standard retail)'
+    : '$4.99–$5.99 (entry-level)';
+
+  return `
+    <div class="design-modal-body">
+
+      <div class="design-brief-section">
+        <div class="design-brief-section-title">Charm Concept Ideas</div>
+        <div class="design-brief-concepts">
+          ${concepts.map(c => `<div class="design-brief-concept">${c}</div>`).join('')}
+        </div>
+      </div>
+
+      <div class="design-brief-section">
+        <div class="design-brief-section-title">Suggested Colour Palette</div>
+        <div class="design-brief-palette-row">
+          ${palette.map(p => `
+            <div style="display:flex;align-items:center;gap:0.35rem;">
+              <div class="design-brief-swatch" style="background:${p.hex};" title="${p.name}"></div>
+              <span class="design-brief-swatch-label">${p.name}</span>
+            </div>`).join('')}
+        </div>
+      </div>
+
+      <div class="design-brief-row" style="margin-bottom:1.25rem;">
+        <div class="design-brief-stat">
+          <div class="design-brief-stat-label">Pack Format</div>
+          <div class="design-brief-stat-value">${packFmt}</div>
+        </div>
+        <div class="design-brief-stat">
+          <div class="design-brief-stat-label">Suggested Retail</div>
+          <div class="design-brief-stat-value">${pricing}</div>
+        </div>
+      </div>
+
+      <div class="design-brief-section">
+        <div class="design-brief-section-title">Priority Markets</div>
+        <div class="design-brief-markets">
+          ${topRegions.map(([region, score]) => `
+            <div class="design-brief-market-pill">
+              ${region} <span class="pill-score">${score}</span>
+            </div>`).join('')}
+        </div>
+      </div>
+
+      <div class="design-brief-section">
+        <div class="design-brief-section-title">Primary Audience</div>
+        <div class="design-brief-markets">
+          ${topAudience.map(([seg, score]) => `
+            <div class="design-brief-market-pill">
+              ${seg} <span class="pill-score">${score}</span>
+            </div>`).join('')}
+        </div>
+      </div>
+
+      <div class="design-brief-section">
+        <div class="design-brief-section-title">Launch Timing Recommendation</div>
+        <div class="design-brief-urgency" style="background:${urgency.bg};border-left:4px solid ${urgency.border};color:${urgency.color}">
+          <strong>${urgency.label}</strong> — ${urgency.rec}
+        </div>
+      </div>
+
+    </div>`;
+}
+
+// ─── Design Brief Helpers ──────────────────────────────────────────────────
+
+function getCharmConcepts(trend) {
+  const conceptMap = {
+    'punch-monkey':        ['Hero charm: baby spider monkey clutching mini stuffed animal — 3D sculpted, high detail', 'Expression variant: zoomed-in face with wide eyes for maximum emotional reaction', 'Duo pack: monkey + tiny stuffed toy as a collectible pair'],
+    'moo-deng-2':          ['Hero charm: baby pygmy hippo full-body in playful pose, rounded proportions', 'Matching set: Moo Deng baby + Moo Deng original — creates a mother/baby collectible pair', 'Mini splash charm: hippo half-submerged in water, perfect for pool-themed styling'],
+    'capybara-hot-spring': ['Hero charm: capybara sitting in hot spring with yuzu orange on head — instantly iconic', 'Winter seasonal variant: capybara in tiny towel, white steam details', 'Duo set: capybara + mini yuzu orange as separate wearable companion charm'],
+    'dubai-chocolate':     ['Cross-section charm: the iconic green pistachio kunafa interior view — bold and recognisable', 'Bar wrapper charm: full chocolate bar in branded gold foil style', '3-pack: chocolate bar + pistachio + kunafa swirl — covers the full visual story'],
+    'pedro-raccoon':       ['Hero charm: Pedro raccoon mid-dance silhouette — the pose that launched a million remixes', 'Expression close-up: raccoon face with signature ear tufts in flat 2D style', 'Duo set: raccoon + musical note as a pair, nods to the Carrà audio'],
+    'pickle-everything':   ['3-pack: whole pickle, pickle slice, and pickle jar — the complete pickle universe', 'Hero charm: oversized pickle with cartoonish face for shareability', 'Brine jar charm: the jar label with "Pickled" branding — nostalgia meets meme culture'],
+    'caitlin-clark':       ['Silhouette charm: Clark in signature goggles celebration pose (check licensing)', 'Number charm: #22 in WNBA Fever orange — simple, iconic, collectible', 'Basketball + goggles duo set — avoids likeness rights while staying on-trend'],
+    'bluey-season4':       ['3-pack: Bluey + Bingo + Muffin — the three most-requested characters on socials', 'Bluey hero charm: faithful to S4 character design, rounded for charm scale', 'Heeler family house charm: the iconic house as a collectible set centrepiece'],
+    'cottage-cheese':      ['Punny hero charm: cottage cheese tub with tiny fork — leans into the food TikTok aesthetic', 'Macro texture charm: the lumpy surface rendered in 3D — surprisingly charming', 'Wellness pack: cottage cheese + protein shake + fruit — targets the health crowd'],
+    'grimace-shake':       ['Hero charm: Grimace purple blob full-body — faithful to McDonald\'s character', 'Grimace shake cup charm: the purple milkshake that broke the internet', 'Duo restock: Grimace + golden arch charm — collab pack (requires McDonald\'s licensing)'],
+    'panda-twins':         ['Twin set: Bao Li + Qing Bao twin panda cubs — sold as an inseparable pair', 'Bamboo accessory charm: mini bamboo stalk companions to the twin set', 'Sleepy panda variant: cub curled up asleep — taps into the "cute resting" content format'],
+    'stanley-cup':         ['Mini Stanley cup charm: the iconic handle + colour-match lid, in multiple colourways', 'Colour-match pack: Stanley charm + matching Jibbitz in 5 popular Stanley colours', 'Collab set: "Crocs x Stanley" co-branded pack (approach Stanley for partnership)'],
+  };
+  return conceptMap[trend.id] || [
+    `Hero ${trend.name} charm — 3D sculpted, key recognisable feature as focal point`,
+    `Expression/detail variant — close-up of the element that made this trend shareable`,
+    `Multi-pack — 2–3 related items that tell the full story of the trend`,
+  ];
+}
+
+function getCharmPalette(trend) {
+  const palettes = {
+    'animals':     [{ hex: '#8B6914', name: 'Warm Brown' }, { hex: '#A8D5A2', name: 'Sage' }, { hex: '#F5DEB3', name: 'Wheat' }, { hex: '#1D1D1B', name: 'Outline Black' }],
+    'food':        [{ hex: '#F5A623', name: 'Saffron' }, { hex: '#4CAF50', name: 'Fresh Green' }, { hex: '#E84C3D', name: 'Tomato' }, { hex: '#FFF9C4', name: 'Cream' }],
+    'memes':       [{ hex: '#9B59B6', name: 'Meme Purple' }, { hex: '#F39C12', name: 'Pop Amber' }, { hex: '#2ECC71', name: 'Kermit Green' }, { hex: '#ECF0F1', name: 'Off White' }],
+    'sports':      [{ hex: '#2563EB', name: 'Court Blue' }, { hex: '#EF4444', name: 'Sport Red' }, { hex: '#F59E0B', name: 'Gold' }, { hex: '#1D1D1B', name: 'Pitch Black' }],
+    'characters':  [{ hex: '#EC4899', name: 'Character Pink' }, { hex: '#8B5CF6', name: 'Violet' }, { hex: '#F59E0B', name: 'Sunshine' }, { hex: '#43B02A', name: 'Crocs Green' }],
+    'pop-culture': [{ hex: '#06B6D4', name: 'Viral Cyan' }, { hex: '#8B5CF6', name: 'Trend Purple' }, { hex: '#F59E0B', name: 'Moment Amber' }, { hex: '#EF4444', name: 'Hot Red' }],
+  };
+  return palettes[trend.category] || palettes['pop-culture'];
+}
+
+function getPackFormat(trend) {
+  const formats = {
+    'animals':     '1-pack hero charm + optional companion accessory',
+    'food':        '3-pack (3 related food items from the trend)',
+    'memes':       '1-pack hero silhouette charm',
+    'sports':      '2-pack (athlete reference + signature gear)',
+    'characters':  '3-pack (main + 2 supporting characters)',
+    'pop-culture': '1-pack with 3–4 colourway variants',
+  };
+  return formats[trend.category] || '1-pack hero charm';
 }

@@ -182,6 +182,95 @@ main {
 
 .chart-card canvas { max-height: 320px; }
 
+/* Design Brief Modal */
+.design-modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+  z-index: 1000; display: flex; align-items: center; justify-content: center;
+  padding: 1rem;
+}
+.design-modal-box {
+  background: #fff; border-radius: 14px; width: 100%; max-width: 620px;
+  max-height: 90vh; overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  animation: modalIn 0.2s ease;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.96) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.design-modal-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  padding: 1.25rem 1.5rem 1rem; border-bottom: 1px solid #e0e0e0;
+  position: sticky; top: 0; background: #fff; z-index: 1;
+}
+.design-modal-label {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: #43B02A; margin-bottom: 0.2rem;
+}
+.design-modal-header h3 { font-size: 1.1rem; font-weight: 800; color: #1D1D1B; }
+.design-modal-close {
+  background: #f3f4f6; border: none; border-radius: 50%; width: 32px; height: 32px;
+  font-size: 1.2rem; cursor: pointer; color: #6b7280; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; line-height: 1;
+}
+.design-modal-close:hover { background: #e5e7eb; color: #1D1D1B; }
+.design-modal-body { padding: 1.25rem 1.5rem 1.5rem; }
+.design-brief-section {
+  margin-bottom: 1.25rem;
+}
+.design-brief-section-title {
+  font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.07em; color: #6b7280; margin-bottom: 0.6rem;
+}
+.design-brief-concepts { display: flex; flex-direction: column; gap: 0.5rem; }
+.design-brief-concept {
+  background: #f8f9fa; border-left: 3px solid #43B02A;
+  border-radius: 0 6px 6px 0; padding: 0.55rem 0.75rem;
+  font-size: 0.88rem; color: #1D1D1B; line-height: 1.45;
+}
+.design-brief-concept strong { color: #43B02A; }
+.design-brief-colors { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.design-brief-swatch {
+  width: 36px; height: 36px; border-radius: 8px;
+  border: 1.5px solid rgba(0,0,0,0.08); flex-shrink: 0;
+  title: attr(data-hex);
+}
+.design-brief-palette-row { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+.design-brief-swatch-label { font-size: 0.75rem; color: #6b7280; }
+.design-brief-markets { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.design-brief-market-pill {
+  display: flex; align-items: center; gap: 0.4rem;
+  background: #f3f4f6; border-radius: 20px; padding: 0.3rem 0.75rem;
+  font-size: 0.82rem; font-weight: 600;
+}
+.design-brief-market-pill .pill-score {
+  background: #43B02A; color: #fff; border-radius: 10px;
+  padding: 0.1rem 0.4rem; font-size: 0.72rem; font-weight: 700;
+}
+.design-brief-urgency {
+  border-radius: 8px; padding: 0.7rem 1rem;
+  font-size: 0.88rem; font-weight: 600;
+}
+.design-brief-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+.design-brief-stat {
+  flex: 1; min-width: 130px; background: #f8f9fa; border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+}
+.design-brief-stat-label { font-size: 0.7rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.2rem; }
+.design-brief-stat-value { font-size: 0.92rem; font-weight: 700; color: #1D1D1B; }
+
+/* Design Brief Button on cards */
+.jb-design-brief-btn {
+  width: 100%; margin-top: 0.9rem;
+  background: linear-gradient(135deg, #43B02A, #006A4E);
+  color: #fff; border: none; border-radius: 8px;
+  padding: 0.6rem 1rem; font-size: 0.85rem; font-weight: 700;
+  cursor: pointer; letter-spacing: 0.02em;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.jb-design-brief-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+.jb-design-brief-btn:active { transform: translateY(0); }
+
 /* Consumer Trends Charts */
 .trends-charts-row {
   display: grid;

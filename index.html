@@ -367,6 +367,20 @@
       }
     }
   </script>
+  <!-- Design Brief Modal -->
+  <div id="designBriefModal" class="design-modal-overlay" style="display:none;" onclick="closeDesignModal(event)">
+    <div class="design-modal-box">
+      <div class="design-modal-header">
+        <div>
+          <div class="design-modal-label">Design Brief</div>
+          <h3 id="designModalTitle"></h3>
+        </div>
+        <button class="design-modal-close" onclick="closeDesignModal()">&times;</button>
+      </div>
+      <div id="designModalBody"></div>
+    </div>
+  </div>
+
   <script src="data.js"></script>
   <script src="jibbitz-data.js"></script>
   <script src="affinity-data.js"></script>
