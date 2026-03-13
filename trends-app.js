@@ -16,11 +16,237 @@ function initTrends() {
   renderTrendsLiveBanner();
   renderTrendsStats();
   renderTrendsBreaking();
+  renderTrendsVelocityChart();
+  renderTrendsCategoryChart();
+  renderTrendsSourceChart();
+  renderTrendsQuadrantChart();
   renderSourcePills();
   renderCatPills();
   renderTrendsFeed();
   renderSourcesGrid();
   startLiveFeed();
+}
+
+// ─── Charts ─────────────────────────────────────────────────────────────────
+
+const TREND_CAT_COLORS = {
+  'Consumer Behaviour': '#43B02A',
+  'Fashion & Style':    '#8b5cf6',
+  'Technology':         '#3b82f6',
+  'Sustainability':     '#10b981',
+  'Retail & Commerce':  '#f97316',
+  'Culture & Identity': '#ec4899',
+  'Health & Wellness':  '#06b6d4',
+};
+
+const TREND_YEAR_COLORS = { 2026: '#43B02A', 2027: '#f59e0b', 2028: '#8b5cf6' };
+
+function renderTrendsVelocityChart() {
+  const ctx = document.getElementById('trendsVelocityChart');
+  if (!ctx) return;
+  if (window._trendsVelocityChart) window._trendsVelocityChart.destroy();
+
+  const years = [2026, 2027, 2028];
+  const cats = [...new Set(TREND_ITEMS.map(t => t.category))].sort();
+
+  const datasets = cats.map(cat => {
+    const color = TREND_CAT_COLORS[cat] || '#999';
+    const data = years.map(yr => {
+      const items = TREND_ITEMS.filter(t => t.category === cat && t.year === yr);
+      return items.length ? Math.round(items.reduce((s, t) => s + t.trendStrength, 0) / items.length) : null;
+    });
+    return {
+      label: cat,
+      data,
+      borderColor: color,
+      backgroundColor: color + '20',
+      borderWidth: 2.5,
+      pointRadius: 5,
+      pointBackgroundColor: color,
+      tension: 0.35,
+      fill: false,
+      spanGaps: true,
+    };
+  });
+
+  window._trendsVelocityChart = new Chart(ctx, {
+    type: 'line',
+    data: { labels: years.map(String), datasets },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { usePointStyle: true, padding: 12, font: { size: 10 } } },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.raw} trend strength` } },
+      },
+      scales: {
+        y: { min: 60, max: 100, title: { display: true, text: 'Avg Trend Strength' } },
+        x: { title: { display: true, text: 'Forecast Year' } },
+      },
+    },
+  });
+}
+
+function renderTrendsCategoryChart() {
+  const ctx = document.getElementById('trendsCategoryChart');
+  if (!ctx) return;
+  if (window._trendsCategoryChart) window._trendsCategoryChart.destroy();
+
+  const cats = [...new Set(TREND_ITEMS.map(t => t.category))].sort();
+  const avgRelevance = cats.map(cat => {
+    const items = TREND_ITEMS.filter(t => t.category === cat);
+    return items.length ? Math.round(items.reduce((s, t) => s + t.crocsRelevance, 0) / items.length) : 0;
+  });
+  const counts = cats.map(cat => TREND_ITEMS.filter(t => t.category === cat).length);
+  const colors = cats.map(cat => TREND_CAT_COLORS[cat] || '#999');
+
+  window._trendsCategoryChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: cats.map(c => c.length > 18 ? c.substring(0, 16) + '…' : c),
+      datasets: [
+        {
+          label: 'Avg Crocs Relevance',
+          data: avgRelevance,
+          backgroundColor: colors.map(c => c + 'cc'),
+          borderColor: colors,
+          borderWidth: 1.5,
+          borderRadius: 6,
+          yAxisID: 'y',
+        },
+        {
+          label: 'Trend Count',
+          data: counts,
+          type: 'line',
+          borderColor: '#1D1D1B',
+          backgroundColor: '#1D1D1B',
+          pointRadius: 5,
+          borderWidth: 2,
+          yAxisID: 'y1',
+        },
+      ],
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { usePointStyle: true, padding: 12, font: { size: 10 } } },
+      },
+      scales: {
+        y: { ticks: { font: { size: 10 } } },
+        x: { beginAtZero: true, max: 100, title: { display: true, text: 'Avg Crocs Relevance' } },
+        y1: { position: 'right', beginAtZero: true, grid: { display: false }, title: { display: true, text: 'Count' }, ticks: { stepSize: 1 } },
+      },
+    },
+  });
+}
+
+function renderTrendsSourceChart() {
+  const ctx = document.getElementById('trendsSourceChart');
+  if (!ctx) return;
+  if (window._trendsSourceChart) window._trendsSourceChart.destroy();
+
+  const sources = TREND_SOURCES.map(s => ({
+    name: s.name,
+    count: TREND_ITEMS.filter(t => t.source === s.id).length,
+  })).filter(s => s.count > 0).sort((a, b) => b.count - a.count);
+
+  const palette = ['#43B02A','#3b82f6','#8b5cf6','#f59e0b','#ec4899','#10b981','#f97316','#06b6d4','#ef4444','#a855f7','#0ea5e9','#84cc16'];
+
+  window._trendsSourceChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: sources.map(s => s.name),
+      datasets: [{
+        data: sources.map(s => s.count),
+        backgroundColor: palette.slice(0, sources.length),
+        borderWidth: 2,
+        borderColor: '#fff',
+        hoverOffset: 6,
+      }],
+    },
+    options: {
+      responsive: true,
+      cutout: '62%',
+      plugins: {
+        legend: { position: 'right', labels: { usePointStyle: true, padding: 10, font: { size: 10 }, boxWidth: 10 } },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw} trend${ctx.raw !== 1 ? 's' : ''}` } },
+      },
+    },
+  });
+}
+
+function renderTrendsQuadrantChart() {
+  const ctx = document.getElementById('trendsQuadrantChart');
+  if (!ctx) return;
+  if (window._trendsQuadrantChart) window._trendsQuadrantChart.destroy();
+
+  const datasets = [2026, 2027, 2028].map(yr => {
+    const items = TREND_ITEMS.filter(t => t.year === yr);
+    const color = TREND_YEAR_COLORS[yr];
+    return {
+      label: String(yr),
+      data: items.map(t => ({ x: t.trendStrength, y: t.crocsRelevance, title: t.title })),
+      backgroundColor: color + 'aa',
+      borderColor: color,
+      borderWidth: 1.5,
+      pointRadius: 7,
+      pointHoverRadius: 10,
+    };
+  });
+
+  window._trendsQuadrantChart = new Chart(ctx, {
+    type: 'scatter',
+    data: { datasets },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { usePointStyle: true, padding: 12, font: { size: 11 } } },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const t = ctx.raw;
+              const label = t.title.length > 40 ? t.title.substring(0, 38) + '…' : t.title;
+              return ` ${label} (Rel: ${t.y}, Vel: ${t.x})`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          min: 60, max: 100,
+          title: { display: true, text: 'Trend Strength (Velocity →)' },
+          grid: { color: '#f3f4f6' },
+        },
+        y: {
+          min: 60, max: 100,
+          title: { display: true, text: 'Crocs Relevance ↑' },
+          grid: { color: '#f3f4f6' },
+        },
+      },
+    },
+    plugins: [{
+      id: 'quadrantLines',
+      beforeDraw(chart) {
+        const { ctx, chartArea: { left, right, top, bottom } } = chart;
+        const midX = (left + right) / 2;
+        const midY = (top + bottom) / 2;
+        ctx.save();
+        ctx.strokeStyle = '#e0e0e0';
+        ctx.setLineDash([4, 4]);
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(midX, top); ctx.lineTo(midX, bottom); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(left, midY); ctx.lineTo(right, midY); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.font = '10px sans-serif';
+        ctx.fillStyle = '#9ca3af';
+        ctx.fillText('Watch', left + 6, top + 14);
+        ctx.fillText('Act Now', midX + 6, top + 14);
+        ctx.fillText('Low Priority', left + 6, bottom - 6);
+        ctx.fillText('Track', midX + 6, bottom - 6);
+        ctx.restore();
+      },
+    }],
+  });
 }
 
 // ─── Live Feed Banner ───────────────────────────────────────────────────────
