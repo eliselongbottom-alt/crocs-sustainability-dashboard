@@ -1617,14 +1617,79 @@ tr.is-crocs:hover { background: #D4EDCF; }
 }
 .genz-angle-bar-fill { height: 100%; border-radius: 2px; }
 
+/* Influence Source Cards */
+.genz-influence-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.85rem; margin-top: 1rem;
+}
+.genz-influence-card {
+  background: #f8f9fa; border-radius: 8px; padding: 0.85rem 1rem;
+}
+.genz-influence-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.2rem; }
+.genz-influence-source { font-size: 0.85rem; font-weight: 700; color: #1D1D1B; line-height: 1.3; flex: 1; }
+.genz-influence-score {
+  font-size: 0.85rem; font-weight: 800; border-radius: 10px;
+  padding: 0.1rem 0.5rem; flex-shrink: 0;
+}
+.genz-influence-tier { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.35rem; }
+.genz-influence-crocs { font-size: 0.78rem; color: #6b7280; line-height: 1.45; }
+
+/* Global vs Local */
+.genz-gl-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;
+}
+.genz-gl-stat-card {
+  background: #f8f9fa; border-radius: 10px; padding: 1rem; text-align: center;
+}
+.genz-gl-stat-icon { font-size: 1.6rem; margin-bottom: 0.35rem; }
+.genz-gl-stat-value { font-size: 1.8rem; font-weight: 900; color: #43B02A; line-height: 1; }
+.genz-gl-stat-label { font-size: 0.78rem; font-weight: 700; color: #1D1D1B; margin: 0.3rem 0 0.2rem; }
+.genz-gl-stat-detail { font-size: 0.72rem; color: #6b7280; line-height: 1.4; }
+.genz-gl-chart-wrap { max-height: 320px; margin-bottom: 1.25rem; }
+.genz-gl-chart-wrap canvas { max-height: 280px; }
+.genz-gl-insight-inner {
+  background: #eff6ff; border-left: 4px solid #3b82f6; border-radius: 0 8px 8px 0;
+  padding: 0.85rem 1rem;
+}
+.genz-gl-insight-label {
+  display: block; font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: #3b82f6; margin-bottom: 0.3rem;
+}
+.genz-gl-insight-inner p { font-size: 0.88rem; color: #1D1D1B; line-height: 1.55; }
+
+/* Key Takeaways */
+.genz-takeaways-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;
+}
+.genz-takeaway-card {
+  background: #f8f9fa; border-radius: 10px; padding: 1.1rem 1rem; display: flex;
+  flex-direction: column; gap: 0.5rem;
+}
+.genz-takeaway-header { display: flex; align-items: center; justify-content: space-between; }
+.genz-takeaway-num { font-size: 1.4rem; font-weight: 900; line-height: 1; }
+.genz-takeaway-icon { font-size: 1.4rem; }
+.genz-takeaway-title { font-size: 0.92rem; font-weight: 800; color: #1D1D1B; line-height: 1.35; }
+.genz-takeaway-insight { font-size: 0.8rem; color: #374151; line-height: 1.5; }
+.genz-takeaway-action {
+  margin-top: auto; background: #fff; border-radius: 6px; padding: 0.6rem 0.75rem;
+  font-size: 0.77rem; color: #1D1D1B; line-height: 1.45; display: flex; flex-direction: column; gap: 0.2rem;
+}
+.genz-takeaway-action-label {
+  font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: #43B02A;
+}
+
 /* Responsive */
 @media (max-width: 1100px) {
   .genz-angles-grid { grid-template-columns: repeat(3, 1fr); }
+  .genz-takeaways-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 900px) {
   .genz-stats-row { grid-template-columns: repeat(2, 1fr); }
   .genz-charts-row { grid-template-columns: 1fr; }
   .genz-angles-grid { grid-template-columns: repeat(2, 1fr); }
+  .genz-influence-grid { grid-template-columns: 1fr; }
+  .genz-gl-stats { grid-template-columns: 1fr; }
+  .genz-takeaways-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 560px) {
   .genz-stats-row { grid-template-columns: 1fr 1fr; }

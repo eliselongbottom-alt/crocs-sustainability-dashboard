@@ -346,8 +346,8 @@ function renderJibbitzRoadmap() {
       horizon: "3-6",
       priority: "high",
       type: "Partnership",
-      title: "Begin Wicked Part 2 Collab Planning",
-      description: "Part 2 releases November 2026. First collab sold out in 2 hours. Negotiate expanded range now (8+ months lead time).",
+      title: "Wicked: For Good Jibbitz — Extend While Momentum is Live",
+      description: "Part 2 launched November 2025 — the cultural wave is active now. First collab sold out in 2 hours. Plan an expanded SKU restock before post-launch momentum fades.",
       kpi: "Contract signed by June, 3x SKU count vs Part 1",
     },
     {
@@ -371,8 +371,8 @@ function renderJibbitzRoadmap() {
       horizon: "6-12",
       priority: "high",
       type: "Product",
-      title: "Wicked Part 2 Jibbitz Collection Launch",
-      description: "Largest licensed collab of the year. Plan 10+ charms, global simultaneous drop.",
+      title: "Wicked: For Good — Extended Collection Drop",
+      description: "Film launched Nov 2025. Expand the original collab with 10+ charms, Elphaba vs. Glinda pack, and a global BFCM 2026 restock drop.",
       kpi: "200K units, $4M revenue",
     },
     {

@@ -873,4 +873,54 @@ const GENZ_DATA = {
     { icon: '🛒', title: 'Social Commerce Ready',      relevance: 88, detail: '54% of Gen Z purchased via social in the last 30 days. Jibbitz collabs are inherently shareable, drop-culture products built for this.' },
     { icon: '🌍', title: 'Sustainability Positioning',  relevance: 82, detail: 'Gen Z scores sustainability 82/100 as a core value. Crocs\' bio-based Croslite and lower-waste supply chain are under-communicated to this audience.' },
   ],
+
+  influenceSources: [
+    { source: 'Micro-influencers / Creators (10K–500K)',  score: 87, tier: 'high',   color: '#43B02A', crocs: 'The core Jibbitz seeding playbook — authentic creators in customisation, style, and fandom niches outperform celebrity deals at a fraction of cost.' },
+    { source: 'Peer & Friend Recommendations',            score: 84, tier: 'high',   color: '#43B02A', crocs: 'Make sharing effortless — UGC challenges, referral hooks, and shareable Jibbitz combos activate the most trusted influence channel.' },
+    { source: 'Algorithm Discovery (FYP / Explore)',      score: 81, tier: 'high',   color: '#43B02A', crocs: 'Organic posts that perform well should be boosted immediately. Paid amplification of native content outperforms produced ad creative 3–5×.' },
+    { source: 'Short-Form Video (TikTok / Reels)',        score: 79, tier: 'high',   color: '#f59e0b', crocs: 'The primary media format for this cohort. Every Crocs campaign needs a TikTok-native cut under 30 seconds before anything else is made.' },
+    { source: 'Micro-Dramas & Branded Series',           score: 64, tier: 'medium', color: '#f59e0b', crocs: 'Fastest-growing format in APAC — huge opportunity. A Crocs "Jibbitz Diaries" episodic series could be a breakout format in 2026.' },
+    { source: 'Macro Celebrities (1M+ following)',        score: 72, tier: 'medium', color: '#f59e0b', crocs: 'High reach, lower trust for purchase decisions. Best deployed for cultural awareness moments, not direct conversion campaigns.' },
+    { source: 'Brand-Owned Social Content',               score: 65, tier: 'medium', color: '#3b82f6', crocs: 'Effective only if it feels native and unpolished. Over-produced brand content is scrolled past — Crocs\' irreverent tone is an asset here.' },
+    { source: 'Online Reviews & Ratings',                 score: 61, tier: 'medium', color: '#3b82f6', crocs: 'Star ratings and UGC reviews are silent conversion drivers. Encourage reviews post-purchase, especially for Jibbitz bundles.' },
+    { source: 'In-Feed / Social Ads',                    score: 52, tier: 'low',    color: '#9ca3af', crocs: 'Only effective if the first 1.5 seconds is visually arresting. Skip rate is ~78% — lead with the charm close-up or unexpected colourway.' },
+    { source: 'TV / Print / Out-of-Home',                score: 21, tier: 'low',    color: '#9ca3af', crocs: 'Largely ignored by Gen Z. Reserve for mass cultural moments only — Super Bowl, major festival sponsorships where the context adds credibility.' },
+  ],
+
+  contentFormats: [
+    { format: 'Short-Form Video (TikTok / Reels)',  effectiveness: 92, note: 'Under 60 seconds, native feel, zero production polish — authenticity is the product', color: '#1D1D1B' },
+    { format: 'Authentic UGC & Reviews',            effectiveness: 85, note: 'Real people, real product — the highest-trust signal available to a brand', color: '#43B02A' },
+    { format: 'Memes & Humour Content',             effectiveness: 79, note: 'Absurdist and relatable content travels furthest — Crocs\' weird factor is an unfair advantage', color: '#EF4444' },
+    { format: 'Tutorial / How-To / Styling',        effectiveness: 74, note: '"How I customise my Crocs" is a proven search and watch category with strong conversion', color: '#F59E0B' },
+    { format: 'Live Stream & Live Commerce',        effectiveness: 68, note: 'Drop-culture Jibbitz launches via live stream create urgency and FOMO in real time', color: '#8B5CF6' },
+    { format: 'Micro-Drama / Episodic Series',      effectiveness: 64, note: 'Fastest-growing format — especially in APAC markets. Brand storytelling at scale.', color: '#EC4899' },
+    { format: 'Long-Form YouTube',                  effectiveness: 56, note: 'Works for deep dives: personalisation videos, "what\'s on my Crocs" style content', color: '#3B82F6' },
+    { format: 'Traditional Advertising',            effectiveness: 18, note: 'Largely ignored unless deliberately ironic, disruptive or culturally self-aware', color: '#9CA3AF' },
+  ],
+
+  globalVsLocal: {
+    stats: [
+      { label: 'Feel Part of Global Internet Culture', value: '68%', icon: '🌐', detail: 'Shared TikTok sounds, meme formats and viral moments cross borders in hours — global trends reach Gen Z first.' },
+      { label: 'Value Local / Regional Brand Identity', value: '71%', icon: '📍', detail: 'Local relevance significantly increases purchase intent. Brands that localise content convert ~35% better with Gen Z.' },
+      { label: 'Local Creator Trust Multiplier', value: '3×', icon: '🤝', detail: 'Gen Z trusts a local creator with 50K followers three times more than a global celebrity for purchase decisions.' },
+    ],
+    comparison: [
+      { dimension: 'Trend Discovery',    global: 82, local: 45, note: 'Global internet surfaces trends first — viral moments travel at the speed of the algorithm' },
+      { dimension: 'Purchase Intent',    global: 54, local: 78, note: 'Local relevance is the biggest conversion lever — hyper-local content drives buying decisions' },
+      { dimension: 'Influencer Trust',   global: 51, local: 84, note: 'Local micro-creators feel like a friend, not a billboard — fundamentally different relationship' },
+      { dimension: 'Brand Loyalty',      global: 60, local: 74, note: 'Community-rooted brands generate stronger, longer-lasting loyalty than global monoliths' },
+      { dimension: 'Content Sharing',    global: 78, local: 58, note: 'Global viral content spreads faster — but local content drives deeper engagement per share' },
+      { dimension: 'Cultural Alignment', global: 55, local: 81, note: 'Local cultural moments feel personal — global campaigns often feel generic or out of touch' },
+    ],
+    crocsInsight: 'Crocs has strong global brand recognition — a real advantage for trend discovery and awareness. But content strategy is inconsistent across local markets. Japan, Korea, Brazil, and Germany each have distinct Gen Z subcultures that respond to hyper-local creator content, not translated global campaigns. The brands winning Gen Z loyalty run centralised creative strategy with decentralised local execution.',
+  },
+
+  keyTakeaways: [
+    { num: '01', icon: '🤝', color: '#43B02A', title: 'Build a Micro-Influencer Army, Not a Celebrity Roster', insight: 'Micro-influencers drive 87% purchase influence vs. 72% for mega-celebrities — at a fraction of the cost. Gen Z trusts people who look like them over untouchable stars.', action: 'Shift 40% of influencer budget from macro to micro partnerships. Target creators in Jibbitz-adjacent niches: customisation, cottagecore, K-pop fandom, sports lifestyle.' },
+    { num: '02', icon: '🎬', color: '#EC4899', title: 'Invest in Micro-Drama & Episodic Branded Content', insight: 'Micro-dramas are the fastest-growing Gen Z content format — effectiveness at 64% and rising sharply in APAC. Crocs has untapped storytelling DNA for this format.', action: 'Commission a 6-episode TikTok series. Concept: "The Jibbitz Diaries" — different Gen Z characters expressing identity through Crocs customisation. Launch in JP and KR first.' },
+    { num: '03', icon: '📍', color: '#3B82F6', title: 'Make Every Key Market Feel Like a Local Brand', insight: 'Local micro-influencers deliver 3× more purchase trust than global celebrities. 71% of Gen Z value local relevance. Most Crocs campaigns miss this conversion opportunity.', action: 'Launch a "Local Voices" programme — 5 micro-influencer partners per key market (JP, KR, IN, UK, FR, DE, BR). Give them Jibbitz kits and creative freedom, not brand scripts.' },
+    { num: '04', icon: '⚡', color: '#F59E0B', title: 'Own the Algorithm, Not Just the Ad Slot', insight: 'Algorithm discovery influences 81% of Gen Z. Boosting organic content that already performs out-converts traditional ad creative by 3–5×. The feed is the media channel.', action: 'Implement a "Spark & Amplify" strategy: let UGC and creator content run organically for 24–48 hours, identify top performers, then deploy paid spend behind them.' },
+    { num: '05', icon: '👁️', color: '#EF4444', title: 'The First 1.5 Seconds Are Everything', insight: 'In-feed ad skip rates are ~78%. Traditional ads score just 21% influence. But native short-form video scores 92% effectiveness. The hook is the campaign.', action: 'All paid creative must open with the most visually arresting frame — Jibbitz charm close-up, unexpected colourway pop, a reaction. No brand logos, no intros, no fade-ins.' },
+    { num: '06', icon: '🦩', color: '#1D1D1B', title: 'Protect the Authenticity Advantage at All Costs', insight: 'Authenticity is Gen Z\'s #1 value at 94/100. Crocs\' willingness to be weird, meme-able and unapologetic is a rare brand asset that most heritage brands would kill for. Over-producing content will destroy it.', action: 'Establish a "Keep It Real" creative principle: one raw, creator-style social post for every produced campaign asset. Give the social team permission to post unpolished content.' },
+  ],
 };

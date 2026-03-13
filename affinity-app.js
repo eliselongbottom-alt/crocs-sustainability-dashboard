@@ -253,8 +253,8 @@ function renderAffinityRoadmap() {
       horizon: "3-6",
       priority: "high",
       type: "Product",
-      title: "Wicked Part 2 Collab — Begin Negotiations",
-      description: `November 2026 launch. Highest-relevance entertainment signal (${wickedPart2.relevanceScore}). Begin licensing conversations.`,
+      title: "Wicked: For Good — Extend the Collab Now",
+      description: `Already launched Nov 2025 (relevance ${wickedPart2.relevanceScore}). Post-launch momentum window is live — expand SKU range, plan a restock, and capitalise before the cultural wave fades.`,
       kpi: "Contract in place by June",
     },
     // 6–12 months
