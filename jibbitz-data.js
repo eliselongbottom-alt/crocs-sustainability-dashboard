@@ -17,6 +17,7 @@ const JIBBITZ_TRENDS = [
     stageDetail: "Launched Mar 1 — best-performing social post ever, massive PR pickup",
     searchTrend: [5, 8, 15, 40, 78, 95, 100, 92, 88, 85, 80, 76, 70, 65],
     regional: { US: 95, JP: 55, CN: 50, KR: 60, IN: 45, UK: 65, FR: 50, DE: 50 },
+    audience: { "Gen Z": 90, "Millennials": 85, "Parents": 88, "Kids": 82 },
   },
   {
     id: "moo-deng-2",
@@ -33,6 +34,7 @@ const JIBBITZ_TRENDS = [
     stageDetail: "Design in progress — rush production recommended",
     searchTrend: [0, 0, 2, 5, 20, 55, 88, 96, 100, 98, 95, 92, 90, 88],
     regional: { US: 88, JP: 95, CN: 90, KR: 92, IN: 70, UK: 82, FR: 78, DE: 75 },
+    audience: { "Gen Z": 95, "Millennials": 88, "Parents": 80, "Kids": 75 },
   },
   {
     id: "capybara-hot-spring",
@@ -49,6 +51,7 @@ const JIBBITZ_TRENDS = [
     stageDetail: "High potential — evaluate seasonal limited edition",
     searchTrend: [10, 12, 15, 20, 35, 55, 72, 80, 85, 82, 78, 72, 65, 60],
     regional: { US: 72, JP: 98, CN: 80, KR: 85, IN: 45, UK: 65, FR: 60, DE: 65 },
+    audience: { "Gen Z": 92, "Millennials": 85, "Parents": 65, "Kids": 70 },
   },
   {
     id: "dubai-chocolate",
@@ -65,6 +68,7 @@ const JIBBITZ_TRENDS = [
     stageDetail: "Strong visual identity — the green/brown cross section is very Jibbitz-friendly",
     searchTrend: [30, 35, 50, 70, 85, 95, 100, 98, 92, 85, 78, 70, 62, 55],
     regional: { US: 78, JP: 60, CN: 55, KR: 70, IN: 72, UK: 85, FR: 82, DE: 70 },
+    audience: { "Gen Z": 85, "Millennials": 82, "Parents": 55, "Kids": 50 },
   },
   {
     id: "pedro-raccoon",
@@ -81,6 +85,7 @@ const JIBBITZ_TRENDS = [
     stageDetail: "Meme longevity confirmed — 30+ days and still growing",
     searchTrend: [5, 10, 25, 45, 60, 75, 82, 88, 92, 90, 88, 85, 82, 80],
     regional: { US: 75, JP: 55, CN: 45, KR: 65, IN: 60, UK: 80, FR: 92, DE: 85 },
+    audience: { "Gen Z": 95, "Millennials": 75, "Parents": 35, "Kids": 40 },
   },
   {
     id: "pickle-everything",
@@ -97,6 +102,7 @@ const JIBBITZ_TRENDS = [
     stageDetail: "In production — pickle Jibbitz set (3-pack: whole, slice, jar)",
     searchTrend: [20, 25, 30, 38, 45, 55, 62, 68, 72, 75, 78, 80, 82, 80],
     regional: { US: 95, JP: 30, CN: 25, KR: 35, IN: 30, UK: 55, FR: 40, DE: 45 },
+    audience: { "Gen Z": 92, "Millennials": 78, "Parents": 50, "Kids": 55 },
   },
   {
     id: "caitlin-clark",
@@ -113,6 +119,7 @@ const JIBBITZ_TRENDS = [
     stageDetail: "Licensing required — explore partnership opportunity",
     searchTrend: [40, 42, 48, 55, 60, 65, 72, 78, 82, 88, 90, 92, 95, 92],
     regional: { US: 98, JP: 20, CN: 15, KR: 25, IN: 20, UK: 30, FR: 20, DE: 20 },
+    audience: { "Gen Z": 80, "Millennials": 75, "Parents": 65, "Kids": 60 },
   },
   {
     id: "bluey-season4",
@@ -129,6 +136,7 @@ const JIBBITZ_TRENDS = [
     stageDetail: "Licensed — Bluey S4 character pack in production, targeting Apr release",
     searchTrend: [15, 18, 25, 35, 50, 70, 85, 92, 98, 100, 95, 90, 88, 85],
     regional: { US: 92, JP: 55, CN: 50, KR: 60, IN: 65, UK: 90, FR: 72, DE: 70 },
+    audience: { "Gen Z": 55, "Millennials": 85, "Parents": 98, "Kids": 99 },
   },
   {
     id: "cottage-cheese",
@@ -145,6 +153,7 @@ const JIBBITZ_TRENDS = [
     stageDetail: "Niche but sticky — monitor for crossover into mainstream meme territory",
     searchTrend: [15, 18, 22, 28, 35, 40, 45, 48, 50, 52, 54, 55, 56, 55],
     regional: { US: 88, JP: 25, CN: 20, KR: 30, IN: 35, UK: 60, FR: 30, DE: 45 },
+    audience: { "Gen Z": 75, "Millennials": 80, "Parents": 65, "Kids": 20 },
   },
   {
     id: "grimace-shake",
@@ -161,6 +170,7 @@ const JIBBITZ_TRENDS = [
     stageDetail: "Licensing check — previous collab expired, renegotiate for restock",
     searchTrend: [8, 10, 15, 22, 35, 50, 65, 72, 78, 80, 78, 75, 70, 68],
     regional: { US: 90, JP: 70, CN: 65, KR: 72, IN: 55, UK: 78, FR: 68, DE: 65 },
+    audience: { "Gen Z": 88, "Millennials": 90, "Parents": 70, "Kids": 75 },
   },
   {
     id: "panda-twins",
@@ -177,6 +187,7 @@ const JIBBITZ_TRENDS = [
     stageDetail: "Fast-track design — twin panda set, bamboo accessory",
     searchTrend: [0, 0, 5, 15, 40, 65, 82, 90, 95, 98, 100, 97, 94, 90],
     regional: { US: 88, JP: 80, CN: 95, KR: 82, IN: 55, UK: 65, FR: 60, DE: 58 },
+    audience: { "Gen Z": 78, "Millennials": 82, "Parents": 90, "Kids": 88 },
   },
   {
     id: "stanley-cup",
@@ -193,6 +204,7 @@ const JIBBITZ_TRENDS = [
     stageDetail: "Explore Stanley collab — mini Stanley cup Jibbitz would break the internet",
     searchTrend: [5, 8, 12, 18, 25, 35, 42, 48, 55, 60, 62, 65, 68, 70],
     regional: { US: 95, JP: 50, CN: 55, KR: 65, IN: 40, UK: 70, FR: 55, DE: 55 },
+    audience: { "Gen Z": 92, "Millennials": 88, "Parents": 55, "Kids": 30 },
   },
 ];
 

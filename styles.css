@@ -610,6 +610,48 @@ tr.is-crocs:hover { background: #D4EDCF; }
   margin-bottom: 0.75rem;
 }
 
+.jb-audience {
+  margin: 0.75rem 0 0.5rem;
+}
+.jb-audience-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.jb-audience-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.jb-audience-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  width: 72px;
+  flex-shrink: 0;
+}
+.jb-audience-bar-wrap {
+  flex: 1;
+  height: 8px;
+  background: #f3f4f6;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.jb-audience-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+  min-width: 2px;
+}
+.jb-audience-score {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text);
+  width: 24px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
 .jb-regional {
   margin: 0.75rem 0 0.5rem;
 }
