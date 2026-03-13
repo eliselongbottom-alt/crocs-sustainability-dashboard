@@ -44,6 +44,7 @@
       <button class="tab-btn" data-tab="sustainability">Sustainability Tracker</button>
       <button class="tab-btn active" data-tab="jibbitz">Jibbitz Trends</button>
       <button class="tab-btn" data-tab="affinity">Affinity Tracking</button>
+      <button class="tab-btn" data-tab="trends">Consumer Trends</button>
     </nav>
   </header>
 
@@ -251,6 +252,76 @@
 
   </main>
 
+  <!-- ═══ TAB: CONSUMER TRENDS ═══ -->
+  <main id="tab-trends" class="tab-content">
+
+    <!-- Live Feed Banner -->
+    <section class="trends-live-banner" id="trendsLiveBanner"></section>
+
+    <!-- Controls Row -->
+    <section class="card trends-controls-card">
+      <div class="trends-controls">
+        <!-- Year Filter -->
+        <div class="trends-filter-group">
+          <span class="trends-filter-label">Forecast Year</span>
+          <div class="trends-year-pills">
+            <button class="trends-year-pill active" data-year="all" onclick="setTrendsYearFilter('all')">All Years</button>
+            <button class="trends-year-pill" data-year="2026" onclick="setTrendsYearFilter('2026')">2026</button>
+            <button class="trends-year-pill" data-year="2027" onclick="setTrendsYearFilter('2027')">2027</button>
+            <button class="trends-year-pill" data-year="2028" onclick="setTrendsYearFilter('2028')">2028</button>
+          </div>
+        </div>
+        <!-- Source Filter -->
+        <div class="trends-filter-group">
+          <span class="trends-filter-label">Source</span>
+          <div class="trends-source-pills" id="trendsSourcePills"></div>
+        </div>
+        <!-- Category Filter -->
+        <div class="trends-filter-group">
+          <span class="trends-filter-label">Category</span>
+          <div class="trends-cat-pills" id="trendsCatPills"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Row -->
+    <section class="trends-stats-row" id="trendsStatsRow"></section>
+
+    <!-- Breaking Trends Strip -->
+    <section class="card trends-breaking-card" id="trendsBreakingCard"></section>
+
+    <!-- Feed -->
+    <section class="card">
+      <div class="trends-feed-header">
+        <div>
+          <h3>Trend Intelligence Feed</h3>
+          <p class="actions-subtitle" id="trendsFeedSubtitle">Showing all trends, sorted by Crocs relevance</p>
+        </div>
+        <div class="trends-feed-controls">
+          <select id="trendsSortSelect" onchange="sortTrendsFeed()">
+            <option value="relevance">Sort: Crocs Relevance</option>
+            <option value="trend-strength">Sort: Trend Strength</option>
+            <option value="year">Sort: Forecast Year</option>
+            <option value="source">Sort: Source</option>
+          </select>
+          <div class="trends-live-indicator">
+            <span class="trends-live-dot-small"></span>
+            <span class="trends-live-label">Live Feed</span>
+          </div>
+        </div>
+      </div>
+      <div class="trends-feed-grid" id="trendsFeedGrid"></div>
+    </section>
+
+    <!-- Sources Reference Panel -->
+    <section class="card">
+      <h3>Source Directory</h3>
+      <p class="actions-subtitle">All tracked trend intelligence sources &mdash; click to visit original reports</p>
+      <div class="trends-sources-grid" id="trendsSourcesGrid"></div>
+    </section>
+
+  </main>
+
   <footer>
     <p>Crocs Marketing Intelligence &mdash; Internal Use Only</p>
   </footer>
@@ -273,8 +344,10 @@
   <script src="data.js"></script>
   <script src="jibbitz-data.js"></script>
   <script src="affinity-data.js"></script>
+  <script src="trends-data.js"></script>
   <script src="app.js"></script>
   <script src="jibbitz-app.js"></script>
   <script src="affinity-app.js"></script>
+  <script src="trends-app.js"></script>
 </body>
 </html>

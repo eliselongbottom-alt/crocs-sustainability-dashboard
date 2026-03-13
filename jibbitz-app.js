@@ -26,6 +26,11 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.classList.add('active');
     const tab = btn.dataset.tab;
     document.getElementById('tab-' + tab).classList.add('active');
+    // Stop live feed when leaving trends tab
+    if (tab !== 'trends' && typeof stopLiveFeed === 'function') {
+      stopLiveFeed();
+    }
+
     if (tab === 'jibbitz' && !window._jbInitialized) {
       window._jbInitialized = true;
       initJibbitz();
@@ -35,6 +40,9 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     } else if (tab === 'affinity' && !window._affinityInitialized) {
       window._affinityInitialized = true;
       initAffinity();
+    } else if (tab === 'trends' && !window._trendsInitialized) {
+      window._trendsInitialized = true;
+      initTrends();
     }
   });
 });
