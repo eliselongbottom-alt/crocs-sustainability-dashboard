@@ -20,6 +20,132 @@ function renderAll() {
   renderGapChart();
   renderActions();
   renderCampaignFeed();
+  renderSustainabilityRoadmap();
+}
+
+// --- Shared Roadmap Renderer ---
+// items: [{ horizon, priority, type, title, description, kpi }]
+function renderRoadmap(containerId, items) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  const horizons = [
+    { key: "1-3",  label: "1–3 Months",  sublabel: "Act Now",     color: "#ef4444" },
+    { key: "3-6",  label: "3–6 Months",  sublabel: "Plan Now",    color: "#f59e0b" },
+    { key: "6-12", label: "6–12 Months", sublabel: "Build Toward", color: "#43B02A" },
+  ];
+
+  const grid = horizons.map(h => {
+    const cards = items.filter(item => item.horizon === h.key);
+    return `
+      <div class="roadmap-column">
+        <div class="roadmap-column-header" style="background:${h.color};">
+          <span class="roadmap-column-header-label">${h.label} &mdash; ${h.sublabel}</span>
+          <span class="roadmap-column-count">${cards.length}</span>
+        </div>
+        ${cards.map(card => `
+          <div class="roadmap-card" data-priority="${card.priority}">
+            <div class="roadmap-card-top">
+              <span class="roadmap-priority roadmap-priority-${card.priority}">${card.priority}</span>
+              <span class="roadmap-type">${card.type}</span>
+            </div>
+            <div class="roadmap-title">${card.title}</div>
+            <div class="roadmap-desc">${card.description}</div>
+            <div class="roadmap-kpi">Expected: ${card.kpi}</div>
+          </div>
+        `).join("")}
+      </div>`;
+  }).join("");
+
+  container.innerHTML = `
+    <h3>Sustainability Marketing Roadmap</h3>
+    <p class="actions-subtitle">Prioritised actions across three planning horizons</p>
+    <div class="roadmap-grid">${grid}</div>
+  `;
+}
+
+// --- Sustainability Roadmap ---
+function renderSustainabilityRoadmap() {
+  const carbonTrendItem = EMERGING_THEMES.find(t => t.label === "Carbon Labeling") || { weight: 82 };
+  const items = [
+    // 1–3 months
+    {
+      horizon: "1-3",
+      priority: "high",
+      type: "Campaign",
+      title: "Launch Carbon Transparency Content Series",
+      description: `Crocs scores ${GAP_DATA.crocs[0]} vs peer avg ${GAP_DATA.peerAverage[0]} on carbon transparency. Publish a 3-part social series showing Crocs' real carbon reduction numbers.`,
+      kpi: "Close transparency perception gap by 15pts",
+    },
+    {
+      horizon: "1-3",
+      priority: "high",
+      type: "Content",
+      title: "Counter High-Engagement Peer Campaigns",
+      description: "Nike and Allbirds' recent campaigns achieved Very High engagement. Analyse formats and launch a rapid-response content cycle within 30 days.",
+      kpi: "2x current sustainability content engagement rate",
+    },
+    {
+      horizon: "1-3",
+      priority: "high",
+      type: "PR",
+      title: "Announce Bio-Based Materials Commitment",
+      description: "Only 2 of 8 peers lack a public bio-based materials pledge. A pledge announcement costs nothing and signals direction.",
+      kpi: "10+ earned media placements",
+    },
+    // 3–6 months
+    {
+      horizon: "3-6",
+      priority: "high",
+      type: "Product",
+      title: "Pilot Consumer Take-Back Programme",
+      description: `6 of 8 peers run circular/take-back initiatives. Launch a 3-city pilot with in-store drop-off.`,
+      kpi: "500 units collected, media coverage in 5 outlets",
+    },
+    {
+      horizon: "3-6",
+      priority: "high",
+      type: "Partnership",
+      title: "Pursue Third-Party Certification",
+      description: `Crocs scores ${GAP_DATA.crocs[5]} vs peer avg ${GAP_DATA.peerAverage[5]} on third-party certs. Begin B Corp or equivalent assessment process.`,
+      kpi: "Certification application submitted by Q3",
+    },
+    {
+      horizon: "3-6",
+      priority: "medium",
+      type: "Campaign",
+      title: "Consumer Education Digital Series",
+      description: "Deploy a 6-episode digital series on Croslite material, recyclability, and responsible sourcing.",
+      kpi: "5M organic impressions",
+    },
+    // 6–12 months
+    {
+      horizon: "6-12",
+      priority: "high",
+      type: "Product",
+      title: "Launch Circular Economy Programme Nationally",
+      description: "Scale take-back pilot nationwide with rewards programme for returned Crocs.",
+      kpi: "10,000 units, 8% repeat purchase uplift",
+    },
+    {
+      horizon: "6-12",
+      priority: "medium",
+      type: "Campaign",
+      title: "Regenerative Agriculture Brand Story",
+      description: "Commission a short documentary on bio-based material sourcing.",
+      kpi: "50M views, 3 award submissions",
+    },
+    {
+      horizon: "6-12",
+      priority: "medium",
+      type: "Research",
+      title: "Carbon Labelling on Packaging",
+      description: `Carbon labelling trend strength: ${carbonTrendItem.weight}/100. Test carbon label on 3 SKUs.`,
+      kpi: "12% positive sentiment lift among eco-conscious segment",
+    },
+  ];
+
+  renderRoadmap("sustainabilityRoadmap", items);
 }
 
 function refreshData() {

@@ -10,6 +10,7 @@ function initJibbitz() {
   renderJbCategoryChart();
   renderJbPipelineBoard();
   renderJbWins();
+  renderJibbitzRoadmap();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -31,6 +32,9 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     } else if (tab === 'sustainability' && !window._sustainabilityInitialized) {
       window._sustainabilityInitialized = true;
       renderAll();
+    } else if (tab === 'affinity' && !window._affinityInitialized) {
+      window._affinityInitialized = true;
+      initAffinity();
     }
   });
 });
@@ -282,6 +286,138 @@ function renderJbPipelineBoard() {
       </div>
     </div>`;
   }).join('');
+}
+
+// --- Jibbitz Roadmap ---
+function renderJibbitzRoadmap() {
+  const mooDeng = JIBBITZ_TRENDS.find(t => t.id === 'moo-deng-2') || { velocity: 96 };
+  const pandaTwins = JIBBITZ_TRENDS.find(t => t.id === 'panda-twins') || { velocity: 85 };
+  const pedro = JIBBITZ_TRENDS.find(t => t.id === 'pedro-raccoon') || { daysTrending: 30 };
+  const capybara = JIBBITZ_TRENDS.find(t => t.id === 'capybara-hot-spring') || {};
+
+  const items = [
+    // 1–3 months
+    {
+      horizon: "1-3",
+      priority: "high",
+      type: "Product",
+      title: "Fast-Track Moo Deng Baby & Panda Twins",
+      description: `Both are in design with velocity ${mooDeng.velocity} and ${pandaTwins.velocity}. Rush to production — window closes fast.`,
+      kpi: "Launch within 45 days, target 50K units sell-through in week 1",
+    },
+    {
+      horizon: "1-3",
+      priority: "high",
+      type: "Campaign",
+      title: "Coachella 2026 Influencer Seeding",
+      description: "Festival starts April. Seed existing catalog to 50 festival influencers.",
+      kpi: "10M organic impressions, 500+ pieces of UGC",
+    },
+    {
+      horizon: "1-3",
+      priority: "high",
+      type: "Campaign",
+      title: "March Madness NIL Athlete Content",
+      description: "Real-time moment right now. Activate NIL athlete partners for bracket content featuring Jibbitz.",
+      kpi: "5M reach, 200K engagements",
+    },
+    {
+      horizon: "1-3",
+      priority: "high",
+      type: "Product",
+      title: "Pedro Raccoon & Stanley Jibbitz — Evaluation to Design",
+      description: `Both ${pedro.daysTrending}+ days trending with strong scores. Move from evaluation to design immediately.`,
+      kpi: "Designs approved within 3 weeks",
+    },
+    // 3–6 months
+    {
+      horizon: "3-6",
+      priority: "high",
+      type: "Partnership",
+      title: "Begin Wicked Part 2 Collab Planning",
+      description: "Part 2 releases November 2026. First collab sold out in 2 hours. Negotiate expanded range now (8+ months lead time).",
+      kpi: "Contract signed by June, 3x SKU count vs Part 1",
+    },
+    {
+      horizon: "3-6",
+      priority: "high",
+      type: "Campaign",
+      title: "Pickle & Bluey Launch Celebration",
+      description: "Both currently in production. Plan launch campaign with creator seeding.",
+      kpi: "Sell-out within 7 days of launch",
+    },
+    {
+      horizon: "3-6",
+      priority: "medium",
+      type: "Product",
+      title: "Onsen Capybara Seasonal Limited Edition",
+      description: "High Japan/Korea relevance. Plan for Q4 winter seasonal release.",
+      kpi: "15K units, strong APAC market performance",
+    },
+    // 6–12 months
+    {
+      horizon: "6-12",
+      priority: "high",
+      type: "Product",
+      title: "Wicked Part 2 Jibbitz Collection Launch",
+      description: "Largest licensed collab of the year. Plan 10+ charms, global simultaneous drop.",
+      kpi: "200K units, $4M revenue",
+    },
+    {
+      horizon: "6-12",
+      priority: "medium",
+      type: "Research",
+      title: "Predictive Trend Detection System",
+      description: "Build social listening pipeline to flag trends 2 weeks earlier than current process.",
+      kpi: "Average 10-day improvement in trend detection lead time",
+    },
+    {
+      horizon: "6-12",
+      priority: "medium",
+      type: "Campaign",
+      title: "Holiday 2026 Jibbitz Gift Sets",
+      description: "Build curated themed 3-pack gift sets for holiday.",
+      kpi: "30% of holiday Crocs purchases include Jibbitz",
+    },
+  ];
+
+  // Reuse the shared roadmap renderer with a custom title override
+  const container = document.getElementById('jibbitzRoadmap');
+  if (!container) return;
+
+  const horizons = [
+    { key: "1-3",  label: "1–3 Months",  sublabel: "Act Now",      color: "#ef4444" },
+    { key: "3-6",  label: "3–6 Months",  sublabel: "Plan Now",     color: "#f59e0b" },
+    { key: "6-12", label: "6–12 Months", sublabel: "Build Toward",  color: "#43B02A" },
+  ];
+
+  const grid = horizons.map(h => {
+    const cards = items.filter(item => item.horizon === h.key);
+    return `
+      <div class="roadmap-column">
+        <div class="roadmap-column-header" style="background:${h.color};">
+          <span class="roadmap-column-header-label">${h.label} &mdash; ${h.sublabel}</span>
+          <span class="roadmap-column-count">${cards.length}</span>
+        </div>
+        ${cards.map(card => `
+          <div class="roadmap-card" data-priority="${card.priority}">
+            <div class="roadmap-card-top">
+              <span class="roadmap-priority roadmap-priority-${card.priority}">${card.priority}</span>
+              <span class="roadmap-type">${card.type}</span>
+            </div>
+            <div class="roadmap-title">${card.title}</div>
+            <div class="roadmap-desc">${card.description}</div>
+            <div class="roadmap-kpi">Expected: ${card.kpi}</div>
+          </div>
+        `).join('')}
+      </div>`;
+  }).join('');
+
+  container.innerHTML = `
+    <h3>Jibbitz Launch Roadmap</h3>
+    <p class="actions-subtitle">Prioritised actions across three planning horizons</p>
+    <div class="roadmap-grid">${grid}</div>
+  `;
 }
 
 // --- Wins ---

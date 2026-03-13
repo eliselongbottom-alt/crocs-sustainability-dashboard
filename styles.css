@@ -44,7 +44,7 @@ header {
 }
 
 .logo { display: flex; align-items: center; gap: 1rem; }
-.logo-img { height: 40px; width: auto; }
+.logo-img { height: 28px; width: auto; }
 .logo h1 { font-size: 1.4rem; font-weight: 700; color: var(--green-mid); }
 .subtitle { font-size: 0.8rem; opacity: 0.85; color: #ccc; }
 
@@ -828,6 +828,643 @@ tr.is-crocs:hover { background: #D4EDCF; }
   .jb-pipeline-board { grid-template-columns: 1fr; }
   .jb-section-header { flex-direction: column; }
   .jb-wins-grid { grid-template-columns: 1fr; }
+}
+
+/* ═══ AFFINITY BRAND TRACKING ═══ */
+
+:root {
+  --affinity-sport: #3b82f6;
+  --affinity-sport-light: #eff6ff;
+  --affinity-sport-border: #bfdbfe;
+  --affinity-style: #8b5cf6;
+  --affinity-style-light: #f5f3ff;
+  --affinity-style-border: #ddd6fe;
+  --affinity-entertainment: #ec4899;
+  --affinity-entertainment-light: #fdf2f8;
+  --affinity-entertainment-border: #fbcfe8;
+}
+
+/* Category Summary Cards Row */
+.affinity-category-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.affinity-cat-card {
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  transition: box-shadow 0.2s, transform 0.15s;
+}
+
+.affinity-cat-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.09);
+  transform: translateY(-2px);
+}
+
+.affinity-cat-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.affinity-cat-icon { font-size: 1.4rem; }
+
+.affinity-cat-label {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.affinity-cat-stats {
+  display: flex;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: rgba(255,255,255,0.7);
+  border-radius: 8px;
+}
+
+.affinity-cat-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.affinity-cat-stat-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.affinity-cat-stat-label {
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.affinity-cat-top {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.affinity-cat-top-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.affinity-cat-top-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--crocs-black);
+  flex: 1;
+}
+
+.affinity-cat-top-score {
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.affinity-cat-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-top: auto;
+}
+
+/* Top Highlights Section */
+.affinity-highlights-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 0.25rem;
+}
+
+.affinity-highlight-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem 1.25rem 1.25rem 1rem;
+  display: flex;
+  gap: 0.9rem;
+  transition: box-shadow 0.15s;
+  background: white;
+}
+
+.affinity-highlight-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.affinity-highlight-rank {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 900;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.affinity-highlight-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.affinity-highlight-meta {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.affinity-highlight-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--crocs-black);
+  line-height: 1.3;
+}
+
+.affinity-highlight-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.affinity-highlight-scores {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+}
+
+.affinity-highlight-score-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Affinity Feed */
+.affinity-feed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.affinity-feed-header h3 { margin-bottom: 0.2rem; }
+
+.affinity-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  align-items: flex-end;
+}
+
+.affinity-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.affinity-filter-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.affinity-filter-pills {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+}
+
+.affinity-filter-cat,
+.affinity-filter-type {
+  background: #f3f4f6;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.affinity-filter-cat:hover,
+.affinity-filter-type:hover {
+  background: #e5e7eb;
+  color: var(--text);
+}
+
+.affinity-filter-cat.active,
+.affinity-filter-type.active {
+  background: var(--crocs-black);
+  border-color: var(--crocs-black);
+  color: white;
+}
+
+/* Override active color per category filter */
+.affinity-filter-cat[data-cat="sport"].active { background: var(--affinity-sport); border-color: var(--affinity-sport); }
+.affinity-filter-cat[data-cat="style"].active { background: var(--affinity-style); border-color: var(--affinity-style); }
+.affinity-filter-cat[data-cat="entertainment"].active { background: var(--affinity-entertainment); border-color: var(--affinity-entertainment); }
+
+/* Feed Grid */
+.affinity-feed {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 1.1rem;
+}
+
+.affinity-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  padding: 3rem 0;
+}
+
+/* Individual Affinity Card */
+.affinity-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
+}
+
+.affinity-card:hover {
+  box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+.affinity-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.affinity-card-badges {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+/* Category badge (colored per category via inline style) */
+.affinity-badge-cat {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+/* Type badge */
+.affinity-badge-type {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: #f3f4f6;
+  color: var(--text-muted);
+  white-space: nowrap;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+}
+
+/* Relevance Pill — the key metric, prominently displayed */
+.affinity-relevance-pill {
+  font-size: 1.05rem;
+  font-weight: 900;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.affinity-relevance-pill.relevance-high {
+  background: #dcfce7;
+  color: #15803d;
+  box-shadow: 0 0 0 3px #bbf7d0;
+}
+
+.affinity-relevance-pill.relevance-medium {
+  background: #fef9c3;
+  color: #a16207;
+  box-shadow: 0 0 0 3px #fef08a;
+}
+
+.affinity-relevance-pill.relevance-low {
+  background: #f3f4f6;
+  color: #6b7280;
+  box-shadow: 0 0 0 3px #e5e7eb;
+}
+
+.affinity-card-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--crocs-black);
+  line-height: 1.3;
+}
+
+.affinity-card-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  flex: 1;
+}
+
+/* Score bars */
+.affinity-scores-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 0.75rem;
+}
+
+.affinity-score-row,
+.affinity-highlight-score-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.affinity-score-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  width: 105px;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.affinity-score-bar-wrap {
+  flex: 1;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.affinity-score-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+  min-width: 2px;
+}
+
+.affinity-score-num {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text);
+  width: 26px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* Tags */
+.affinity-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.affinity-tag {
+  font-size: 0.68rem;
+  padding: 0.18rem 0.5rem;
+  border-radius: 999px;
+  background: var(--green-pale);
+  color: var(--green-dark);
+  white-space: nowrap;
+  border: 1px solid #c6e8b0;
+}
+
+/* Card footer */
+.affinity-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  border-top: 1px solid #f3f4f6;
+  padding-top: 0.5rem;
+  margin-top: auto;
+}
+
+.affinity-card-source { font-style: italic; }
+.affinity-card-date { font-weight: 600; }
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .affinity-category-cards { grid-template-columns: 1fr; }
+  .affinity-highlights-row { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 900px) {
+  .affinity-feed { grid-template-columns: 1fr; }
+  .affinity-feed-header { flex-direction: column; align-items: flex-start; }
+  .affinity-filters { align-items: flex-start; }
+}
+
+@media (max-width: 600px) {
+  .affinity-cat-stats { flex-direction: column; align-items: stretch; }
+  .affinity-filter-pills { flex-wrap: wrap; }
+}
+
+/* ═══ MARKETING ACTION ROADMAP ═══ */
+
+.roadmap-section h3 {
+  margin-bottom: 0.25rem;
+}
+
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+}
+
+.roadmap-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.roadmap-column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  margin-bottom: 0.25rem;
+}
+
+.roadmap-column-header-label {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: white;
+}
+
+.roadmap-column-count {
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 800;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.roadmap-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1rem 1rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  transition: box-shadow 0.15s, transform 0.15s;
+  position: relative;
+}
+
+.roadmap-card:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
+  transform: translateY(-1px);
+}
+
+.roadmap-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.roadmap-priority {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.roadmap-priority-high {
+  background: #fee2e2;
+  color: #991b1b;
+  border-left: 3px solid #ef4444;
+}
+
+.roadmap-priority-medium {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.roadmap-priority-low {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.roadmap-card[data-priority="high"] {
+  border-left: 3px solid #ef4444;
+}
+
+.roadmap-card[data-priority="medium"] {
+  border-left: 3px solid #f59e0b;
+}
+
+.roadmap-card[data-priority="low"] {
+  border-left: 3px solid #6b7280;
+}
+
+.roadmap-type {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+  background: var(--green-pale);
+  color: var(--green-dark);
+  border: 1px solid #c6e8b0;
+  flex-shrink: 0;
+}
+
+.roadmap-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--crocs-black);
+  line-height: 1.35;
+}
+
+.roadmap-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.roadmap-kpi {
+  font-size: 0.72rem;
+  color: var(--green-dark);
+  font-weight: 600;
+  padding-top: 0.35rem;
+  border-top: 1px solid #f3f4f6;
+  margin-top: 0.1rem;
+}
+
+@media (max-width: 1100px) {
+  .roadmap-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .roadmap-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 footer {
