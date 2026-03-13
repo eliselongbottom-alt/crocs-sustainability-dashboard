@@ -812,3 +812,65 @@ const TREND_ITEMS = [
     reportUrl: "https://www.euromonitor.com/health-and-wellness",
   },
 ];
+
+// ─── Gen Z Intelligence Data ────────────────────────────────────────────────
+
+const GENZ_DATA = {
+
+  keyStats: [
+    { label: 'Global Gen Z Population', value: '2B+',    sub: 'Born 1997–2012' },
+    { label: 'Daily Screen Time',        value: '9.1 hrs', sub: 'Avg across all devices' },
+    { label: 'US Household Spend Influence', value: '$600B', sub: 'Annual purchasing influence' },
+    { label: 'Social Commerce Buyers',   value: '54%',    sub: 'Purchased via social in last 30 days' },
+  ],
+
+  mediaConsumption: [
+    { platform: 'TikTok',              hoursPerDay: 3.8, color: '#1D1D1B' },
+    { platform: 'YouTube',             hoursPerDay: 2.6, color: '#EF4444' },
+    { platform: 'Gaming',              hoursPerDay: 2.2, color: '#43B02A' },
+    { platform: 'Instagram',           hoursPerDay: 1.9, color: '#E1306C' },
+    { platform: 'Netflix / Streaming', hoursPerDay: 1.8, color: '#8B5CF6' },
+    { platform: 'Podcasts',            hoursPerDay: 0.9, color: '#F59E0B' },
+    { platform: 'X / Twitter',         hoursPerDay: 0.6, color: '#3B82F6' },
+    { platform: 'Snapchat',            hoursPerDay: 0.5, color: '#FACC15' },
+  ],
+
+  timeSpending: [
+    { activity: 'Social Media',        pct: 27, color: '#EF4444' },
+    { activity: 'Gaming',              pct: 17, color: '#43B02A' },
+    { activity: 'Streaming / TV',      pct: 14, color: '#8B5CF6' },
+    { activity: 'Work / Study',        pct: 14, color: '#3B82F6' },
+    { activity: 'IRL Socialising',     pct: 12, color: '#F59E0B' },
+    { activity: 'Creative / Hobbies',  pct: 9,  color: '#EC4899' },
+    { activity: 'Shopping / Browsing', pct: 7,  color: '#06B6D4' },
+  ],
+
+  spending: [
+    { category: 'Food & Dining',          pct: 27, color: '#F59E0B' },
+    { category: 'Fashion & Apparel',      pct: 22, color: '#EC4899' },
+    { category: 'Entertainment & Events', pct: 16, color: '#8B5CF6' },
+    { category: 'Beauty & Personal Care', pct: 13, color: '#EF4444' },
+    { category: 'Tech & Gadgets',         pct: 10, color: '#3B82F6' },
+    { category: 'Wellness & Fitness',     pct: 7,  color: '#43B02A' },
+    { category: 'Other',                  pct: 5,  color: '#9CA3AF' },
+  ],
+
+  values: [
+    { value: 'Authenticity',    score: 94, desc: 'Reject performative brands; demand real, unfiltered voices' },
+    { value: 'Mental Health',   score: 91, desc: 'Openly prioritise wellbeing — brands that ignore this feel tone-deaf' },
+    { value: 'Individuality',   score: 89, desc: 'Express unique identity through personal style and taste' },
+    { value: 'Sustainability',  score: 82, desc: 'Expect brands to act, not just talk — greenwashing is noticed immediately' },
+    { value: 'Community',       score: 80, desc: 'Build tight-knit micro-communities both online and in person' },
+    { value: 'Inclusivity',     score: 78, desc: 'Demand representation across race, body type, gender and ability' },
+    { value: 'Value for Money', score: 76, desc: 'Price-conscious overall, but will splurge on identity-defining purchases' },
+    { value: 'Humour & Play',   score: 74, desc: 'Memes and absurdist content are the dominant cultural love language' },
+  ],
+
+  crocsAngles: [
+    { icon: '✅', title: 'Comfort × Style Duality',    relevance: 95, detail: 'Gen Z rejects the idea that comfort and style are opposites. Crocs sits at the exact intersection — a structural brand advantage.' },
+    { icon: '🎨', title: 'Self-Expression via Jibbitz', relevance: 93, detail: 'Personalisation through Jibbitz maps directly to Gen Z\'s individuality value. No two pairs look alike — identity-driven commerce.' },
+    { icon: '😂', title: 'Authentic Meme Heritage',    relevance: 91, detail: 'Crocs has been an internet meme for 20+ years. That anti-mainstream legacy is now cultural credibility in Gen Z\'s eyes.' },
+    { icon: '🛒', title: 'Social Commerce Ready',      relevance: 88, detail: '54% of Gen Z purchased via social in the last 30 days. Jibbitz collabs are inherently shareable, drop-culture products built for this.' },
+    { icon: '🌍', title: 'Sustainability Positioning',  relevance: 82, detail: 'Gen Z scores sustainability 82/100 as a core value. Crocs\' bio-based Croslite and lower-waste supply chain are under-communicated to this audience.' },
+  ],
+};

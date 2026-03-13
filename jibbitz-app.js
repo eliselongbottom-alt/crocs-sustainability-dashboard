@@ -43,6 +43,9 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     } else if (tab === 'trends' && !window._trendsInitialized) {
       window._trendsInitialized = true;
       initTrends();
+    } else if (tab === 'genz' && !window._genzInitialized) {
+      window._genzInitialized = true;
+      initGenZ();
     }
   });
 });

@@ -45,6 +45,7 @@
       <button class="tab-btn active" data-tab="jibbitz">Jibbitz Trends</button>
       <button class="tab-btn" data-tab="affinity">Affinity Tracking</button>
       <button class="tab-btn" data-tab="trends">Consumer Trends</button>
+      <button class="tab-btn" data-tab="genz">Gen Z Intelligence</button>
     </nav>
   </header>
 
@@ -348,6 +349,60 @@
 
   </main>
 
+  <!-- ═══ TAB: GEN Z INTELLIGENCE ═══ -->
+  <main id="tab-genz" class="tab-content">
+
+    <!-- Header -->
+    <section class="card genz-header-card">
+      <div class="genz-header-inner">
+        <div>
+          <h2 class="genz-header-title">Gen Z Intelligence</h2>
+          <p class="genz-header-sub">How Gen Z consumes media, spends time and money, and what they value — with Crocs brand relevance mapped to each signal</p>
+        </div>
+        <div class="genz-header-badge">Born 1997–2012 · Ages 13–28</div>
+      </div>
+    </section>
+
+    <!-- Key Stats -->
+    <section class="genz-stats-row" id="genzStatsRow"></section>
+
+    <!-- Charts Row 1: Media + Time -->
+    <div class="genz-charts-row">
+      <div class="card chart-card">
+        <h3>Media Consumption</h3>
+        <p class="actions-subtitle">Average daily hours per platform — where Gen Z's attention lives</p>
+        <canvas id="genzMediaChart"></canvas>
+      </div>
+      <div class="card chart-card">
+        <h3>How They Spend Their Time</h3>
+        <p class="actions-subtitle">Share of waking hours across key activities</p>
+        <canvas id="genzTimeChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Charts Row 2: Spend + Values -->
+    <div class="genz-charts-row">
+      <div class="card chart-card">
+        <h3>Where They Spend Their Money</h3>
+        <p class="actions-subtitle">Spending category breakdown — Fashion & Apparel is the #2 priority</p>
+        <canvas id="genzSpendChart"></canvas>
+      </div>
+      <div class="card chart-card">
+        <h3>What They Value</h3>
+        <p class="actions-subtitle">Core values ranked by importance score — brand alignment signals</p>
+        <canvas id="genzValuesChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Crocs Relevance Section -->
+    <section class="card">
+      <h3>Crocs × Gen Z — Brand Relevance Analysis</h3>
+      <p class="actions-subtitle">How Crocs maps to Gen Z's behavioural profile — scored 0–100</p>
+      <div class="genz-angles-grid" id="genzCrocsAngles"></div>
+    </section>
+
+  </main>
+
   <footer>
     <p>Crocs Marketing Intelligence &mdash; Internal Use Only</p>
   </footer>
@@ -389,5 +444,6 @@
   <script src="jibbitz-app.js"></script>
   <script src="affinity-app.js"></script>
   <script src="trends-app.js"></script>
+  <script src="genz-app.js"></script>
 </body>
 </html>

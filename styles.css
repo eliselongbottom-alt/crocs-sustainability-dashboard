@@ -1565,6 +1565,72 @@ tr.is-crocs:hover { background: #D4EDCF; }
   }
 }
 
+/* ─── Gen Z Intelligence Tab ─────────────────────────────────────────────── */
+
+.genz-header-card { background: linear-gradient(135deg, #1D1D1B 0%, #2a2a28 100%); color: #fff; }
+.genz-header-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.genz-header-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.3rem; }
+.genz-header-sub { font-size: 0.88rem; color: rgba(255,255,255,0.65); max-width: 560px; }
+.genz-header-badge {
+  background: #43B02A; color: #fff; border-radius: 20px;
+  padding: 0.4rem 1rem; font-size: 0.78rem; font-weight: 700;
+  white-space: nowrap; flex-shrink: 0;
+}
+
+/* Key Stats Row */
+.genz-stats-row {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem;
+}
+.genz-stat-card {
+  background: #fff; border-radius: 12px; padding: 1.25rem 1rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07); text-align: center;
+  border-top: 4px solid #43B02A;
+}
+.genz-stat-value { font-size: 2rem; font-weight: 900; color: #43B02A; line-height: 1; }
+.genz-stat-label { font-size: 0.8rem; font-weight: 700; color: #1D1D1B; margin: 0.35rem 0 0.15rem; }
+.genz-stat-sub { font-size: 0.72rem; color: #6b7280; }
+
+/* Charts 2-col grid */
+.genz-charts-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;
+}
+.genz-charts-row .chart-card canvas { max-height: 320px; }
+
+/* Crocs × Gen Z Angles */
+.genz-angles-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-top: 1rem;
+}
+.genz-angle-card {
+  background: #f8f9fa; border-radius: 10px; padding: 1rem; display: flex;
+  flex-direction: column; gap: 0.4rem;
+}
+.genz-angle-top { display: flex; align-items: center; justify-content: space-between; }
+.genz-angle-icon { font-size: 1.4rem; }
+.genz-angle-score {
+  font-size: 0.85rem; font-weight: 800; border-radius: 12px;
+  padding: 0.15rem 0.55rem;
+}
+.genz-angle-title { font-size: 0.88rem; font-weight: 800; color: #1D1D1B; line-height: 1.3; }
+.genz-angle-detail { font-size: 0.78rem; color: #6b7280; line-height: 1.45; flex: 1; }
+.genz-angle-bar-wrap {
+  height: 4px; background: #e0e0e0; border-radius: 2px; margin-top: 0.35rem;
+}
+.genz-angle-bar-fill { height: 100%; border-radius: 2px; }
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .genz-angles-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+  .genz-stats-row { grid-template-columns: repeat(2, 1fr); }
+  .genz-charts-row { grid-template-columns: 1fr; }
+  .genz-angles-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .genz-stats-row { grid-template-columns: 1fr 1fr; }
+  .genz-angles-grid { grid-template-columns: 1fr; }
+}
+
 footer {
   text-align: center;
   padding: 2rem;
