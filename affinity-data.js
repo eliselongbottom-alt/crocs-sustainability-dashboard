@@ -428,7 +428,7 @@ const AFFINITY_ITEMS = [
 
   {
     id: "coachella-2026-event",
-    category: "cultural-events",
+    category: "entertainment",
     type: "event",
     name: "Coachella 2026",
     description: "Coachella Valley Music and Arts Festival returns in April 2026 as the world's most brand-saturated live event. Festival footwear is one of the top-searched categories in the weeks preceding the event. Crocs are already organically one of the most-worn shoes on-site — comfortable for all-day standing, easy to clean, and expressive with Jibbitz. An official Coachella activation (pop-up, influencer seeding, branded Jibbitz pack) could convert organic usage into owned brand moment.",
@@ -440,7 +440,7 @@ const AFFINITY_ITEMS = [
   },
   {
     id: "sxsw-2026",
-    category: "cultural-events",
+    category: "entertainment",
     type: "event",
     name: "SXSW 2026",
     description: "South by Southwest in Austin (March 2026) is the convergence point of tech, music, film, and culture — and one of the most brand-activating events in the calendar. The SXSW crowd is disproportionately creative, media, and tech industry — exactly the opinion-leader segment that shapes cultural perception. Brands that show up authentically at SXSW earn cultural credibility that multiplies across digital channels. A Crocs x creator activation would resonate strongly here.",
@@ -452,7 +452,7 @@ const AFFINITY_ITEMS = [
   },
   {
     id: "met-gala-2026",
-    category: "cultural-events",
+    category: "style",
     type: "event",
     name: "Met Gala 2026",
     description: "The Met Gala (May 2026) is the single highest-reach fashion moment of the year — 10B+ impressions in a 24-hour window. Crocs has earned enough fashion credibility to be 'the joke that isn't a joke anymore' on the red carpet. Seeding product to a known Crocs fan with the right Met Gala look could generate the brand's highest single-day earned media moment. The window to coordinate with stylists opens in February.",
@@ -464,7 +464,7 @@ const AFFINITY_ITEMS = [
   },
   {
     id: "pride-month-2026",
-    category: "cultural-events",
+    category: "entertainment",
     type: "event",
     name: "Pride Month 2026",
     description: "June Pride Month is one of the most commercially significant cultural moments for brands with LGBTQ+ affinity. Crocs has genuine community credibility here — Chappell Roan, drag culture, and the maximalism aesthetic all point to authentic alignment. A dedicated Pride Jibbitz collection and creator campaign with LGBTQ+ talent (rather than a generic rainbow colourway) would be culturally resonant. Consumers can tell the difference between authentic and performative — Crocs has the receipts to do this right.",
@@ -476,7 +476,7 @@ const AFFINITY_ITEMS = [
   },
   {
     id: "art-basel-miami-2026",
-    category: "cultural-events",
+    category: "style",
     type: "event",
     name: "Art Basel Miami Beach 2026",
     description: "Art Basel Miami (December 2026) draws the world's most influential cultural tastemakers — collectors, artists, gallerists, celebrities, and media figures. The week generates enormous fashion and lifestyle content. Crocs' ongoing relationship with artists and designers makes Art Basel a natural brand home. A limited-edition artist collab drop timed to Art Basel would attract a premium, culturally influential audience and elevate brand perception significantly.",
@@ -488,7 +488,7 @@ const AFFINITY_ITEMS = [
   },
   {
     id: "burning-man-2026",
-    category: "cultural-events",
+    category: "entertainment",
     type: "event",
     name: "Burning Man 2026",
     description: "Burning Man's ethos of radical self-expression, anti-consumerism, and community is paradoxically one of the most brand-legible events for Crocs. Crocs are one of the most practical and beloved footwear choices on the playa — dustproof, comfortable, expressive. The event's 'gifting economy' opens an organic seeding opportunity. Content from Burning Man attendees in Crocs consistently performs well organically on social without any brand investment.",
@@ -503,7 +503,7 @@ const AFFINITY_ITEMS = [
 
   {
     id: "vidcon-2026",
-    category: "conferences",
+    category: "entertainment",
     type: "event",
     name: "VidCon 2026",
     description: "VidCon (June, Anaheim) is the world's largest creator economy conference — 75,000+ attendees, predominantly Gen Z, with the top 500 creators in attendance. It's the single best environment to seed product to creators who will actually wear and post about it authentically. Crocs' casual, expressive brand identity is perfectly matched to the creator community aesthetic. A branded creator lounge or gifting suite at VidCon would generate immediate content returns.",
@@ -515,7 +515,7 @@ const AFFINITY_ITEMS = [
   },
   {
     id: "complexcon-2026",
-    category: "conferences",
+    category: "style",
     type: "event",
     name: "ComplexCon 2026",
     description: "ComplexCon is the premier streetwear and sneaker culture convention, bringing together fashion, music, art, and food in a two-day festival format. The crowd is 18–35, style-obsessed, and highly influential within their communities. Crocs' streetwear credibility — built through collabs with Post Malone, Salehe Bembury, and Balenciaga — makes ComplexCon a natural home. An exclusive ComplexCon Jibbitz drop or collab reveal would generate strong floor traffic and social content.",
@@ -527,7 +527,7 @@ const AFFINITY_ITEMS = [
   },
   {
     id: "cannes-lions-2026",
-    category: "conferences",
+    category: "entertainment",
     type: "event",
     name: "Cannes Lions 2026",
     description: "Cannes Lions (June, France) is the global festival of creativity in marketing and advertising. Crocs' marketing story — from near-bankruptcy to cultural icon — is one of the most compelling brand turnaround narratives in the industry. Submitting the 'Come As You Are' journey and recent collab strategy as Cannes case studies would generate industry credibility, talent recruitment benefits, and earned trade press. Crocs as a 'brand bravery' case study belongs on the Cannes stage.",
@@ -539,7 +539,7 @@ const AFFINITY_ITEMS = [
   },
   {
     id: "shoptalk-2026",
-    category: "conferences",
+    category: "style",
     type: "event",
     name: "Shoptalk 2026",
     description: "Shoptalk (March, Las Vegas) is retail's most influential conference — 10,000+ retail executives, brand leaders, and technology partners. As Crocs continues to navigate the DTC vs. wholesale balance and expand its digital commerce capabilities, Shoptalk is a key venue for retail partnership conversations, technology scouting, and brand positioning with major retail buyers. Crocs' DTC growth story is a compelling narrative for the retail industry audience.",
@@ -551,7 +551,7 @@ const AFFINITY_ITEMS = [
   },
   {
     id: "nrf-big-show",
-    category: "conferences",
+    category: "style",
     type: "event",
     name: "NRF Retail's Big Show 2027 — Plan Now",
     description: "The National Retail Federation's annual show (January, New York) is the world's largest retail conference, drawing 40,000+ attendees. Planning for NRF 2027 begins now. Crocs' retail expansion story — from specialty to mass, from US to global, from functional to fashion — is exactly the narrative the NRF audience responds to. Securing a speaking slot or building a booth presence for 2027 requires lead time beginning in Q2 2026.",
@@ -566,7 +566,7 @@ const AFFINITY_ITEMS = [
 
   {
     id: "jibbitz-customization-popup",
-    category: "pop-ups",
+    category: "style",
     type: "activation",
     name: "Jibbitz Customization Studio Pop-Up",
     description: "A Crocs-owned pop-up activation centred on live Jibbitz customisation — customers design their own Crocs with a guided charm selection experience, custom engraving, and limited exclusive Jibbitz only available at the event. This format has proven highly shareable (customers document the creation process) and drives basket size significantly. Cities with high Gen Z density and tourism overlap (NYC, LA, Miami, Chicago) are priority locations. Limited-time scarcity drives queuing behaviour.",
@@ -578,7 +578,7 @@ const AFFINITY_ITEMS = [
   },
   {
     id: "collab-reveal-popup",
-    category: "pop-ups",
+    category: "entertainment",
     type: "activation",
     name: "Collab Drop Reveal Pop-Ups",
     description: "Exclusive pop-up events timed to major collab announcements — Wicked Part 2, Sabrina Carpenter, or Taylor Swift — where the collab is revealed in-person before the digital announcement. Fans queue for the reveal experience, driving UGC and earned media before a single paid ad runs. This format, pioneered by Supreme and now standard for streetwear drops, is underutilised in Crocs' playbook. The brand's fan base has the energy to make this format explosive.",
@@ -590,7 +590,7 @@ const AFFINITY_ITEMS = [
   },
   {
     id: "festival-pop-ups",
-    category: "pop-ups",
+    category: "entertainment",
     type: "activation",
     name: "Festival Circuit Pop-Up Programme",
     description: "A rolling summer pop-up programme tracking the festival circuit — Coachella, Lollapalooza, Glastonbury, Bonnaroo, Governors Ball. At each location, a branded Crocs experience offers on-site customisation, limited festival-exclusive Jibbitz, and photo moments. The format generates authentic UGC from exactly the right demographic in exactly the right context. Competitors have no equivalent presence in this space.",
@@ -602,7 +602,7 @@ const AFFINITY_ITEMS = [
   },
   {
     id: "retail-collab-popup",
-    category: "pop-ups",
+    category: "style",
     type: "activation",
     name: "Premium Retail Partner Pop-Ups",
     description: "Short-term branded shop-in-shop experiences at premium retail partners — Dover Street Market, Selfridges, Galeries Lafayette, Ssense — to elevate brand perception and capture a fashion-forward audience that doesn't typically enter a Crocs standalone store. Each pop-up features exclusive colourways and limited Jibbitz packs. DSM and Selfridges are proven validators of the 'ugly-cool' aesthetic that Crocs has mastered.",
@@ -614,7 +614,7 @@ const AFFINITY_ITEMS = [
   },
   {
     id: "campus-popup-tour",
-    category: "pop-ups",
+    category: "sport",
     type: "activation",
     name: "College Campus Pop-Up Tour",
     description: "A 20-university pop-up tour timed to back-to-school season (August–September), combining NIL athlete appearances, Jibbitz customisation, and exclusive campus-themed charms for each university. College campuses are where Crocs' organic Gen Z usage is highest and most visible. An owned activation in this environment — rather than just seeding — creates community ownership moments that drive long-term brand loyalty.",
@@ -629,7 +629,7 @@ const AFFINITY_ITEMS = [
 
   {
     id: "back-to-school-2026",
-    category: "shopping",
+    category: "style",
     type: "moment",
     name: "Back to School 2026",
     description: "Back-to-school (July–September) is Crocs' single largest retail moment — the brand consistently ranks in the top 3 footwear purchases for students from elementary through college. The 2026 window is an opportunity to own the 'first day fit' narrative on TikTok, activate NIL college athlete partners, and launch a campus-specific Jibbitz collection. Competitors are investing heavily in this moment; Crocs' advantage is authentic student usage that money can't buy.",
@@ -641,7 +641,7 @@ const AFFINITY_ITEMS = [
   },
   {
     id: "mothers-day-2026",
-    category: "shopping",
+    category: "style",
     type: "moment",
     name: "Mother's Day 2026",
     description: "Mother's Day (May 11, 2026) is one of the top gifting occasions in the US — $33B+ in consumer spending. Crocs consistently ranks as a top gifting footwear brand because of the wide size and colour range. A dedicated Mother's Day Jibbitz 'Build a Pair for Mum' campaign — with gift sets, personalised charms, and a family customisation angle — could significantly increase average order value and gift purchase conversion. Lead time for May activation is opening now.",
@@ -653,7 +653,7 @@ const AFFINITY_ITEMS = [
   },
   {
     id: "prime-day-2026",
-    category: "shopping",
+    category: "style",
     type: "moment",
     name: "Amazon Prime Day 2026",
     description: "Prime Day (July 2026) consistently drives Crocs into the top 10 best-selling footwear on Amazon — often the #1 comfort shoe. The event is increasingly a media moment, not just a discount event, with brands running parallel social campaigns that use the 'deal' as a hook for broader reach. A Prime Day creator campaign ('the deal I've been waiting for') paired with an exclusive Amazon-only Jibbitz pack could drive record single-day Amazon volumes.",
@@ -665,7 +665,7 @@ const AFFINITY_ITEMS = [
   },
   {
     id: "black-friday-cyber-monday-2026",
-    category: "shopping",
+    category: "style",
     type: "moment",
     name: "Black Friday / Cyber Monday 2026",
     description: "The BFCM weekend (November 28–December 1, 2026) is Crocs' largest single revenue event of the year. In 2025, Crocs.com saw 4.2x average daily traffic and the Jibbitz customisation tool drove a 35% AOV uplift vs. standard product pages. With Wicked: For Good now in post-launch momentum (released Nov 2025), a Wicked x Crocs restock timed to BFCM 2026 could be a major revenue multiplier — collab scarcity meets peak shopping intent.",
@@ -677,7 +677,7 @@ const AFFINITY_ITEMS = [
   },
   {
     id: "holiday-gifting-2026",
-    category: "shopping",
+    category: "style",
     type: "moment",
     name: "Holiday Gift Season 2026",
     description: "The December holiday gifting window (Dec 1–24) sees Crocs consistently rank in 'best gifts under $50' and 'best comfort gifts' roundups across media. The Jibbitz gift set format — a pair + themed charm pack in branded packaging — is the highest-converting gift SKU. For 2026, a Wicked-themed holiday gift set arriving just weeks after the film release could be the signature gifting moment of the season. Planning and packaging decisions need to begin now.",
@@ -689,7 +689,7 @@ const AFFINITY_ITEMS = [
   },
   {
     id: "valentines-day-recurring",
-    category: "shopping",
+    category: "style",
     type: "moment",
     name: "Valentine's Day — The Couples Crocs Moment",
     description: "Valentine's Day has organically produced some of Crocs' most-shared social content — matching couples' Crocs, heart Jibbitz, and 'most romantic shoe' meme content. The 'Crocs as Valentine's gift' narrative is growing year-on-year with zero paid support. A dedicated Valentine's Jibbitz collection (hearts, love notes, couple charms) paired with a 'couples who Croc together' creator campaign could turn this organic moment into a major gifting occasion.",
@@ -710,7 +710,7 @@ const AFFINITY_CATEGORIES = [
     colorLight: "#eff6ff",
     colorBorder: "#bfdbfe",
     icon: "🏆",
-    description: "Athletes, leagues, and sports culture moments relevant to Crocs partnerships and campaign alignment.",
+    description: "Athletes, leagues, sports culture moments, and campus/NIL opportunities relevant to Crocs partnerships.",
   },
   {
     id: "style",
@@ -719,7 +719,7 @@ const AFFINITY_CATEGORIES = [
     colorLight: "#f5f3ff",
     colorBorder: "#ddd6fe",
     icon: "✨",
-    description: "Fashion trends, cultural style movements, and celebrities shaping the aesthetic context Crocs operates in.",
+    description: "Fashion trends, retail moments, shopping occasions, brand activations, and style culture shaping the aesthetic Crocs operates in.",
   },
   {
     id: "entertainment",
@@ -728,43 +728,7 @@ const AFFINITY_CATEGORIES = [
     colorLight: "#fdf2f8",
     colorBorder: "#fbcfe8",
     icon: "🎬",
-    description: "Music, film, TV, and digital entertainment figures and trends driving cultural conversation.",
-  },
-  {
-    id: "cultural-events",
-    label: "Cultural Events",
-    color: "#f97316",
-    colorLight: "#fff7ed",
-    colorBorder: "#fed7aa",
-    icon: "🎭",
-    description: "Festivals, cultural moments, and live events that create high-reach brand activation opportunities.",
-  },
-  {
-    id: "conferences",
-    label: "Conferences",
-    color: "#06b6d4",
-    colorLight: "#ecfeff",
-    colorBorder: "#a5f3fc",
-    icon: "🎤",
-    description: "Industry conferences, creator summits, and retail events where Crocs can build partnerships and brand presence.",
-  },
-  {
-    id: "pop-ups",
-    label: "Pop Ups",
-    color: "#10b981",
-    colorLight: "#ecfdf5",
-    colorBorder: "#a7f3d0",
-    icon: "📍",
-    description: "Brand activation, experiential retail, and pop-up opportunities to drive community engagement and UGC.",
-  },
-  {
-    id: "shopping",
-    label: "Shopping Moments",
-    color: "#e11d48",
-    colorLight: "#fff1f2",
-    colorBorder: "#fecdd3",
-    icon: "🛍️",
-    description: "Key retail and gifting occasions where Crocs can capture peak consumer purchase intent.",
+    description: "Music, film, TV, festivals, live events, digital creators, and cultural moments driving the conversations Crocs can own.",
   },
 ];
 
