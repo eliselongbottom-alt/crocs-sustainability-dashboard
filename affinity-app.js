@@ -326,10 +326,13 @@ function renderAffinityRoadmap() {
 
 function affinityTypeLabel(type) {
   const map = {
-    celebrity: '⭐ Celebrity',
-    campaign: '📣 Campaign',
-    trend: '📈 Trend',
-    news: '📰 News',
+    celebrity:  '⭐ Celebrity',
+    campaign:   '📣 Campaign',
+    trend:      '📈 Trend',
+    news:       '📰 News',
+    event:      '📅 Event',
+    activation: '🚀 Activation',
+    moment:     '🛍️ Moment',
   };
   return map[type] || type;
 }
