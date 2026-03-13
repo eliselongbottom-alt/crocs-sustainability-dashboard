@@ -942,7 +942,52 @@ tr.is-crocs:hover { background: #D4EDCF; }
   --affinity-entertainment-border: #fbcfe8;
 }
 
-/* Category Summary Cards Row */
+/* Category Overview Card */
+.affinity-overview-card { padding: 1.5rem; }
+
+.affinity-overview-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap;
+}
+.affinity-overview-badge {
+  background: #43B02A; color: #fff; border-radius: 20px;
+  padding: 0.3rem 0.85rem; font-size: 0.78rem; font-weight: 700;
+  white-space: nowrap; flex-shrink: 0;
+}
+.affinity-overview-charts {
+  display: grid; grid-template-columns: 1fr 1.6fr; gap: 2rem;
+  align-items: start; margin-bottom: 1.5rem;
+}
+.affinity-overview-chart-col { display: flex; flex-direction: column; gap: 0.4rem; }
+.affinity-overview-chart-label {
+  font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.07em; color: #6b7280;
+}
+.affinity-overview-charts canvas { max-height: 280px; }
+
+/* Top Signals Strip */
+.affinity-top-signals-strip {
+  display: flex; flex-direction: column; gap: 0.45rem;
+  border-top: 1px solid #f0f0f0; padding-top: 1.1rem;
+}
+.affinity-top-signal-row {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.35rem 0;
+}
+.affinity-top-signal-cat {
+  font-size: 0.75rem; font-weight: 700; border-radius: 12px;
+  padding: 0.2rem 0.65rem; white-space: nowrap; flex-shrink: 0; min-width: 130px;
+}
+.affinity-top-signal-name {
+  font-size: 0.85rem; font-weight: 600; color: #1D1D1B; flex: 1;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.affinity-top-signal-score {
+  font-size: 0.8rem; font-weight: 800; border-radius: 10px;
+  padding: 0.15rem 0.5rem; flex-shrink: 0;
+}
+
+/* Category Summary Cards Row (kept for reference, no longer rendered) */
 .affinity-category-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1681,6 +1726,7 @@ tr.is-crocs:hover { background: #D4EDCF; }
 /* Responsive */
 @media (max-width: 1100px) {
   .genz-angles-grid { grid-template-columns: repeat(3, 1fr); }
+  .affinity-overview-charts { grid-template-columns: 1fr; }
   .genz-takeaways-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 900px) {

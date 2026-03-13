@@ -5,53 +5,121 @@ let _affinityActiveCategory = 'all';
 let _affinityActiveType = 'all';
 
 function initAffinity() {
-  renderAffinityCategoryCards();
+  renderAffinityCategoryOverview();
   renderAffinityTopHighlights();
   renderAffinityFeed();
   renderAffinityRoadmap();
 }
 
-// ─── Category Summary Cards ────────────────────────────────────────────────
+// ─── Category Overview (charts + top signals strip) ────────────────────────
 
-function renderAffinityCategoryCards() {
-  const container = document.getElementById('affinityCategoryCards');
+function renderAffinityCategoryOverview() {
+  const badge = document.getElementById('affinityTotalBadge');
+  if (badge) badge.textContent = `${AFFINITY_ITEMS.length} signals tracked`;
+
+  renderAffinityCatDonut();
+  renderAffinityCatBar();
+  renderAffinityTopSignals();
+}
+
+function renderAffinityCatDonut() {
+  const ctx = document.getElementById('affinityCatDonut');
+  if (!ctx) return;
+  if (window._affinityCatDonut) window._affinityCatDonut.destroy();
+
+  window._affinityCatDonut = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: AFFINITY_CATEGORIES.map(c => c.label),
+      datasets: [{
+        data: AFFINITY_CATEGORIES.map(c => AFFINITY_ITEMS.filter(i => i.category === c.id).length),
+        backgroundColor: AFFINITY_CATEGORIES.map(c => c.color),
+        borderWidth: 3,
+        borderColor: '#fff',
+        hoverOffset: 10,
+      }],
+    },
+    options: {
+      responsive: true,
+      cutout: '62%',
+      plugins: {
+        legend: { position: 'bottom', labels: { usePointStyle: true, padding: 14, font: { size: 11 } } },
+        tooltip: { callbacks: { label: c => ` ${c.label}: ${c.parsed} signals` } },
+      },
+    },
+  });
+}
+
+function renderAffinityCatBar() {
+  const ctx = document.getElementById('affinityCatBar');
+  if (!ctx) return;
+  if (window._affinityCatBar) window._affinityCatBar.destroy();
+
+  const data = AFFINITY_CATEGORIES.map(c => {
+    const items = AFFINITY_ITEMS.filter(i => i.category === c.id);
+    return {
+      label: c.label,
+      avgRelevance: items.length ? Math.round(items.reduce((s, i) => s + i.relevanceScore, 0) / items.length) : 0,
+      avgTrend:     items.length ? Math.round(items.reduce((s, i) => s + i.trendStrength,  0) / items.length) : 0,
+      color: c.color,
+    };
+  }).sort((a, b) => b.avgRelevance - a.avgRelevance);
+
+  window._affinityCatBar = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: data.map(d => d.label),
+      datasets: [
+        {
+          label: 'Avg Relevance',
+          data: data.map(d => d.avgRelevance),
+          backgroundColor: data.map(d => d.color),
+          borderRadius: 4,
+          borderSkipped: false,
+        },
+        {
+          label: 'Avg Trend Strength',
+          data: data.map(d => d.avgTrend),
+          backgroundColor: data.map(d => d.color + '44'),
+          borderRadius: 4,
+          borderSkipped: false,
+        },
+      ],
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { usePointStyle: true, padding: 14, font: { size: 11 } } },
+        tooltip: {
+          callbacks: {
+            label: c => ` ${c.dataset.label}: ${c.parsed.x}`,
+          },
+        },
+      },
+      scales: {
+        x: { min: 0, max: 100, title: { display: true, text: 'Score (0–100)' }, grid: { color: '#f0f0f0' } },
+        y: { grid: { display: false } },
+      },
+    },
+  });
+}
+
+function renderAffinityTopSignals() {
+  const container = document.getElementById('affinityTopSignals');
+  if (!container) return;
 
   container.innerHTML = AFFINITY_CATEGORIES.map(cat => {
-    const items = AFFINITY_ITEMS.filter(item => item.category === cat.id);
-    const avgRelevance = items.length
-      ? Math.round(items.reduce((sum, i) => sum + i.relevanceScore, 0) / items.length)
-      : 0;
-    const avgTrend = items.length
-      ? Math.round(items.reduce((sum, i) => sum + i.trendStrength, 0) / items.length)
-      : 0;
-    const topItem = [...items].sort((a, b) => b.relevanceScore - a.relevanceScore)[0];
-
+    const items = AFFINITY_ITEMS.filter(i => i.category === cat.id);
+    const top = [...items].sort((a, b) => b.relevanceScore - a.relevanceScore)[0];
+    if (!top) return '';
     return `
-      <div class="affinity-cat-card" style="border-top: 4px solid ${cat.color}; background: ${cat.colorLight}; border-color-secondary: ${cat.colorBorder};">
-        <div class="affinity-cat-card-header">
-          <span class="affinity-cat-icon">${cat.icon}</span>
-          <span class="affinity-cat-label" style="color: ${cat.color};">${cat.label}</span>
-        </div>
-        <div class="affinity-cat-stats">
-          <div class="affinity-cat-stat">
-            <span class="affinity-cat-stat-value" style="color: ${cat.color};">${items.length}</span>
-            <span class="affinity-cat-stat-label">Tracked Items</span>
-          </div>
-          <div class="affinity-cat-stat">
-            <span class="affinity-cat-stat-value" style="color: ${cat.color};">${avgRelevance}</span>
-            <span class="affinity-cat-stat-label">Avg Relevance</span>
-          </div>
-          <div class="affinity-cat-stat">
-            <span class="affinity-cat-stat-value" style="color: ${cat.color};">${avgTrend}</span>
-            <span class="affinity-cat-stat-label">Avg Trend Str.</span>
-          </div>
-        </div>
-        <div class="affinity-cat-top">
-          <span class="affinity-cat-top-label">Top signal:</span>
-          <span class="affinity-cat-top-name">${topItem ? topItem.name : '—'}</span>
-          ${topItem ? `<span class="affinity-cat-top-score" style="color:${cat.color};">${topItem.relevanceScore}</span>` : ''}
-        </div>
-        <p class="affinity-cat-desc">${cat.description}</p>
+      <div class="affinity-top-signal-row">
+        <span class="affinity-top-signal-cat" style="color:${cat.color}; background:${cat.color}15; border:1px solid ${cat.color}30;">
+          ${cat.icon} ${cat.label}
+        </span>
+        <span class="affinity-top-signal-name">${top.name}</span>
+        <span class="affinity-top-signal-score" style="color:${cat.color}; background:${cat.color}12; border:1px solid ${cat.color}25;">${top.relevanceScore}</span>
       </div>`;
   }).join('');
 }

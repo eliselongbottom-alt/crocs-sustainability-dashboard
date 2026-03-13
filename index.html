@@ -200,8 +200,27 @@
   <!-- ═══ TAB: AFFINITY TRACKING ═══ -->
   <main id="tab-affinity" class="tab-content">
 
-    <!-- Category Summary Cards -->
-    <section class="affinity-category-cards" id="affinityCategoryCards"></section>
+    <!-- Category Overview (charts + top signals) -->
+    <section class="card affinity-overview-card">
+      <div class="affinity-overview-header">
+        <div>
+          <h3>Affinity Category Overview</h3>
+          <p class="actions-subtitle">Signal distribution and average scores across all 7 tracked categories</p>
+        </div>
+        <div class="affinity-overview-badge" id="affinityTotalBadge"></div>
+      </div>
+      <div class="affinity-overview-charts">
+        <div class="affinity-overview-chart-col">
+          <div class="affinity-overview-chart-label">Signal Distribution</div>
+          <canvas id="affinityCatDonut"></canvas>
+        </div>
+        <div class="affinity-overview-chart-col">
+          <div class="affinity-overview-chart-label">Avg Relevance &amp; Trend Strength by Category</div>
+          <canvas id="affinityCatBar"></canvas>
+        </div>
+      </div>
+      <div class="affinity-top-signals-strip" id="affinityTopSignals"></div>
+    </section>
 
     <!-- Top Crocs Affinities Highlight -->
     <section class="card">
