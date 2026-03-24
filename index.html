@@ -46,6 +46,7 @@
       <button class="tab-btn" data-tab="affinity">Affinity Tracking</button>
       <button class="tab-btn" data-tab="trends">Consumer Trends</button>
       <button class="tab-btn" data-tab="genz">Gen Z Intelligence</button>
+      <button class="tab-btn" data-tab="emotion">Emotion Intel</button>
     </nav>
   </header>
 
@@ -490,6 +491,86 @@
     </div>
   </div>
 
+  <!-- ═══ TAB: EMOTION INTEL ═══ -->
+  <main id="tab-emotion" class="tab-content">
+
+    <!-- Header -->
+    <section class="card emotion-intro-card">
+      <div class="emotion-intro-inner">
+        <div>
+          <h3 style="font-size:1.3rem;margin-bottom:0.3rem;">Emotion Gap Navigator</h3>
+          <p class="actions-subtitle">Uncover emotional perception gaps between Crocs' brand intent and what audiences actually feel — and where the risks and opportunities live. <span id="emotionLastUpdated" style="color:#6b7280;"></span></p>
+        </div>
+        <div class="emotion-intro-badges">
+          <span class="emotion-intro-badge">Risk Communication</span>
+          <span class="emotion-intro-badge">Behavioral Psychology</span>
+          <span class="emotion-intro-badge">Always-On</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- KPI Row -->
+    <div class="emotion-kpi-row" id="emotionKPIs"></div>
+
+    <!-- Two col: Emotion Radar + Perception Gap -->
+    <section class="two-col">
+      <div class="card chart-card">
+        <h3>Brand Emotion Profile</h3>
+        <p class="actions-subtitle" style="margin-bottom:1rem;">Current vs. prior period vs. category benchmark — across Plutchik's 8 primary emotions</p>
+        <canvas id="emotionRadarChart"></canvas>
+      </div>
+      <div class="card">
+        <h3>Perception Gap Monitor</h3>
+        <p class="actions-subtitle" style="margin-bottom:1rem;">Desired brand perception vs. what audiences actually hold. Red gaps = reputational risk.</p>
+        <div id="perceptionGapViz"></div>
+      </div>
+    </section>
+
+    <!-- Emotion Trend -->
+    <section class="card chart-card">
+      <h3>Emotion Trend — 12 Weeks</h3>
+      <p class="actions-subtitle" style="margin-bottom:1rem;">Track how key emotions are shifting in Crocs brand conversation over time</p>
+      <canvas id="emotionTrendChart"></canvas>
+      <div id="emotionTrendEvents" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:1rem;"></div>
+    </section>
+
+    <!-- Two col: Audience Emotion Map + Competitor Positioning -->
+    <section class="two-col">
+      <div class="card chart-card">
+        <h3>Audience Emotion Map</h3>
+        <p class="actions-subtitle" style="margin-bottom:1rem;">How different audience segments emotionally experience Crocs</p>
+        <canvas id="audienceEmotionChart"></canvas>
+      </div>
+      <div class="card chart-card">
+        <h3>Competitor Emotion Positioning</h3>
+        <p class="actions-subtitle" style="margin-bottom:1rem;">Where Crocs sits emotionally vs. Birkenstock, UGG, Vans, New Balance</p>
+        <canvas id="competitorEmotionChart"></canvas>
+      </div>
+    </section>
+
+    <!-- Risk & Opportunity Signals -->
+    <section class="card">
+      <h3>Emotional Risk &amp; Opportunity Signals</h3>
+      <p class="actions-subtitle" style="margin-bottom:1.25rem;">Topics ranked by emotional intensity and valence — where to act, where to watch, where to lead</p>
+      <div id="riskOpportunityGrid"></div>
+    </section>
+
+    <!-- Macro Environmental Signals -->
+    <section class="card">
+      <h3>Macro Environmental Scan</h3>
+      <p class="actions-subtitle" style="margin-bottom:1.25rem;">Emerging issues across business, government, society, and culture that will shape Crocs' reputation landscape</p>
+      <div id="macroSignalsGrid" class="macro-signals-grid"></div>
+    </section>
+
+    <!-- Messaging Resonance -->
+    <section class="card">
+      <h3>Messaging Emotional Resonance</h3>
+      <p class="actions-subtitle" style="margin-bottom:1.25rem;">How Crocs' current platform messages score on emotional intensity and audience resonance — includes flags where messaging is backfiring</p>
+      <div id="messagingResonanceGrid" class="messaging-resonance-grid"></div>
+    </section>
+
+  </main>
+
   <script src="data.js"></script>
   <script src="jibbitz-data.js"></script>
   <script src="affinity-data.js"></script>
@@ -499,5 +580,7 @@
   <script src="affinity-app.js"></script>
   <script src="trends-app.js"></script>
   <script src="genz-app.js"></script>
+  <script src="emotion-data.js"></script>
+  <script src="emotion-app.js"></script>
 </body>
 </html>

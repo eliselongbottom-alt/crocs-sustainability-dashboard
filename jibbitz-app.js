@@ -53,6 +53,9 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     } else if (tab === 'genz' && !window._genzInitialized) {
       window._genzInitialized = true;
       initGenZ();
+    } else if (tab === 'emotion' && !window._emotionInitialized) {
+      window._emotionInitialized = true;
+      initEmotion();
     }
   });
 });
