@@ -656,6 +656,11 @@ tr.is-crocs:hover { background: #D4EDCF; }
   50% { opacity: 0.6; }
 }
 
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
 .jb-category-tag {
   font-size: 0.7rem;
   color: var(--text-muted);

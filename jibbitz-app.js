@@ -11,6 +11,13 @@ function initJibbitz() {
   renderJbPipelineBoard();
   renderJbWins();
   renderJibbitzRoadmap();
+
+  // Show last-updated timestamp
+  const label = document.getElementById('jbLastUpdatedLabel');
+  if (label && typeof JIBBITZ_LAST_UPDATED !== 'undefined') {
+    const d = new Date(JIBBITZ_LAST_UPDATED);
+    label.textContent = 'Feed updated ' + d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -570,6 +577,9 @@ function getCharmConcepts(trend) {
     'grimace-shake':       ['Hero charm: Grimace purple blob full-body — faithful to McDonald\'s character', 'Grimace shake cup charm: the purple milkshake that broke the internet', 'Duo restock: Grimace + golden arch charm — collab pack (requires McDonald\'s licensing)'],
     'panda-twins':         ['Twin set: Bao Li + Qing Bao twin panda cubs — sold as an inseparable pair', 'Bamboo accessory charm: mini bamboo stalk companions to the twin set', 'Sleepy panda variant: cub curled up asleep — taps into the "cute resting" content format'],
     'stanley-cup':         ['Mini Stanley cup charm: the iconic handle + colour-match lid, in multiple colourways', 'Colour-match pack: Stanley charm + matching Jibbitz in 5 popular Stanley colours', 'Collab set: "Crocs x Stanley" co-branded pack (approach Stanley for partnership)'],
+    'seoul-escape-dogs':   ['Hero charm: "leader dog" silhouette mid-stride — the dog who clearly planned the whole thing', 'Convenience store moment: tiny dog paw on a shelf — captures the iconic CCTV freeze-frame', '6-pack: each escape dog in a different running pose — the most ambitious Jibbitz drop ever'],
+    'capybara-election':   ['Hero charm: capybara in a presidential sash with a blank expression — the blank stare IS the charm', '3-pack: capybara + ballot box + campaign banner — the full election story', 'Victory pose variant: capybara at a podium, no notes, unbothered'],
+    'tornado-cat':         ['Hero charm: cat silhouette sitting perfectly still, stylised flat-art style — the unbothered pose is iconic', 'Duo set: tornado swirl + sitting cat — captures the contrast energy', 'Expression close-up: deadpan cat face with no context needed'],
   };
   return conceptMap[trend.id] || [
     `Hero ${trend.name} charm — 3D sculpted, key recognisable feature as focal point`,
