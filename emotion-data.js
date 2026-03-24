@@ -4,6 +4,88 @@
 
 const EMOTION_LAST_UPDATED = "2026-03-24";
 
+// ─── Methodology & Sourcing ─────────────────────────────────────────────────
+const EMOTION_METHODOLOGY = {
+  dataStatus: "modeled",  // "modeled" = representative estimates | "live" = real API feed
+  dataStatusLabel: "Representative Model",
+  dataStatusNote: "All scores below are modeled estimates based on publicly available research, analyst reports, and brand tracking studies. They are designed to replicate the Allison Worldwide methodology for comparison purposes. In production, these would be replaced by live social listening APIs.",
+
+  sections: [
+    {
+      id: "kpis",
+      title: "KPI Scores",
+      method: "Composite index",
+      source: "Modeled — weighted average of emotion, trust, and resonance sub-scores",
+      production: "Brandwatch or Sprinklr social listening API, applied to ~30 days of Crocs brand mentions",
+      framework: "Allison Worldwide Emotion Gap Navigator composite methodology",
+    },
+    {
+      id: "radar",
+      title: "Brand Emotion Profile",
+      method: "Plutchik's Wheel of Emotions (8 primary emotions)",
+      source: "Modeled — estimated share of brand conversation carrying each emotion, based on published brand sentiment studies for consumer footwear brands and Crocs-specific press/social coverage",
+      production: "NLP emotion classification (e.g. IBM Watson Tone Analyzer, Symanto, or custom model) applied to social mentions, news, and reviews",
+      framework: "Robert Plutchik's psychoevolutionary theory of emotion (1980) — the industry standard for brand emotion analysis",
+    },
+    {
+      id: "perception",
+      title: "Perception Gap Monitor",
+      method: "Desired vs. Actual gap scoring per brand attribute",
+      source: "Desired: based on publicly stated Crocs brand positioning (annual reports, investor decks, CMO interviews). Actual: estimated from Crocs consumer reviews (Trustpilot, Reddit, YouTube comments), YouGov brand tracker data, and Mintel footwear category reports",
+      production: "Desired scores set internally by brand team. Actual scores from Harris Poll or YouGov quarterly brand perception survey + social listening attribute tagging",
+      framework: "Standard brand perception gap analysis — used by Edelman, Ketchum, and Allison Worldwide. Gap > 20pts = material reputational risk.",
+    },
+    {
+      id: "trend",
+      title: "Emotion Trend (12 Weeks)",
+      method: "Weekly emotion share indexed 0–100",
+      source: "Modeled — trend shape based on known Crocs brand events (Punch the Monkey launch Mar 1, tariff news cycle Mar 10). Absolute values are representative estimates.",
+      production: "Rolling 7-day emotion classification of all Crocs brand mentions. Refreshed weekly via Brandwatch or Talkwalker scheduled export.",
+      framework: "Emotion share = (mentions carrying emotion X) / (total mentions) × 100, smoothed with 7-day rolling average",
+    },
+    {
+      id: "audience",
+      title: "Audience Emotion Map",
+      method: "Segment-level emotion profiling across 6 dimensions",
+      source: "Modeled — based on Crocs' own published audience research, GWI (Global Web Index) consumer data for footwear, and published Gen Z brand relationship studies (Morning Consult, YPulse)",
+      production: "Survey-based: quarterly Harris Poll segmented by age/demographic, combined with social listening filtered by inferred audience segments",
+      framework: "6 emotions selected for brand relevance: Joy, Trust, Pride, Excitement, Nostalgia, Anxiety — subset of Plutchik extended wheel",
+    },
+    {
+      id: "competitor",
+      title: "Competitor Emotion Positioning",
+      method: "Radar comparison across 5 emotional dimensions",
+      source: "Modeled — based on published brand equity studies (YouGov BrandIndex), consumer review sentiment analysis across Google, Trustpilot, and Reddit for each brand, and analyst reports (Euromonitor, Mintel footwear 2025)",
+      production: "Same NLP pipeline as Crocs, applied to competitor brand mentions. Requires social listening tool with competitive tracking (Brandwatch, Sprinklr, or Mention).",
+      framework: "5 dimensions chosen for competitive differentiation relevance: Joy, Trust, Excitement, Sustainability, Premium",
+    },
+    {
+      id: "risk",
+      title: "Emotional Risk & Opportunity Signals",
+      method: "Two-axis scoring: Emotion Intensity (0–100) × Valence (−100 to +100)",
+      source: "Modeled — Emotion Intensity estimated from social volume proxies (Google Trends, Reddit post counts, news coverage volume). Valence estimated from sentiment analysis of top-result content for each topic.",
+      production: "Automated topic detection via Brandwatch queries or Talkwalker Boolean searches. Intensity = normalised mention volume. Valence = net sentiment score from NLP classifier.",
+      framework: "Risk/Opportunity classification: Intensity > 70 + Valence < −30 = Risk. Intensity > 70 + Valence > +60 = Opportunity. All others = Watch.",
+    },
+    {
+      id: "macro",
+      title: "Macro Environmental Scan",
+      method: "Qualitative signal identification with risk rating",
+      source: "Based on publicly available sources: Reuters/AP tariff coverage (Mar 2026), Edelman Trust Barometer 2025, Mintel sustainability in apparel report 2025, McKinsey State of Fashion 2026, Pew Research consumer sentiment data",
+      production: "Allison Worldwide Environmental Scan combines Harvard Harris Poll primary research + Mintel/Statista secondary research + proprietary social listening. This prototype replicates the output format using public sources.",
+      framework: "PESTLE-adjacent scan (Political, Economic, Social, Technology, Legal, Environmental) filtered for Crocs' specific risk profile",
+    },
+    {
+      id: "messaging",
+      title: "Messaging Emotional Resonance",
+      method: "Two scores per message: Emotional Intensity + Resonance",
+      source: "Modeled — Intensity scored by analysing social reaction to posts using these taglines (likes, shares, comments as proxy). Resonance scored by net sentiment of responses and UGC inspired by each message. Sources: Crocs social accounts (Instagram, TikTok), Sprout Social industry benchmarks, YouGov brand messaging recall data.",
+      production: "A/B message testing via Lucid or Pollfish panel. Alternatively: social listening filtered to posts containing each tagline, with emotion + sentiment scoring applied to reply threads.",
+      framework: "Emotional Intensity ≠ Resonance. A message can trigger high intensity (e.g. controversy) but low resonance (negative conversion). Both dimensions required for full picture.",
+    },
+  ],
+};
+
 // ─── KPIs ──────────────────────────────────────────────────────────────────
 const EMOTION_KPIS = {
   brandEmotionScore:   74,   // 0-100 composite positive emotion index

@@ -1,6 +1,7 @@
 // Emotion Intelligence — Application Logic
 
 function initEmotion() {
+  renderDataStatusBanner();
   renderEmotionKPIs();
   renderEmotionRadar();
   renderPerceptionGaps();
@@ -10,12 +11,58 @@ function initEmotion() {
   renderRiskOpportunityGrid();
   renderMacroSignals();
   renderMessagingResonance();
+  renderMethodologyTable();
 
   const label = document.getElementById('emotionLastUpdated');
   if (label) {
     const d = new Date(EMOTION_LAST_UPDATED);
     label.textContent = 'Data as of ' + d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
   }
+}
+
+// ─── Data Status Banner ──────────────────────────────────────────────────────
+function renderDataStatusBanner() {
+  const el = document.getElementById('emotionDataStatusBanner');
+  if (!el) return;
+  const isLive = EMOTION_METHODOLOGY.dataStatus === 'live';
+  const color  = isLive ? '#43B02A' : '#f59e0b';
+  const icon   = isLive ? '🟢' : '🟡';
+  el.innerHTML = `
+    <div class="em-status-banner" style="border-color:${color};background:${color}12">
+      <span class="em-status-dot" style="background:${color}"></span>
+      <strong style="color:${color}">${icon} ${EMOTION_METHODOLOGY.dataStatusLabel}</strong>
+      <span class="em-status-note">${EMOTION_METHODOLOGY.dataStatusNote}</span>
+    </div>`;
+}
+
+// ─── Methodology Table ───────────────────────────────────────────────────────
+function renderMethodologyTable() {
+  const el = document.getElementById('emotionMethodologyTable');
+  if (!el) return;
+
+  el.innerHTML = EMOTION_METHODOLOGY.sections.map(s => `
+    <div class="em-method-row">
+      <div class="em-method-section">${s.title}</div>
+      <div class="em-method-body">
+        <div class="em-method-block">
+          <span class="em-method-tag em-method-tag-method">Method</span>
+          ${s.method}
+        </div>
+        <div class="em-method-block">
+          <span class="em-method-tag em-method-tag-source">Current Source</span>
+          ${s.source}
+        </div>
+        <div class="em-method-block">
+          <span class="em-method-tag em-method-tag-prod">In Production</span>
+          ${s.production}
+        </div>
+        <div class="em-method-block">
+          <span class="em-method-tag em-method-tag-framework">Framework</span>
+          ${s.framework}
+        </div>
+      </div>
+    </div>
+  `).join('');
 }
 
 // ─── KPI Row ────────────────────────────────────────────────────────────────
