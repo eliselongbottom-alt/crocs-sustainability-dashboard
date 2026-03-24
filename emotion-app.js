@@ -23,7 +23,7 @@ function initEmotion() {
 // ─── Data Status Banner ──────────────────────────────────────────────────────
 function renderDataStatusBanner() {
   const el = document.getElementById('emotionDataStatusBanner');
-  if (!el) return;
+  if (!el || typeof EMOTION_METHODOLOGY === 'undefined') return;
   const isLive = EMOTION_METHODOLOGY.dataStatus === 'live';
   const color  = isLive ? '#43B02A' : '#f59e0b';
   const icon   = isLive ? '🟢' : '🟡';
@@ -38,7 +38,7 @@ function renderDataStatusBanner() {
 // ─── Methodology Table ───────────────────────────────────────────────────────
 function renderMethodologyTable() {
   const el = document.getElementById('emotionMethodologyTable');
-  if (!el) return;
+  if (!el || typeof EMOTION_METHODOLOGY === 'undefined') return;
 
   el.innerHTML = EMOTION_METHODOLOGY.sections.map(s => `
     <div class="em-method-row">
