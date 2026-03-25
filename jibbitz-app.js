@@ -100,6 +100,7 @@ function renderJbTrends(data) {
         <span class="jb-category-tag">${formatCategory(t.category)}</span>
       </div>
       <div class="jb-trend-name">${t.name}</div>
+      ${t.confidence ? `<div style="margin-bottom:6px;"><span title="${t.confidenceNote || ''}" style="font-size:0.7rem;font-weight:700;padding:2px 7px;border-radius:4px;cursor:help;${t.confidence === 'verified' ? 'background:#d1fae5;color:#065f46;border:1px solid #6ee7b7;' : 'background:#fef3c7;color:#92400e;border:1px solid #fcd34d;'}">${t.confidence === 'verified' ? '✓ VERIFIED' : '⚠ MODELED'}</span> <span style="font-size:0.72rem;color:#9ca3af;">${t.confidenceNote || ''}</span></div>` : ''}
       <div class="jb-trend-desc">${t.description}</div>
       <div class="jb-trend-metrics">
         <div class="jb-metric">
@@ -580,9 +581,6 @@ function getCharmConcepts(trend) {
     'grimace-shake':       ['Hero charm: Grimace purple blob full-body — faithful to McDonald\'s character', 'Grimace shake cup charm: the purple milkshake that broke the internet', 'Duo restock: Grimace + golden arch charm — collab pack (requires McDonald\'s licensing)'],
     'panda-twins':         ['Twin set: Bao Li + Qing Bao twin panda cubs — sold as an inseparable pair', 'Bamboo accessory charm: mini bamboo stalk companions to the twin set', 'Sleepy panda variant: cub curled up asleep — taps into the "cute resting" content format'],
     'stanley-cup':         ['Mini Stanley cup charm: the iconic handle + colour-match lid, in multiple colourways', 'Colour-match pack: Stanley charm + matching Jibbitz in 5 popular Stanley colours', 'Collab set: "Crocs x Stanley" co-branded pack (approach Stanley for partnership)'],
-    'seoul-escape-dogs':   ['Hero charm: "leader dog" silhouette mid-stride — the dog who clearly planned the whole thing', 'Convenience store moment: tiny dog paw on a shelf — captures the iconic CCTV freeze-frame', '6-pack: each escape dog in a different running pose — the most ambitious Jibbitz drop ever'],
-    'capybara-election':   ['Hero charm: capybara in a presidential sash with a blank expression — the blank stare IS the charm', '3-pack: capybara + ballot box + campaign banner — the full election story', 'Victory pose variant: capybara at a podium, no notes, unbothered'],
-    'tornado-cat':         ['Hero charm: cat silhouette sitting perfectly still, stylised flat-art style — the unbothered pose is iconic', 'Duo set: tornado swirl + sitting cat — captures the contrast energy', 'Expression close-up: deadpan cat face with no context needed'],
   };
   return conceptMap[trend.id] || [
     `Hero ${trend.name} charm — 3D sculpted, key recognisable feature as focal point`,
