@@ -2,6 +2,7 @@
 
 function initEmotion() {
   renderDataStatusBanner();
+  renderBrandHealthScore();
   renderEmotionKPIs();
   renderEmotionRadar();
   renderPerceptionGaps();
@@ -11,6 +12,9 @@ function initEmotion() {
   renderRiskOpportunityGrid();
   renderMacroSignals();
   renderMessagingResonance();
+  renderCustomerValue();
+  renderCollabScorecard();
+  renderCapabilityStatus();
   renderMethodologyTable();
 
   const label = document.getElementById('emotionLastUpdated');
@@ -439,4 +443,179 @@ function renderMessagingResonance() {
       <div class="msg-insight">${m.insight}</div>
     </div>`;
   }).join('');
+}
+
+// ─── Brand Health Score ──────────────────────────────────────────────────────
+function renderBrandHealthScore() {
+  const el = document.getElementById('brandHealthScore');
+  if (!el || typeof BRAND_HEALTH_SCORE === 'undefined') return;
+  const bhs = BRAND_HEALTH_SCORE;
+  const tierColor = bhs.overall >= 90 ? '#43B02A' : bhs.overall >= 75 ? '#3b82f6' : bhs.overall >= 60 ? '#f59e0b' : '#ef4444';
+  const delta = bhs.delta >= 0 ? `<span style="color:#43B02A;font-size:0.85rem;">▲ +${bhs.delta} pts vs prior quarter</span>` : `<span style="color:#ef4444;font-size:0.85rem;">▼ ${bhs.delta} pts vs prior quarter</span>`;
+
+  el.innerHTML = `
+    <div style="display:flex;align-items:flex-start;gap:2rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+      <div style="text-align:center;flex-shrink:0;">
+        <div style="font-size:4rem;font-weight:800;color:${tierColor};line-height:1;">${bhs.overall}</div>
+        <div style="font-size:0.75rem;color:#6b7280;margin-top:2px;">/ 100</div>
+        <div style="font-size:0.8rem;font-weight:700;background:${tierColor}18;color:${tierColor};border:1px solid ${tierColor}40;border-radius:20px;padding:3px 12px;margin-top:6px;">${bhs.tier}</div>
+        <div style="margin-top:6px;">${delta}</div>
+        <div style="font-size:0.75rem;color:#9ca3af;margin-top:4px;">Target: ${bhs.quarterlyTarget} by Q4 2026</div>
+      </div>
+      <div style="flex:1;min-width:220px;">
+        ${bhs.pillars.map(p => {
+          const pColor = p.status === 'strong' ? '#43B02A' : p.status === 'developing' ? '#f59e0b' : '#ef4444';
+          const barWidth = p.score;
+          return `
+          <div style="margin-bottom:1rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <span style="font-weight:600;font-size:0.9rem;">Pillar ${bhs.pillars.indexOf(p)+1}: ${p.name} <span style="color:#9ca3af;font-weight:400;">(${p.weight}%)</span></span>
+              <span style="font-weight:700;color:${pColor}">${p.score}/100 → <span style="color:#374151">${p.weightedContribution} pts</span></span>
+            </div>
+            <div style="background:#e5e7eb;border-radius:4px;height:10px;overflow:hidden;margin-bottom:6px;">
+              <div style="background:${pColor};width:${barWidth}%;height:100%;border-radius:4px;transition:width 0.6s;"></div>
+            </div>
+            <div style="font-size:0.78rem;color:#6b7280;">${p.note}</div>
+          </div>`;
+        }).join('')}
+        <div style="border-top:1px solid #e5e7eb;padding-top:0.75rem;margin-top:0.5rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+            <span style="font-weight:600;font-size:0.9rem;">Pillar 3: ${bhs.pillar3.name} <span style="color:#9ca3af;font-weight:400;">(MMM anchor)</span></span>
+            <span style="font-size:0.8rem;background:#f3f4f6;color:#6b7280;border:1px solid #d1d5db;border-radius:4px;padding:2px 8px;">${bhs.pillar3.status === 'partial' ? '⚠ Partial' : '✓ Active'}</span>
+          </div>
+          <div style="font-size:0.78rem;color:#6b7280;">${bhs.pillar3.nextStep}</div>
+        </div>
+      </div>
+    </div>
+    <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:8px;padding:1rem;">
+      <div style="font-size:0.75rem;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem;">The narrative shift this framework enables</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;font-size:0.82rem;">
+        <div style="background:#fef2f2;border-left:3px solid #ef4444;padding:0.75rem;border-radius:0 6px 6px 0;">
+          <div style="font-weight:700;color:#b91c1c;margin-bottom:4px;">BEFORE (impressions only)</div>
+          <div style="color:#374151;font-style:italic;">${bhs.narrative.before}</div>
+        </div>
+        <div style="background:#f0fdf4;border-left:3px solid #43B02A;padding:0.75rem;border-radius:0 6px 6px 0;">
+          <div style="font-weight:700;color:#166534;margin-bottom:4px;">AFTER (Brand Health Score)</div>
+          <div style="color:#374151;font-style:italic;">${bhs.narrative.after}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+// ─── Pillar 2: Customer Value ────────────────────────────────────────────────
+function renderCustomerValue() {
+  const el = document.getElementById('customerValueMetrics');
+  if (!el || typeof CUSTOMER_VALUE_METRICS === 'undefined') return;
+
+  el.innerHTML = CUSTOMER_VALUE_METRICS.map(m => {
+    const pct = m.worldClass ? Math.round((m.value / m.worldClass) * 100) : m.value;
+    const barVal = Math.min(m.value, 100);
+    const benchmarkLine = m.benchmark !== null
+      ? `<div style="position:absolute;left:${Math.min(m.benchmark, 100)}%;top:0;bottom:0;width:2px;background:#9ca3af;opacity:0.6;" title="Benchmark: ${m.benchmark}${m.unit}"></div>`
+      : '';
+    return `
+    <div class="emotion-kpi-card" style="border-top:3px solid ${m.color}">
+      <div class="emotion-kpi-icon">${m.icon}</div>
+      <div class="emotion-kpi-value" style="color:${m.color}">${m.value}${m.unit}</div>
+      <div class="emotion-kpi-label">${m.label}</div>
+      <div style="margin:8px 0;position:relative;">
+        <div style="background:#e5e7eb;border-radius:4px;height:6px;overflow:visible;position:relative;">
+          <div style="background:${m.color};width:${barVal}%;height:100%;border-radius:4px;"></div>
+          ${benchmarkLine}
+        </div>
+        ${m.benchmark !== null ? `<div style="font-size:0.7rem;color:#9ca3af;margin-top:3px;">${m.benchmarkLabel}: ${m.benchmark}${m.unit}</div>` : `<div style="font-size:0.7rem;color:#9ca3af;margin-top:3px;">${m.benchmarkLabel}</div>`}
+      </div>
+      <div class="emotion-kpi-sub">${m.note}</div>
+    </div>`;
+  }).join('');
+}
+
+// ─── Pillar 3: Collab Scorecard ───────────────────────────────────────────────
+function renderCollabScorecard() {
+  const el = document.getElementById('collabScorecard');
+  if (!el || typeof COLLAB_SCORECARD === 'undefined') return;
+
+  const statusConfig = {
+    complete:   { label: 'COMPLETE', color: '#43B02A' },
+    benchmark:  { label: 'BENCHMARK EXAMPLE', color: '#3b82f6' },
+    active:     { label: 'ACTIVE', color: '#f59e0b' },
+  };
+
+  el.innerHTML = COLLAB_SCORECARD.map(c => {
+    const cfg = statusConfig[c.status] || statusConfig.complete;
+    return `
+    <div style="border:1px solid #e5e7eb;border-radius:10px;padding:1.25rem;margin-bottom:1rem;background:#fafafa;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:1rem;">
+        <div>
+          <div style="font-weight:700;font-size:1rem;">${c.collab}</div>
+          <div style="font-size:0.78rem;color:#6b7280;">${c.partner} · ${c.date} · ${c.horizon}-term horizon</div>
+        </div>
+        <span style="font-size:0.72rem;font-weight:700;background:${cfg.color}15;color:${cfg.color};border:1px solid ${cfg.color}40;border-radius:4px;padding:2px 8px;">${cfg.label}</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;font-size:0.82rem;">
+        <div style="background:#fef2f2;border-left:3px solid #ef4444;padding:0.75rem;border-radius:0 6px 6px 0;">
+          <div style="font-weight:700;color:#b91c1c;margin-bottom:4px;font-size:0.75rem;">IMPRESSIONS VIEW</div>
+          <div style="color:#374151;">${c.impressionsMetric}</div>
+        </div>
+        <div style="background:#f0fdf4;border-left:3px solid #43B02A;padding:0.75rem;border-radius:0 6px 6px 0;">
+          <div style="font-weight:700;color:#166534;margin-bottom:4px;font-size:0.75rem;">FINANCIAL / LTV VIEW</div>
+          <div style="color:#374151;">${c.financialMetric}</div>
+        </div>
+      </div>
+      <div style="margin-top:0.75rem;display:flex;gap:1rem;flex-wrap:wrap;font-size:0.78rem;">
+        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:4px 10px;color:#1d4ed8;"><strong>LTV signal:</strong> ${c.ltvSignal}</div>
+        <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:6px;padding:4px 10px;color:#5b21b6;"><strong>Score impact:</strong> ${c.scoreMovement}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ─── Pillar 3: Capability Status ─────────────────────────────────────────────
+function renderCapabilityStatus() {
+  const el = document.getElementById('capabilityStatus');
+  if (!el || typeof CAPABILITY_STATUS === 'undefined') return;
+
+  const statusConfig = {
+    confirmed:  { label: '✓ Confirmed',       color: '#43B02A', bg: '#f0fdf4' },
+    partial:    { label: '◑ Partial',          color: '#f59e0b', bg: '#fffbeb' },
+    needed:     { label: '✕ Needs structure',  color: '#ef4444', bg: '#fef2f2' },
+    investment: { label: '$ Investment needed',color: '#8b5cf6', bg: '#f5f3ff' },
+  };
+
+  const priorityLabel = {
+    extend:    'Extend →',
+    leverage:  'Leverage →',
+    scale:     'Scale →',
+    immediate: 'Do immediately',
+    upgrade:   'Upgrade',
+    phase3:    'Phase 3',
+  };
+
+  el.innerHTML = `
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:0.83rem;">
+        <thead>
+          <tr style="background:#f9fafb;border-bottom:2px solid #e5e7eb;">
+            <th style="text-align:left;padding:10px 12px;font-weight:700;color:#374151;">Capability</th>
+            <th style="text-align:center;padding:10px 12px;font-weight:700;color:#374151;">Status</th>
+            <th style="text-align:center;padding:10px 12px;font-weight:700;color:#374151;">Priority</th>
+            <th style="text-align:left;padding:10px 12px;font-weight:700;color:#374151;">Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${CAPABILITY_STATUS.map((c, i) => {
+            const cfg = statusConfig[c.status];
+            return `
+            <tr style="border-bottom:1px solid #f3f4f6;background:${i % 2 === 0 ? '#fff' : '#fafafa'}">
+              <td style="padding:10px 12px;font-weight:600;">${c.capability}</td>
+              <td style="padding:10px 12px;text-align:center;">
+                <span style="font-size:0.75rem;font-weight:700;background:${cfg.bg};color:${cfg.color};border:1px solid ${cfg.color}40;border-radius:4px;padding:2px 8px;white-space:nowrap;">${cfg.label}</span>
+              </td>
+              <td style="padding:10px 12px;text-align:center;font-size:0.75rem;font-weight:600;color:#6b7280;">${priorityLabel[c.priority] || c.priority}</td>
+              <td style="padding:10px 12px;color:#6b7280;">${c.note}</td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>`;
 }

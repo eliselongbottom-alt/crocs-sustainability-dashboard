@@ -246,3 +246,154 @@ const MESSAGING_RESONANCE = [
   { message: '"Glad You Noticed"',       emotionScore: 88, resonance: 86, primaryEmotion: "Confidence / Wit",     audience: "Gen Z + Millennials",  flag: false, insight: "Best-in-class message for earned media and social. The wink at haters converts detractors into brand conversation — net positive even from negative attention." },
   { message: '"Let Them Talk"',          emotionScore: 92, resonance: 91, primaryEmotion: "Defiance / Pride",     audience: "Gen Z",                flag: false, insight: "Highest resonance score in the set. Taps directly into Gen Z's anti-conformity identity. Transforms brand polarisation into a cultural badge of honour." },
 ];
+
+// ─── Brand Health Score (Three-Pillar Composite) ────────────────────────────
+const BRAND_HEALTH_SCORE = {
+  overall: 68,
+  tier: "Developing",  // <60 At Risk | 60–74 Developing | 75–89 Strong | 90+ World Class
+  quarterlyTarget: 75,
+  priorScore: 64,
+  delta: +4,
+  pillars: [
+    {
+      id: "resonance",
+      name: "Brand Resonance",
+      weight: 40,
+      score: 75,
+      weightedContribution: 30,
+      trend: "up",
+      status: "strong",
+      note: "Emotion scores and momentum trending positively. 28-pt average perception gap is the primary drag — reducing this to <20 would add ~3pts to overall score.",
+      keyMetrics: ["Brand Emotion Score: 74/100", "Brand Momentum: 82/100", "Trust Index: 71/100", "Avg Perception Gap: 28pts (target <20)"],
+    },
+    {
+      id: "customer-value",
+      name: "Customer Value",
+      weight: 60,
+      score: 63,
+      weightedContribution: 38,
+      trend: "stable",
+      status: "developing",
+      note: "Jibbitz attach rate is a unique competitive moat — customers who buy Jibbitz have 2.3× higher 12-month LTV. NPS (52) is above footwear average but has significant room to grow. Unified customer ID is the key missing infrastructure.",
+      keyMetrics: ["NPS: 52 (category avg: 38)", "Repeat Purchase Rate: 38%", "Jibbitz Attach Rate: 34%", "Digital LTV Index: 74/100"],
+    },
+  ],
+  pillar3: {
+    name: "Commercial Impact",
+    status: "partial",
+    anchor: "Existing Marketing Mix Model (MMM)",
+    confirmed: ["MMM confirmed", "51% digital revenue (closed-loop attribution)", "Jibbitz attach rate as LTV signal"],
+    gaps: ["Brand health score as MMM input — not yet implemented", "Brand equity premium vs. competitors — not measured", "Collab ROI in financial terms, not just media metrics"],
+    nextStep: "Extend MMM with brand health score inputs. Scope with MMM vendor in Q2 2026.",
+  },
+  narrative: {
+    before: "\"Our Bad Bunny collaboration generated 2.1 billion impressions and significant social engagement.\"",
+    after: "\"Our Bad Bunny collaboration drove a 9-point lift in brand affinity among the 18–34 demographic, a 340% spike in branded search, and a cohort with 2.3× higher 90-day LTV than our baseline. Our MMM attributes $X million in incremental revenue to the halo effect in the 8 weeks post-launch. The collaboration increased our Brand Health Score by 6 points — historically, that level of score movement has preceded 3–4% revenue outperformance the following quarter.\"",
+  },
+};
+
+// ─── Pillar 2: Customer Value Metrics ───────────────────────────────────────
+const CUSTOMER_VALUE_METRICS = [
+  {
+    label: "Net Promoter Score",
+    value: 52,
+    unit: "",
+    benchmark: 38,
+    benchmarkLabel: "Footwear avg",
+    worldClass: 72,
+    icon: "📣",
+    color: "#43B02A",
+    note: "Above category average. Gap to world-class consumer brands (~72) is the primary NPS growth opportunity. Collab drops consistently spike NPS 8–12 weeks post-launch.",
+  },
+  {
+    label: "Repeat Purchase Rate",
+    value: 38,
+    unit: "%",
+    benchmark: 28,
+    benchmarkLabel: "Category avg",
+    worldClass: 52,
+    icon: "🔁",
+    color: "#3b82f6",
+    note: "Jibbitz purchasers repurchase at 2.1× the rate of non-Jibbitz customers. Jibbitz is the single most effective loyalty driver in the portfolio.",
+  },
+  {
+    label: "Jibbitz Attach Rate",
+    value: 34,
+    unit: "%",
+    benchmark: null,
+    benchmarkLabel: "Crocs-unique metric",
+    worldClass: 50,
+    icon: "✨",
+    color: "#f59e0b",
+    note: "Uniquely Crocs signal. Customers with Jibbitz have 2.3× higher 12-month LTV. Target: 40% by Q4 2026. Every 1pt increase = meaningful LTV uplift across the customer base.",
+  },
+  {
+    label: "Digital LTV Index",
+    value: 74,
+    unit: "/100",
+    benchmark: null,
+    benchmarkLabel: "Crocs baseline = 100",
+    worldClass: 100,
+    icon: "💰",
+    color: "#8b5cf6",
+    note: "Indexed to Crocs baseline cohort. 51% digital penetration enables closed-loop measurement across the full purchase journey — from campaign exposure through repeat behaviour.",
+  },
+  {
+    label: "Unprompted Advocacy",
+    value: 68,
+    unit: "/100",
+    benchmark: 45,
+    benchmarkLabel: "Category avg",
+    worldClass: 85,
+    icon: "💬",
+    color: "#ec4899",
+    note: "Share of customers who recommend Crocs without prompting. Collab moments are the most reliable unprompted advocacy triggers — 8-week post-launch spike is consistent.",
+  },
+];
+
+// ─── Pillar 3: Collab Scorecard ──────────────────────────────────────────────
+const COLLAB_SCORECARD = [
+  {
+    collab: "Punch the Monkey",
+    date: "March 2026",
+    partner: "Zoo Atlanta (organic)",
+    horizon: "Short",
+    impressionsMetric: "2.4M social likes · 47 PR pickups · Best-performing Crocs post ever",
+    financialMetric: "Best-selling single Jibbitz Q1 2026 · +4pts Jibbitz attach rate in launch week · 8-pt brand affinity lift (18–34)",
+    ltvSignal: "Jibbitz attach rate spike → measurable LTV uplift in launch-week cohort",
+    scoreMovement: "+6pts Brand Momentum",
+    status: "complete",
+  },
+  {
+    collab: "Bad Bunny",
+    date: "2024",
+    partner: "Bad Bunny (licensed)",
+    horizon: "Long",
+    impressionsMetric: "2.1B impressions · significant social engagement",
+    financialMetric: "9-pt brand affinity lift (18–34) · 340% branded search spike · New customer cohort: 2.3× higher 90-day LTV vs. baseline · MMM attributes incremental halo revenue in 8 weeks post-launch",
+    ltvSignal: "2.3× 90-day LTV in new customer cohort — the framework benchmark",
+    scoreMovement: "+6pts Brand Health Score (modeled)",
+    status: "benchmark",
+  },
+  {
+    collab: "Moo Deng (Original)",
+    date: "Oct 2024",
+    partner: "Khao Kheow Zoo",
+    horizon: "Short",
+    impressionsMetric: "1.8M social likes · 32 PR pickups · Sold out in 4 hours",
+    financialMetric: "3 restocks · 340% Crocs.com traffic from non-US markets · Strong LTV signal in international customer cohorts",
+    ltvSignal: "International customer acquisition above-average LTV — case for global simultaneous restock",
+    scoreMovement: "+4pts Brand Momentum (international)",
+    status: "complete",
+  },
+];
+
+// ─── Pillar 3: Capability Status Table ──────────────────────────────────────
+const CAPABILITY_STATUS = [
+  { capability: "Marketing Mix Model (MMM)", status: "confirmed", crocs: "Confirmed", priority: "extend", note: "Most valuable existing asset. Opportunity: extend MMM with brand health score as input variable — turns a media planning tool into a brand equity valuation instrument." },
+  { capability: "50%+ Digital Revenue (Closed Loop)", status: "confirmed", crocs: "Confirmed", priority: "leverage", note: "For majority of revenue, the full attribution chain is observable — campaign exposure → purchase → repeat behaviour. This is a rare competitive measurement advantage." },
+  { capability: "Jibbitz Attach Rate Tracking", status: "confirmed", crocs: "Confirmed (unique to Crocs)", priority: "scale", note: "Uniquely Crocs measurement signal. Customers with Jibbitz have 2.3× higher 12-month LTV. Should be a primary KPI in every brand and product review." },
+  { capability: "Brand Tracking Surveys (Quarterly)", status: "needed", crocs: "Needs structure", priority: "immediate", note: "Design quarterly survey instrument. Commission Harris Poll or YouGov. First survey in field by Q2 2026. This feeds directly into Pillar 1 Brand Resonance score." },
+  { capability: "Sentiment Listening Pipeline", status: "partial", crocs: "Partial", priority: "upgrade", note: "Social listening exists but not structured for brand health scoring. Brandwatch or Sprinklr enterprise setup needed to feed Pillar 1 systematically." },
+  { capability: "Unified Customer ID / CDP", status: "investment", crocs: "Investment needed", priority: "phase3", note: "Most important long-term infrastructure. Enables full cross-channel LTV model and connects brand health movements to revenue outcomes. Evaluate Segment, mParticle, or Salesforce CDP in Q2–Q3 2026." },
+];

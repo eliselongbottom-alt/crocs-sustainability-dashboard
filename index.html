@@ -476,19 +476,33 @@
     <section class="card emotion-intro-card">
       <div class="emotion-intro-inner">
         <div>
-          <h3 style="font-size:1.3rem;margin-bottom:0.3rem;">Emotion Gap Navigator</h3>
-          <p class="actions-subtitle">Uncover emotional perception gaps between Crocs' brand intent and what audiences actually feel — and where the risks and opportunities live. <span id="emotionLastUpdated" style="color:#6b7280;"></span></p>
+          <h3 style="font-size:1.3rem;margin-bottom:0.3rem;">Brand Health Score</h3>
+          <p class="actions-subtitle">Three-pillar framework connecting brand performance to financial outcomes — Brand Resonance (40%) + Customer Value (60%) + Commercial Impact (MMM anchor). <span id="emotionLastUpdated" style="color:#6b7280;"></span></p>
         </div>
         <div class="emotion-intro-badges">
-          <span class="emotion-intro-badge">Risk Communication</span>
-          <span class="emotion-intro-badge">Behavioral Psychology</span>
-          <span class="emotion-intro-badge">Always-On</span>
+          <span class="emotion-intro-badge">Brand Resonance</span>
+          <span class="emotion-intro-badge">Customer Value</span>
+          <span class="emotion-intro-badge">Commercial Impact</span>
         </div>
       </div>
     </section>
 
     <!-- Data Status Banner -->
     <div id="emotionDataStatusBanner"></div>
+
+    <!-- Brand Health Score Composite -->
+    <section class="card">
+      <h3>Brand Health Score — Q1 2026</h3>
+      <p class="actions-subtitle" style="margin-bottom:1rem;">Weighted composite across Brand Resonance (40%) and Customer Value (60%), anchored in the MMM. Replaces impressions as the primary brand KPI in CEO reporting.</p>
+      <div id="brandHealthScore"></div>
+    </section>
+
+    <!-- ── PILLAR 1: BRAND RESONANCE ── -->
+    <div style="margin:1.5rem 0 0.75rem;display:flex;align-items:center;gap:10px;">
+      <div style="background:#3b82f6;color:#fff;font-size:0.75rem;font-weight:800;padding:4px 12px;border-radius:20px;">PILLAR 1 · 40%</div>
+      <span style="font-size:1.1rem;font-weight:700;color:#1f2937;">Brand Resonance</span>
+      <span style="font-size:0.82rem;color:#6b7280;">— emotion, perception, trust, and cultural relevance</span>
+    </div>
 
     <!-- KPI Row -->
     <div class="emotion-kpi-row" id="emotionKPIs"></div>
@@ -527,6 +541,36 @@
         <p class="actions-subtitle" style="margin-bottom:1rem;">Where Crocs sits emotionally vs. Birkenstock, UGG, Vans, New Balance</p>
         <canvas id="competitorEmotionChart"></canvas>
       </div>
+    </section>
+
+    <!-- ── PILLAR 2: CUSTOMER VALUE ── -->
+    <div style="margin:1.5rem 0 0.75rem;display:flex;align-items:center;gap:10px;">
+      <div style="background:#43B02A;color:#fff;font-size:0.75rem;font-weight:800;padding:4px 12px;border-radius:20px;">PILLAR 2 · 60%</div>
+      <span style="font-size:1.1rem;font-weight:700;color:#1f2937;">Customer Value</span>
+      <span style="font-size:0.82rem;color:#6b7280;">— LTV, loyalty, Jibbitz attach, repeat purchase, advocacy</span>
+    </div>
+
+    <div class="emotion-kpi-row" id="customerValueMetrics"></div>
+
+    <!-- ── PILLAR 3: COMMERCIAL IMPACT ── -->
+    <div style="margin:1.5rem 0 0.75rem;display:flex;align-items:center;gap:10px;">
+      <div style="background:#f59e0b;color:#fff;font-size:0.75rem;font-weight:800;padding:4px 12px;border-radius:20px;">PILLAR 3</div>
+      <span style="font-size:1.1rem;font-weight:700;color:#1f2937;">Commercial Impact</span>
+      <span style="font-size:0.82rem;color:#6b7280;">— MMM anchor, collab ROI in financial terms, capability roadmap</span>
+    </div>
+
+    <!-- Collab Scorecard -->
+    <section class="card">
+      <h3>Collab Scorecard — Impressions vs. Financial Outcomes</h3>
+      <p class="actions-subtitle" style="margin-bottom:1.25rem;">What brand collaborations actually drove vs. what was reported. The left column is the old story. The right column is the framework story.</p>
+      <div id="collabScorecard"></div>
+    </section>
+
+    <!-- Capability Status -->
+    <section class="card">
+      <h3>Measurement Capability Status</h3>
+      <p class="actions-subtitle" style="margin-bottom:1.25rem;">Where Crocs stands today vs. what the full framework requires — and what to build next</p>
+      <div id="capabilityStatus"></div>
     </section>
 
     <!-- Risk & Opportunity Signals -->
