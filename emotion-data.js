@@ -1,7 +1,7 @@
 // Emotion Intelligence — Data Layer
 // Sources in production: Brandwatch, Sprinklr, Talkwalker + primary survey research
 
-const EMOTION_LAST_UPDATED = "2026-03-24";
+const EMOTION_LAST_UPDATED = "2026-04-18";
 
 // ─── Methodology & Sourcing ─────────────────────────────────────────────────
 const EMOTION_METHODOLOGY = {
@@ -121,15 +121,16 @@ const PERCEPTION_GAPS = [
 
 // ─── Emotion Trend (12 weeks) ───────────────────────────────────────────────
 const EMOTION_TREND = {
-  weeks: ["Jan W1","Jan W2","Jan W3","Jan W4","Feb W1","Feb W2","Feb W3","Feb W4","Mar W1","Mar W2","Mar W3","Mar W4"],
-  Joy:         [62, 65, 68, 70, 72, 69, 74, 76, 72, 75, 78, 72],
-  Trust:       [72, 70, 68, 72, 74, 71, 69, 70, 72, 68, 65, 68],
-  Anger:       [20, 18, 22, 25, 20, 18, 15, 14, 16, 15, 12, 15],
-  Anticipation:[45, 50, 52, 55, 58, 60, 62, 65, 60, 62, 64, 61],
+  weeks: ["Jan W4","Feb W1","Feb W2","Feb W3","Feb W4","Mar W1","Mar W2","Mar W3","Mar W4","Apr W1","Apr W2","Apr W3"],
+  Joy:         [70, 72, 69, 74, 76, 72, 75, 78, 72, 74, 76, 78],
+  Trust:       [72, 74, 71, 69, 70, 72, 68, 65, 68, 67, 65, 64],
+  Anger:       [25, 20, 18, 15, 14, 16, 15, 12, 15, 20, 24, 26],
+  Anticipation:[55, 58, 60, 62, 65, 60, 62, 64, 61, 65, 70, 72],
   // Key events to annotate
   events: [
     { week: "Feb W1", label: "Punch the Monkey launch", color: "#43B02A" },
     { week: "Mar W2", label: "Tariff news spike", color: "#ef4444" },
+    { week: "Apr W2", label: "Coachella Weekend 1", color: "#8b5cf6" },
   ],
 };
 
