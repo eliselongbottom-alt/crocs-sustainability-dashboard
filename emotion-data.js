@@ -1,5 +1,4 @@
 // Emotion Intelligence — Data Layer
-// Replicates Allison Worldwide "Emotion Gap Navigator" methodology
 // Sources in production: Brandwatch, Sprinklr, Talkwalker + primary survey research
 
 const EMOTION_LAST_UPDATED = "2026-03-24";
@@ -8,7 +7,7 @@ const EMOTION_LAST_UPDATED = "2026-03-24";
 const EMOTION_METHODOLOGY = {
   dataStatus: "modeled",  // "modeled" = representative estimates | "live" = real API feed
   dataStatusLabel: "Representative Model",
-  dataStatusNote: "All scores below are modeled estimates based on publicly available research, analyst reports, and brand tracking studies. They are designed to replicate the Allison Worldwide methodology for comparison purposes. In production, these would be replaced by live social listening APIs.",
+  dataStatusNote: "All scores below are modeled estimates based on publicly available research, analyst reports, and brand tracking studies. In production, these would be replaced by live social listening APIs.",
 
   sections: [
     {
@@ -17,7 +16,7 @@ const EMOTION_METHODOLOGY = {
       method: "Composite index",
       source: "Modeled — weighted average of emotion, trust, and resonance sub-scores",
       production: "Brandwatch or Sprinklr social listening API, applied to ~30 days of Crocs brand mentions",
-      framework: "Allison Worldwide Emotion Gap Navigator composite methodology",
+      framework: "Emotion Gap Navigator composite methodology — weighted average of emotion, trust, and resonance sub-scores",
     },
     {
       id: "radar",
@@ -33,7 +32,7 @@ const EMOTION_METHODOLOGY = {
       method: "Desired vs. Actual gap scoring per brand attribute",
       source: "Desired: based on publicly stated Crocs brand positioning (annual reports, investor decks, CMO interviews). Actual: estimated from Crocs consumer reviews (Trustpilot, Reddit, YouTube comments), YouGov brand tracker data, and Mintel footwear category reports",
       production: "Desired scores set internally by brand team. Actual scores from Harris Poll or YouGov quarterly brand perception survey + social listening attribute tagging",
-      framework: "Standard brand perception gap analysis — used by Edelman, Ketchum, and Allison Worldwide. Gap > 20pts = material reputational risk.",
+      framework: "Standard brand perception gap analysis — used by Edelman and Ketchum. Gap > 20pts = material reputational risk.",
     },
     {
       id: "trend",
@@ -72,7 +71,7 @@ const EMOTION_METHODOLOGY = {
       title: "Macro Environmental Scan",
       method: "Qualitative signal identification with risk rating",
       source: "Based on publicly available sources: Reuters/AP tariff coverage (Mar 2026), Edelman Trust Barometer 2025, Mintel sustainability in apparel report 2025, McKinsey State of Fashion 2026, Pew Research consumer sentiment data",
-      production: "Allison Worldwide Environmental Scan combines Harvard Harris Poll primary research + Mintel/Statista secondary research + proprietary social listening. This prototype replicates the output format using public sources.",
+      production: "Environmental Scan combines Harvard Harris Poll primary research + Mintel/Statista secondary research + proprietary social listening. This prototype replicates the output format using public sources.",
       framework: "PESTLE-adjacent scan (Political, Economic, Social, Technology, Legal, Environmental) filtered for Crocs' specific risk profile",
     },
     {
