@@ -607,44 +607,23 @@
   <!-- ═══ TAB: GOOGLE TRENDS ═══ -->
   <main id="tab-gtrends" class="tab-content">
 
-    <!-- Data notice -->
+    <!-- Meta banner -->
     <div id="gtMetaBanner" class="gt-meta-banner"></div>
-
-    <!-- Upload status -->
     <div id="gtUploadStatus" class="gt-upload-status" style="display:none;"></div>
 
-    <!-- Summary Table -->
+    <!-- Global Moments — cross-market signals -->
     <section class="card">
-      <h3>Market Summary — Search Interest in "Crocs"</h3>
-      <p class="actions-subtitle">Click any row to explore that market in detail below. Interest scores are normalized 0–100 within each market — not comparable across markets.</p>
-      <div class="table-wrap">
-        <table class="gt-summary-table">
-          <thead>
-            <tr>
-              <th rowspan="2">Market</th>
-              <th colspan="4" style="background:#43B02A15;color:#43B02A;text-align:center;">Last 90 Days</th>
-              <th colspan="4" style="background:#3b82f615;color:#3b82f6;text-align:center;">Last 30 Days</th>
-            </tr>
-            <tr>
-              <th>Avg Interest</th><th>Peak</th><th>Rising Terms</th><th>Breakout Terms</th>
-              <th>Avg Interest</th><th>Peak</th><th>Rising Terms</th><th>Breakout Terms</th>
-            </tr>
-          </thead>
-          <tbody id="gtSummaryBody"></tbody>
-        </table>
-      </div>
+      <h3>Cross-Market Moments <span style="font-size:0.75rem;font-weight:400;color:#6b7280;">— topics trending in 3+ markets simultaneously</span></h3>
+      <p class="actions-subtitle">Where global culture is moving right now — and where Crocs has an activation angle</p>
+      <div id="gtGlobalMoments" class="gt-moments-grid"></div>
     </section>
 
     <!-- Market Explorer -->
     <section class="card">
       <div class="gt-explorer-header">
         <div>
-          <h3 id="gtMarketHeader">Select a market above</h3>
-          <p class="actions-subtitle">Interest over time, top queries, and rising/breakout search terms</p>
-        </div>
-        <div class="gt-tf-toggle">
-          <button class="gt-tf-btn active" data-tf="90d" onclick="setGtTimeframe('90d')">90 Days</button>
-          <button class="gt-tf-btn" data-tf="30d" onclick="setGtTimeframe('30d')">30 Days</button>
+          <h3 id="gtMarketHeader">United States — What's Trending</h3>
+          <p class="actions-subtitle">Top searches by rank, category breakdown, and Crocs opportunity mapping</p>
         </div>
       </div>
 
@@ -655,15 +634,15 @@
       <div id="gtMarketContent" class="gt-market-content"></div>
     </section>
 
-    <!-- Excel Upload Drop Zone -->
+    <!-- Upload + How-to -->
     <section class="card">
       <h3>Update Data — Upload Excel Snapshot</h3>
-      <p class="actions-subtitle">Drag &amp; drop your <code>crocs_trends_YYYY-MM-DD.xlsx</code> file here to instantly refresh all charts and tables. No page reload needed.</p>
+      <p class="actions-subtitle">Drag &amp; drop your <code>crocs_trends_YYYY-MM-DD.xlsx</code> file here to instantly refresh all rankings. No page reload needed.</p>
       <div id="gtDropzone" class="gt-dropzone">
         <div class="gt-dropzone-inner">
           <div class="gt-dropzone-icon">📂</div>
           <div class="gt-dropzone-label">Drop Excel file here or <span class="gt-dropzone-link">click to browse</span></div>
-          <div class="gt-dropzone-sub">Accepts .xlsx files matching the Crocs Trends snapshot format</div>
+          <div class="gt-dropzone-sub">Accepts .xlsx files matching the trending snapshot format from fetch_trends.py</div>
         </div>
       </div>
       <input type="file" id="gtExcelInput" accept=".xlsx,.xls" style="display:none;">
@@ -671,13 +650,13 @@
 
     <!-- Fetch Instructions -->
     <section class="card">
-      <h3>How to Get Live Data — Bypassing Google's Block</h3>
-      <p class="actions-subtitle">Google Trends has no official API. Here are the three options for getting real data, from easiest to most technical.</p>
+      <h3>How to Get Live Trending Data — Bypassing Google's Block</h3>
+      <p class="actions-subtitle">Google Trends has no official API. Three ways to pull real trending search data.</p>
       <div class="gt-methods-grid">
         <div class="gt-method-card gt-method-best">
           <div class="gt-method-badge">Recommended</div>
           <div class="gt-method-title">SerpAPI (free tier)</div>
-          <div class="gt-method-desc">Reliable, bypasses all blocking. Free tier = 100 searches/month — enough for weekly refreshes across all 8 markets.</div>
+          <div class="gt-method-desc">Reliable, never blocked. Free tier = 100 searches/month — enough for weekly refreshes across all markets.</div>
           <ol class="gt-method-steps">
             <li>Sign up at <strong>serpapi.com</strong> — free, no credit card</li>
             <li>Copy your API key from the dashboard</li>
@@ -687,23 +666,23 @@
         </div>
         <div class="gt-method-card">
           <div class="gt-method-badge gt-method-badge-free">Free / Unstable</div>
-          <div class="gt-method-title">pytrends with cookie workaround</div>
-          <div class="gt-method-desc">The unofficial Python library. Works best from a home/office IP. Adding your Chrome cookies dramatically reduces 429 blocks.</div>
+          <div class="gt-method-title">pytrends + Chrome cookies</div>
+          <div class="gt-method-desc">Free Python library. Adding your Chrome cookies dramatically reduces Google's 429 blocking.</div>
           <ol class="gt-method-steps">
             <li>Install: <code>pip install pytrends browser-cookie3</code></li>
-            <li>Run (uses your Chrome session): <code>python3 fetch_trends.py --api pytrends --cookies</code></li>
-            <li>If still blocked: try a different network or wait a few hours</li>
+            <li>Run: <code>python3 fetch_trends.py --cookies</code></li>
+            <li>If blocked: try a different network or wait a few hours</li>
           </ol>
         </div>
         <div class="gt-method-card">
           <div class="gt-method-badge gt-method-badge-manual">Manual</div>
-          <div class="gt-method-title">Export from Google Trends directly</div>
-          <div class="gt-method-desc">Zero code. Takes ~15 min. Works 100% of the time.</div>
+          <div class="gt-method-title">Export directly from Google Trends</div>
+          <div class="gt-method-desc">Zero code. Takes ~15 min. Always works.</div>
           <ol class="gt-method-steps">
-            <li>Go to <strong>trends.google.com</strong></li>
-            <li>Search "Crocs", select a country + 90-day timeframe</li>
-            <li>Download CSV, paste into the Excel template</li>
-            <li>Drag the completed Excel onto the upload zone above</li>
+            <li>Go to <strong>trends.google.com → Trending Now</strong></li>
+            <li>Select each country, download the CSV</li>
+            <li>Paste into the Excel template (one sheet per market)</li>
+            <li>Drop the completed file above</li>
           </ol>
         </div>
       </div>

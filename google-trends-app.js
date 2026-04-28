@@ -1,74 +1,77 @@
-// Google Trends Tab — Application Logic
+// Google Trends — Cultural Pulse Dashboard
+// Shows what people are generally searching for across key markets,
+// not brand-specific — used to spot cultural moments for Crocs to activate on.
 
 let _gtMarket = 'United States';
-let _gtTimeframe = '90d';
-let _gtChartInstance = null;
-let _gtUploadedData = null; // overrides GTRENDS_DATA when an Excel is uploaded
+let _gtCatFilter = 'all';
+let _gtCategoryChartInstance = null;
+let _gtUploadedData = null;
 
 function initGoogleTrends() {
-  renderGtSummaryTable();
+  renderGtMetaBanner();
+  renderGtGlobalMoments();
   renderGtMarketTabs();
   renderGtMarketView();
-  renderGtMetaBanner();
   initGtExcelUpload();
 }
 
 // ─── Data accessor ────────────────────────────────────────────────────────────
-function _gtData() {
-  const src = _gtUploadedData || GTRENDS_DATA;
-  return src[_gtMarket]?.[_gtTimeframe] || {};
-}
+function _gtSrc() { return _gtUploadedData || GTRENDS_TRENDING; }
+function _gtMarketData() { return _gtSrc()[_gtMarket] || {}; }
 
-// ─── Meta banner ─────────────────────────────────────────────────────────────
+// ─── Meta Banner ─────────────────────────────────────────────────────────────
 function renderGtMetaBanner() {
   const el = document.getElementById('gtMetaBanner');
   if (!el) return;
   const ts = new Date(GTRENDS_META.pulledAt);
-  const label = ts.toLocaleString('en-US', {
-    month: 'short', day: 'numeric', year: 'numeric',
-    hour: '2-digit', minute: '2-digit', timeZoneName: 'short',
-  });
+  const label = ts.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  const sampleBadge = GTRENDS_META.sampleData
+    ? `<span style="background:#fef3c7;border:1px solid #f59e0b;color:#92400e;font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:8px;">SAMPLE DATA</span>`
+    : `<span style="background:#f0fdf4;border:1px solid #86efac;color:#166534;font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:8px;">LIVE DATA</span>`;
   el.innerHTML = `
-    <span style="font-size:1.05rem;flex-shrink:0;">📊</span>
-    <div>
-      <strong>Google Trends — "${GTRENDS_META.keyword}"</strong> &nbsp;&bull;&nbsp;
-      Snapshot pulled: <strong>${label}</strong> &nbsp;&bull;&nbsp;
+    <span style="font-size:1.1rem;flex-shrink:0;">🌍</span>
+    <div style="flex:1;">
+      <strong>Cultural Pulse — What people are searching for</strong> ${sampleBadge}
+      <span style="color:#6b7280;margin:0 6px;">·</span>
+      Snapshot: <strong>${label}</strong>
+      <span style="color:#6b7280;margin:0 6px;">·</span>
       ${GTRENDS_META.note}
-      &nbsp;&bull;&nbsp; <button class="gt-upload-btn" onclick="document.getElementById('gtExcelInput').click()">Upload new Excel snapshot</button>
     </div>
+    <button class="gt-upload-btn" onclick="document.getElementById('gtExcelInput').click()">↑ Upload snapshot</button>
   `;
 }
 
-// ─── Summary Table ────────────────────────────────────────────────────────────
-function renderGtSummaryTable() {
-  const tbody = document.getElementById('gtSummaryBody');
-  if (!tbody) return;
-  const rows = getGtrendsSummary();
-  tbody.innerHTML = rows.map(r => {
-    if (r.blocked) {
-      return `
-        <tr>
-          <td><strong>${r.market}</strong> <span class="gt-geo-tag">${r.geo}</span></td>
-          <td colspan="8" style="color:#9ca3af;font-style:italic;text-align:center;">Google not available in market</td>
-        </tr>`;
-    }
-    const breakoutBadge = n => n > 0 ? `<span class="gt-breakout-badge">${n} Breakout</span>` : `<span style="color:#9ca3af;">—</span>`;
-    const risingBadge = n => n > 0 ? `<span class="gt-rising-badge">${n} Rising</span>` : `<span style="color:#9ca3af;">—</span>`;
-    const bar = v => v != null
-      ? `<div class="gt-summary-bar-wrap"><div class="gt-summary-bar-fill" style="width:${v}%;"></div><span class="gt-summary-bar-val">${v}</span></div>`
-      : `<span style="color:#9ca3af;">—</span>`;
+// ─── Global Moments Strip ─────────────────────────────────────────────────────
+function renderGtGlobalMoments() {
+  const el = document.getElementById('gtGlobalMoments');
+  if (!el) return;
+
+  const urgencyConfig = {
+    'Act Now':  { bg: '#fef2f2', border: '#fca5a5', text: '#dc2626', dot: '#dc2626' },
+    'Plan Now': { bg: '#fefce8', border: '#fde68a', text: '#ca8a04', dot: '#f59e0b' },
+    'Sustain':  { bg: '#f0fdf4', border: '#86efac', text: '#166534', dot: '#43B02A' },
+  };
+
+  el.innerHTML = GTRENDS_GLOBAL_MOMENTS.map(m => {
+    const uc = urgencyConfig[m.urgency] || urgencyConfig['Sustain'];
+    const cc = GT_CAT_COLORS[m.category] || { bg: '#f3f4f6', text: '#374151', bar: '#9ca3af' };
     return `
-      <tr class="gt-summary-row" onclick="selectGtMarket('${r.market}')" title="Click to view ${r.market}">
-        <td><strong>${r.market}</strong> <span class="gt-geo-tag">${r.geo}</span></td>
-        <td>${bar(r.avg90d)}</td>
-        <td>${r.peak90d ?? '—'}</td>
-        <td>${risingBadge(r.rising90d)}</td>
-        <td>${breakoutBadge(r.breakout90d)}</td>
-        <td>${bar(r.avg30d)}</td>
-        <td>${r.peak30d ?? '—'}</td>
-        <td>${risingBadge(r.rising30d)}</td>
-        <td>${breakoutBadge(r.breakout30d)}</td>
-      </tr>`;
+      <div class="gt-moment-card" style="border-top:3px solid ${uc.dot};">
+        <div class="gt-moment-top">
+          <span class="gt-moment-cat" style="background:${cc.bg};color:${cc.text};">${m.category}</span>
+          <span class="gt-moment-urgency" style="background:${uc.bg};color:${uc.text};border:1px solid ${uc.border};">
+            <span style="width:6px;height:6px;border-radius:50%;background:${uc.dot};display:inline-block;margin-right:4px;"></span>${m.urgency}
+          </span>
+        </div>
+        <div class="gt-moment-theme">${m.theme}</div>
+        <div class="gt-moment-markets">${m.markets.map(mk => `<span class="gt-moment-market-tag">${mk}</span>`).join('')}</div>
+        <div class="gt-moment-summary">${m.summary}</div>
+        <div class="gt-moment-angle">
+          <span class="gt-moment-angle-label">Crocs angle</span>
+          <span class="gt-moment-angle-text">${m.crocsAngle}</span>
+        </div>
+      </div>
+    `;
   }).join('');
 }
 
@@ -77,180 +80,198 @@ function renderGtMarketTabs() {
   const container = document.getElementById('gtMarketTabs');
   if (!container) return;
   container.innerHTML = GTRENDS_MARKETS.map(m => {
-    const mdata = ((_gtUploadedData || GTRENDS_DATA)[m] || {});
-    const blocked = mdata['90d']?.blocked;
+    const mdata = _gtSrc()[m] || {};
+    const blocked = mdata.blocked;
     return `
       <button class="gt-market-tab ${m === _gtMarket ? 'active' : ''} ${blocked ? 'gt-market-tab-blocked' : ''}"
               onclick="selectGtMarket('${m}')">
-        ${m}${blocked ? ' <span class="gt-blocked-dot">✕</span>' : ''}
+        ${m}${blocked ? ' <span style="font-size:0.65rem;opacity:0.7;">✕</span>' : ''}
       </button>`;
   }).join('');
 }
 
 function selectGtMarket(market) {
   _gtMarket = market;
+  _gtCatFilter = 'all';
   renderGtMarketTabs();
   renderGtMarketView();
 }
 
-// ─── Timeframe Toggle ─────────────────────────────────────────────────────────
-function setGtTimeframe(tf) {
-  _gtTimeframe = tf;
-  document.querySelectorAll('.gt-tf-btn').forEach(b => {
-    b.classList.toggle('active', b.dataset.tf === tf);
-  });
+// ─── Market View ──────────────────────────────────────────────────────────────
+function renderGtMarketView() {
+  const mdata = _gtMarketData();
+
+  // Update header
+  const header = document.getElementById('gtMarketHeader');
+  if (header) header.textContent = `${_gtMarket} — What's Trending`;
+
+  const content = document.getElementById('gtMarketContent');
+  if (!content) return;
+
+  if (mdata.blocked) {
+    content.innerHTML = `
+      <div class="gt-blocked-notice">
+        <div class="gt-blocked-icon">🚫</div>
+        <div class="gt-blocked-text">${mdata.blockedNote || 'Data unavailable.'}</div>
+        ${mdata.alternativeSources ? `
+          <div class="gt-alt-sources">
+            <div class="gt-alt-sources-label">Alternative sources for China market intelligence:</div>
+            ${mdata.alternativeSources.map(s => `
+              <a href="${s.url}" target="_blank" rel="noopener" class="gt-alt-source-card">
+                <strong>${s.name}</strong><br><span>${s.note}</span>
+              </a>
+            `).join('')}
+          </div>` : ''}
+      </div>`;
+    return;
+  }
+
+  const trending = mdata.dailyTrending || [];
+  const cats = [...new Set(trending.map(t => t.category))].sort();
+  const withAngle = trending.filter(t => t.crocsAngle);
+
+  content.innerHTML = `
+    <div class="gt-market-stats">
+      <div class="gt-stat-pill"><span class="gt-stat-num">${trending.length}</span><span class="gt-stat-lbl">Trending Topics</span></div>
+      <div class="gt-stat-pill"><span class="gt-stat-num" style="color:#43B02A;">${withAngle.length}</span><span class="gt-stat-lbl">Crocs Opportunities</span></div>
+      <div class="gt-stat-pill"><span class="gt-stat-num" style="color:#ef4444;">${trending.filter(t=>t.momentum==='breakout').length}</span><span class="gt-stat-lbl">Breakout Trends</span></div>
+      <div class="gt-stat-pill"><span class="gt-stat-num" style="color:#8b5cf6;">${cats.length}</span><span class="gt-stat-lbl">Categories</span></div>
+    </div>
+
+    <div class="gt-market-body">
+      <!-- Trend Rankings -->
+      <div class="gt-rankings-col">
+        <div class="gt-rankings-header">
+          <h4>Trending Searches</h4>
+          <div class="gt-cat-filter-row">
+            <button class="gt-cat-pill ${_gtCatFilter==='all'?'active':''}" onclick="setGtCatFilter('all')">All</button>
+            ${cats.map(c => {
+              const cc = GT_CAT_COLORS[c] || {};
+              return `<button class="gt-cat-pill ${_gtCatFilter===c?'active':''}"
+                style="${_gtCatFilter===c ? `background:${cc.bar||'#43B02A'};color:#fff;border-color:${cc.bar||'#43B02A'};` : ''}"
+                onclick="setGtCatFilter('${c}')">${c}</button>`;
+            }).join('')}
+          </div>
+        </div>
+        <div id="gtRankingsList"></div>
+      </div>
+
+      <!-- Category Chart -->
+      <div class="gt-chart-col">
+        <div class="card chart-card" style="height:fit-content;">
+          <h4>Category Breakdown</h4>
+          <p class="actions-subtitle">Share of trending topics by category</p>
+          <canvas id="gtCategoryChart" height="220"></canvas>
+        </div>
+        <div class="card" style="margin-top:1rem;">
+          <h4>Crocs Opportunities <span style="font-size:0.75rem;font-weight:400;color:#6b7280;">— topics with an activation angle</span></h4>
+          <div id="gtOpportunityList"></div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  renderGtRankings(trending);
+  renderGtCategoryChart(mdata.categoryBreakdown || {});
+  renderGtOpportunities(withAngle);
+}
+
+// ─── Category Filter ──────────────────────────────────────────────────────────
+function setGtCatFilter(cat) {
+  _gtCatFilter = cat;
+  const mdata = _gtMarketData();
   renderGtMarketView();
 }
 
-// ─── Full Market View ─────────────────────────────────────────────────────────
-function renderGtMarketView() {
-  const d = _gtData();
-  const mdata = (_gtUploadedData || GTRENDS_DATA)[_gtMarket] || {};
-  const header = document.getElementById('gtMarketHeader');
-  if (header) {
-    header.textContent = `${_gtMarket} — ${_gtTimeframe === '90d' ? 'Last 90 Days' : 'Last 30 Days'}`;
-  }
+// ─── Rankings List ────────────────────────────────────────────────────────────
+function renderGtRankings(trending) {
+  const container = document.getElementById('gtRankingsList');
+  if (!container) return;
 
-  if (d.blocked) {
-    document.getElementById('gtMarketContent').innerHTML = `
-      <div class="gt-blocked-notice">
-        <div class="gt-blocked-icon">🚫</div>
-        <div class="gt-blocked-text">${d.blockedNote || 'Data unavailable for this market.'}</div>
-      </div>`;
-    if (_gtChartInstance) { _gtChartInstance.destroy(); _gtChartInstance = null; }
+  const filtered = _gtCatFilter === 'all' ? trending : trending.filter(t => t.category === _gtCatFilter);
+
+  if (filtered.length === 0) {
+    container.innerHTML = `<p style="color:#9ca3af;padding:1rem 0;">No trends in this category.</p>`;
     return;
   }
 
-  document.getElementById('gtMarketContent').innerHTML = `
-    <div class="gt-kpi-row">
-      <div class="gt-kpi-card">
-        <div class="gt-kpi-label">Avg Interest</div>
-        <div class="gt-kpi-value">${d.avgInterest ?? '—'}<span class="gt-kpi-unit">/100</span></div>
-      </div>
-      <div class="gt-kpi-card">
-        <div class="gt-kpi-label">Peak Interest</div>
-        <div class="gt-kpi-value">${d.peakInterest ?? '—'}<span class="gt-kpi-unit">/100</span></div>
-      </div>
-      <div class="gt-kpi-card">
-        <div class="gt-kpi-label">Rising Terms</div>
-        <div class="gt-kpi-value" style="color:#f59e0b;">${(d.risingQueries || []).filter(q => q.type === 'rising').length}</div>
-      </div>
-      <div class="gt-kpi-card">
-        <div class="gt-kpi-label">Breakout Terms</div>
-        <div class="gt-kpi-value" style="color:#ef4444;">${(d.risingQueries || []).filter(q => q.type === 'breakout').length}</div>
-      </div>
-    </div>
-    <div class="gt-chart-section">
-      <div class="card chart-card" style="flex:1;min-width:0;">
-        <h4>Interest Over Time</h4>
-        <canvas id="gtInterestChart" height="90"></canvas>
-      </div>
-      <div class="card gt-queries-card" style="flex:1;min-width:0;">
-        <h4>Top Related Queries</h4>
-        <div id="gtTopQueries"></div>
-      </div>
-    </div>
-    <div class="card" style="margin-top:1rem;">
-      <h4>Rising &amp; Breakout Queries</h4>
-      <p class="actions-subtitle">"Breakout" = &gt;5000% growth flagged by Google. Otherwise % is rise vs prior period.</p>
-      <div id="gtRisingQueries"></div>
-    </div>
-  `;
+  container.innerHTML = filtered.map(t => {
+    const cc = GT_CAT_COLORS[t.category] || { bg: '#f3f4f6', text: '#374151', bar: '#9ca3af' };
+    const momentumIcon = t.momentum === 'breakout' ? '🔥' : t.momentum === 'up' ? '↑' : '→';
+    const momentumColor = t.momentum === 'breakout' ? '#dc2626' : t.momentum === 'up' ? '#43B02A' : '#9ca3af';
+    const hasAngle = !!t.crocsAngle;
 
-  renderGtInterestChart(d);
-  renderGtTopQueries(d);
-  renderGtRisingQueries(d);
+    return `
+      <div class="gt-rank-row ${hasAngle ? 'gt-rank-row-opportunity' : ''}">
+        <div class="gt-rank-num">${t.rank}</div>
+        <div class="gt-rank-body">
+          <div class="gt-rank-top">
+            <span class="gt-rank-term">${t.term}</span>
+            <span class="gt-rank-momentum" style="color:${momentumColor};">${momentumIcon} ${t.momentum === 'breakout' ? 'BREAKOUT' : t.momentum === 'up' ? 'Rising' : 'Stable'}</span>
+          </div>
+          <div class="gt-rank-meta">
+            <span class="gt-rank-vol">${t.searchVolume}</span>
+            <span class="gt-rank-cat" style="background:${cc.bg};color:${cc.text};">${t.category}</span>
+            ${hasAngle ? `<span class="gt-rank-crocs-badge">Crocs opportunity →</span>` : ''}
+          </div>
+          ${t.relatedTerms && t.relatedTerms.length ? `
+            <div class="gt-rank-related">${t.relatedTerms.slice(0, 3).map(r => `<span class="gt-related-tag">${r}</span>`).join('')}</div>
+          ` : ''}
+          ${hasAngle ? `<div class="gt-rank-angle">${t.crocsAngle}</div>` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
-// ─── Interest Over Time Chart ─────────────────────────────────────────────────
-function renderGtInterestChart(d) {
-  const ctx = document.getElementById('gtInterestChart');
+// ─── Category Donut Chart ─────────────────────────────────────────────────────
+function renderGtCategoryChart(breakdown) {
+  const ctx = document.getElementById('gtCategoryChart');
   if (!ctx) return;
-  if (_gtChartInstance) { _gtChartInstance.destroy(); _gtChartInstance = null; }
+  if (_gtCategoryChartInstance) { _gtCategoryChartInstance.destroy(); _gtCategoryChartInstance = null; }
 
-  if (!d.interestOverTime || d.interestOverTime.length === 0) {
-    ctx.parentElement.innerHTML += '<p style="color:#9ca3af;text-align:center;padding:2rem 0;">No interest-over-time data available.</p>';
-    return;
-  }
+  const cats = Object.keys(breakdown);
+  const vals = Object.values(breakdown);
+  const colors = cats.map(c => (GT_CAT_COLORS[c] || { bar: '#9ca3af' }).bar);
 
-  const labels = d.interestOverTime.map(p => {
-    const dt = new Date(p.date);
-    return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-  });
-  const values = d.interestOverTime.map(p => p.value);
-
-  _gtChartInstance = new Chart(ctx, {
-    type: 'line',
+  _gtCategoryChartInstance = new Chart(ctx, {
+    type: 'doughnut',
     data: {
-      labels,
-      datasets: [{
-        label: 'Search Interest',
-        data: values,
-        borderColor: '#43B02A',
-        backgroundColor: 'rgba(67,176,42,0.08)',
-        borderWidth: 2,
-        pointRadius: 0,
-        pointHoverRadius: 4,
-        tension: 0.35,
-        fill: true,
-      }],
+      labels: cats,
+      datasets: [{ data: vals, backgroundColor: colors, borderWidth: 2, borderColor: '#fff', hoverOffset: 5 }],
     },
     options: {
       responsive: true,
+      cutout: '60%',
       plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: { label: ctx => ` Interest: ${ctx.raw}` } },
-      },
-      scales: {
-        y: { min: 0, max: 100, title: { display: true, text: 'Interest (0–100)' } },
-        x: { ticks: { maxTicksLimit: 8, font: { size: 10 } } },
+        legend: { position: 'right', labels: { usePointStyle: true, padding: 10, font: { size: 10 }, boxWidth: 10 } },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw}% of trending` } },
       },
     },
   });
 }
 
-// ─── Top Queries ──────────────────────────────────────────────────────────────
-function renderGtTopQueries(d) {
-  const container = document.getElementById('gtTopQueries');
+// ─── Opportunities Panel ──────────────────────────────────────────────────────
+function renderGtOpportunities(items) {
+  const container = document.getElementById('gtOpportunityList');
   if (!container) return;
-  const queries = d.topQueries || [];
-  if (queries.length === 0) {
-    container.innerHTML = '<p style="color:#9ca3af;">No top query data available.</p>';
+  if (items.length === 0) {
+    container.innerHTML = `<p style="color:#9ca3af;font-size:0.82rem;">No specific Crocs angles identified for this market's current trends.</p>`;
     return;
   }
-  container.innerHTML = queries.map((q, i) => `
-    <div class="gt-query-row">
-      <span class="gt-query-rank">${i + 1}</span>
-      <span class="gt-query-term">${q.term}</span>
-      <div class="gt-query-bar-wrap">
-        <div class="gt-query-bar-fill" style="width:${q.score}%;"></div>
-      </div>
-      <span class="gt-query-score">${q.score}</span>
-    </div>
-  `).join('');
-}
-
-// ─── Rising / Breakout Queries ────────────────────────────────────────────────
-function renderGtRisingQueries(d) {
-  const container = document.getElementById('gtRisingQueries');
-  if (!container) return;
-  const queries = d.risingQueries || [];
-  if (queries.length === 0) {
-    container.innerHTML = '<p style="color:#9ca3af;">No rising query data available for this period.</p>';
-    return;
-  }
-  container.innerHTML = `
-    <div class="gt-rising-grid">
-      ${queries.map(q => `
-        <div class="gt-rising-item ${q.type === 'breakout' ? 'gt-rising-breakout' : 'gt-rising-up'}">
-          <span class="gt-rising-term">${q.term}</span>
-          <span class="gt-rising-growth ${q.type === 'breakout' ? 'gt-badge-breakout' : 'gt-badge-rising'}">
-            ${q.growth}
-          </span>
+  container.innerHTML = items.map(t => {
+    const cc = GT_CAT_COLORS[t.category] || { bg: '#f3f4f6', text: '#374151' };
+    return `
+      <div class="gt-opp-row">
+        <div class="gt-opp-header">
+          <span class="gt-opp-rank">#${t.rank}</span>
+          <span class="gt-opp-term">${t.term}</span>
+          <span class="gt-opp-cat" style="background:${cc.bg};color:${cc.text};">${t.category}</span>
         </div>
-      `).join('')}
-    </div>
-  `;
+        <div class="gt-opp-angle">${t.crocsAngle}</div>
+      </div>
+    `;
+  }).join('');
 }
 
 // ─── Excel Upload ─────────────────────────────────────────────────────────────
@@ -259,171 +280,113 @@ function initGtExcelUpload() {
   const input = document.getElementById('gtExcelInput');
   if (!dropzone || !input) return;
 
-  dropzone.addEventListener('dragover', e => {
-    e.preventDefault();
-    dropzone.classList.add('gt-dropzone-hover');
-  });
+  dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('gt-dropzone-hover'); });
   dropzone.addEventListener('dragleave', () => dropzone.classList.remove('gt-dropzone-hover'));
   dropzone.addEventListener('drop', e => {
-    e.preventDefault();
-    dropzone.classList.remove('gt-dropzone-hover');
+    e.preventDefault(); dropzone.classList.remove('gt-dropzone-hover');
     const file = e.dataTransfer.files[0];
     if (file) handleGtExcelFile(file);
   });
   dropzone.addEventListener('click', () => input.click());
-  input.addEventListener('change', () => {
-    if (input.files[0]) handleGtExcelFile(input.files[0]);
-  });
+  input.addEventListener('change', () => { if (input.files[0]) handleGtExcelFile(input.files[0]); });
 }
 
 function handleGtExcelFile(file) {
-  if (!file.name.match(/\.(xlsx|xls)$/i)) {
-    alert('Please upload an .xlsx or .xls file.');
-    return;
-  }
+  if (!file.name.match(/\.(xlsx|xls)$/i)) { alert('Please upload an .xlsx or .xls file.'); return; }
   const reader = new FileReader();
   reader.onload = e => {
     try {
-      if (typeof XLSX === 'undefined') {
-        showGtUploadError('Excel parsing library not loaded. Please refresh the page.');
-        return;
-      }
+      if (typeof XLSX === 'undefined') { showGtUploadStatus('Excel parser not loaded — refresh and try again.', false); return; }
       const wb = XLSX.read(new Uint8Array(e.target.result), { type: 'array', cellDates: true });
-      const parsed = parseGtExcel(wb);
+      const parsed = parseGtTrendingExcel(wb);
       if (parsed) {
         _gtUploadedData = parsed.data;
-        GTRENDS_META.pulledAt = parsed.pulledAt;
-        GTRENDS_META.keyword = parsed.keyword || 'Crocs';
-        showGtUploadSuccess(file.name);
+        if (parsed.pulledAt) GTRENDS_META.pulledAt = parsed.pulledAt;
+        GTRENDS_META.sampleData = false;
+        showGtUploadStatus(`Loaded: ${file.name} — dashboard updated.`, true);
         renderGtMetaBanner();
-        renderGtSummaryTable();
         renderGtMarketTabs();
         renderGtMarketView();
       }
     } catch (err) {
-      showGtUploadError('Could not parse the Excel file: ' + err.message);
+      showGtUploadStatus('Could not parse: ' + err.message, false);
     }
   };
   reader.readAsArrayBuffer(file);
 }
 
-function parseGtExcel(wb) {
-  // Parses the boss's Excel format into GTRENDS_DATA structure
+function parseGtTrendingExcel(wb) {
+  // Parses the boss's Excel format: each market sheet has a trending topics table
+  // Expected columns: Rank, Term, Search Volume, Category, Momentum, Related Terms, Crocs Angle
   const result = {};
-  let pulledAt = new Date().toISOString();
-  let keyword = 'Crocs';
+  let pulledAt = null;
 
-  // Read Summary sheet for metadata
-  const summarySheet = wb.Sheets['Summary'];
+  const summarySheet = wb.Sheets['Summary'] || wb.Sheets[wb.SheetNames[0]];
   if (summarySheet) {
     const rows = XLSX.utils.sheet_to_json(summarySheet, { header: 1, defval: null });
     for (const row of rows.slice(0, 5)) {
       if (row[0] && typeof row[0] === 'string' && row[0].includes('Pulled:')) {
         const match = row[0].match(/Pulled:\s*([^\|]+)/);
-        if (match) {
-          const parsed = new Date(match[1].trim());
-          if (!isNaN(parsed)) pulledAt = parsed.toISOString();
-        }
-        const kwMatch = row[0].match(/Keyword:\s*([^\s,]+)/);
-        if (kwMatch) keyword = kwMatch[1];
+        if (match) { const d = new Date(match[1].trim()); if (!isNaN(d)) pulledAt = d.toISOString(); }
       }
     }
   }
 
-  // Parse each market sheet
-  const marketNames = GTRENDS_MARKETS;
-  for (const market of marketNames) {
+  for (const market of GTRENDS_MARKETS) {
     const sheet = wb.Sheets[market];
-    if (!sheet) {
-      result[market] = GTRENDS_DATA[market]; // fallback to built-in
-      continue;
-    }
-
+    if (!sheet) continue;
     const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: null });
-    const geo = (() => {
-      for (const r of rows.slice(0, 4)) {
-        if (r[0] && typeof r[0] === 'string' && r[0].startsWith('Geo:')) return r[0].replace('Geo:', '').trim();
-      }
-      return GTRENDS_DATA[market]?.geo || '??';
-    })();
+    const geo = GTRENDS_TRENDING[market]?.geo || '??';
 
-    const parsed90 = _parseMarketTimeframe(rows, '90D');
-    const parsed30 = _parseMarketTimeframe(rows, '30D');
-    result[market] = { geo, '90d': parsed90, '30d': parsed30 };
-  }
-
-  return { data: result, pulledAt, keyword };
-}
-
-function _parseMarketTimeframe(rows, prefix) {
-  // Find section headers for this timeframe
-  let iotStart = -1, topStart = -1, risingStart = -1;
-  let iotCol = 0, topCol = 0, risingCol = 0;
-
-  for (let i = 0; i < rows.length; i++) {
-    const row = rows[i];
-    for (let c = 0; c < (row || []).length; c++) {
-      const cell = row[c];
-      if (typeof cell === 'string') {
-        if (cell.includes(prefix + ' — Interest over time')) { iotStart = i + 1; iotCol = c; }
-        else if (cell.includes(prefix + ' — Top related queries')) { topStart = i + 1; topCol = c; }
-        else if (cell.includes(prefix + ' — Rising / Breakout queries')) { risingStart = i + 1; risingCol = c; }
+    // Find header row
+    let headerRow = -1;
+    for (let i = 0; i < rows.length; i++) {
+      if (rows[i] && rows[i].some(c => typeof c === 'string' && c.toLowerCase().includes('term'))) {
+        headerRow = i; break;
       }
     }
-  }
+    if (headerRow === -1) continue;
 
-  const readSection = (startRow, col, maxRows = 20) => {
-    const out = [];
-    for (let i = startRow + 1; i < Math.min(startRow + maxRows, rows.length); i++) {
+    const headers = (rows[headerRow] || []).map(h => (h || '').toLowerCase().trim());
+    const colOf = name => headers.findIndex(h => h.includes(name));
+    const rankCol = colOf('rank'); const termCol = colOf('term');
+    const volCol = colOf('volume'); const catCol = colOf('categor');
+    const momCol = colOf('moment'); const relCol = colOf('related');
+    const angleCol = colOf('crocs');
+
+    const trending = [];
+    for (let i = headerRow + 1; i < rows.length; i++) {
       const row = rows[i];
-      if (!row || !row[col]) break;
-      const a = row[col], b = row[col + 1];
-      if (a === '(none)' || a === '(no data)' || a === null) break;
-      out.push([a, b]);
+      if (!row || !row[termCol]) break;
+      const term = String(row[termCol] || '');
+      if (!term || term === '(none)') break;
+      trending.push({
+        rank: parseInt(row[rankCol]) || (i - headerRow),
+        term,
+        searchVolume: String(row[volCol] || ''),
+        category: String(row[catCol] || 'Culture'),
+        momentum: String(row[momCol] || 'stable').toLowerCase(),
+        relatedTerms: relCol >= 0 ? String(row[relCol] || '').split(',').map(s => s.trim()).filter(Boolean) : [],
+        crocsAngle: angleCol >= 0 ? String(row[angleCol] || '') : '',
+      });
     }
-    return out;
-  };
 
-  // Interest over time
-  const iotRaw = readSection(iotStart, iotCol, 100);
-  const interestOverTime = iotRaw.map(([date, val]) => ({
-    date: date instanceof Date ? date.toISOString().slice(0, 10) : String(date),
-    value: typeof val === 'number' ? Math.round(val) : null,
-  })).filter(p => p.value !== null);
+    const catCounts = {};
+    trending.forEach(t => { catCounts[t.category] = (catCounts[t.category] || 0) + 1; });
+    const total = trending.length || 1;
+    const catBreakdown = {};
+    Object.entries(catCounts).forEach(([k, v]) => { catBreakdown[k] = Math.round((v / total) * 100); });
 
-  // Top queries
-  const topRaw = readSection(topStart, topCol, 20);
-  const topQueries = topRaw.map(([term, score]) => ({
-    term: String(term),
-    score: typeof score === 'number' ? Math.round(score) : (score === 'Breakout' ? 999 : 0),
-  })).filter(q => q.term && q.score > 0);
+    result[market] = { geo, dailyTrending: trending, categoryBreakdown: catBreakdown };
+  }
 
-  // Rising queries
-  const risingRaw = readSection(risingStart, risingCol, 20);
-  const risingQueries = risingRaw.map(([term, growth]) => ({
-    term: String(term),
-    growth: String(growth || ''),
-    type: String(growth || '').toLowerCase() === 'breakout' ? 'breakout' : 'rising',
-  })).filter(q => q.term);
-
-  const vals = interestOverTime.map(p => p.value).filter(v => v != null);
-  const avgInterest = vals.length ? Math.round(vals.reduce((a, b) => a + b, 0) / vals.length) : null;
-  const peakInterest = vals.length ? Math.max(...vals) : null;
-
-  return { avgInterest, peakInterest, interestOverTime, topQueries, risingQueries };
+  return { data: result, pulledAt };
 }
 
-function showGtUploadSuccess(filename) {
-  const banner = document.getElementById('gtUploadStatus');
-  if (!banner) return;
-  banner.innerHTML = `<span style="color:#15803d;">✓ Loaded: <strong>${filename}</strong> — dashboard updated with your latest data.</span>`;
-  banner.style.display = 'block';
-  setTimeout(() => { banner.style.display = 'none'; }, 6000);
-}
-
-function showGtUploadError(msg) {
-  const banner = document.getElementById('gtUploadStatus');
-  if (!banner) return;
-  banner.innerHTML = `<span style="color:#dc2626;">✗ ${msg}</span>`;
-  banner.style.display = 'block';
+function showGtUploadStatus(msg, success) {
+  const el = document.getElementById('gtUploadStatus');
+  if (!el) return;
+  el.innerHTML = `<span style="color:${success ? '#15803d' : '#dc2626'};">${success ? '✓' : '✗'} ${msg}</span>`;
+  el.style.display = 'block';
+  if (success) setTimeout(() => { el.style.display = 'none'; }, 6000);
 }
