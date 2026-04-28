@@ -2745,3 +2745,209 @@ footer {
 @media (max-width: 768px) {
   .em-method-row { grid-template-columns: 1fr; gap: 0.5rem; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   GOOGLE TRENDS TAB
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Meta Banner ─────────────────────────────────────────────── */
+.gt-meta-banner {
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  background: #f0fdf4; border: 1px solid #86efac;
+  border-radius: 8px; padding: 0.75rem 1rem;
+  font-size: 0.82rem; color: #166534; margin-bottom: 1rem;
+  line-height: 1.5;
+}
+.gt-upload-btn {
+  background: none; border: 1px solid #43B02A; border-radius: 6px;
+  color: #43B02A; font-size: 0.78rem; font-weight: 600;
+  padding: 2px 10px; cursor: pointer; transition: background 0.15s;
+}
+.gt-upload-btn:hover { background: #43B02A; color: #fff; }
+.gt-upload-status {
+  padding: 0.6rem 1rem; border-radius: 8px;
+  background: #f0fdf4; border: 1px solid #86efac;
+  font-size: 0.84rem; margin-bottom: 0.75rem;
+}
+
+/* ─── Summary Table ───────────────────────────────────────────── */
+.gt-summary-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.gt-summary-table th {
+  background: #f9fafb; border-bottom: 2px solid var(--border);
+  padding: 0.5rem 0.75rem; text-align: left; font-size: 0.75rem; font-weight: 700;
+  color: var(--text-muted); white-space: nowrap;
+}
+.gt-summary-table td {
+  padding: 0.55rem 0.75rem; border-bottom: 1px solid var(--border); vertical-align: middle;
+}
+.gt-summary-row { cursor: pointer; transition: background 0.12s; }
+.gt-summary-row:hover { background: #f0fdf4; }
+.gt-geo-tag {
+  font-size: 0.65rem; font-weight: 700; background: #f3f4f6;
+  color: var(--text-muted); border-radius: 4px; padding: 1px 5px; margin-left: 4px;
+}
+.gt-breakout-badge {
+  font-size: 0.68rem; font-weight: 700; background: #fef2f2; color: #dc2626;
+  border: 1px solid #fca5a5; border-radius: 20px; padding: 2px 8px;
+}
+.gt-rising-badge {
+  font-size: 0.68rem; font-weight: 700; background: #fefce8; color: #ca8a04;
+  border: 1px solid #fde68a; border-radius: 20px; padding: 2px 8px;
+}
+.gt-summary-bar-wrap {
+  display: flex; align-items: center; gap: 6px;
+}
+.gt-summary-bar-fill {
+  height: 6px; border-radius: 3px; background: #43B02A; min-width: 2px;
+}
+.gt-summary-bar-val { font-size: 0.75rem; color: var(--text-muted); min-width: 18px; }
+
+/* ─── Market Tabs ─────────────────────────────────────────────── */
+.gt-market-tabs {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 1.25rem;
+}
+.gt-market-tab {
+  background: #f3f4f6; border: 1.5px solid #e0e0e0; border-radius: 20px;
+  padding: 5px 14px; font-size: 0.8rem; font-weight: 600; cursor: pointer;
+  transition: all 0.15s; color: var(--text-muted);
+}
+.gt-market-tab:hover { background: #e5f5e0; border-color: #43B02A; color: #43B02A; }
+.gt-market-tab.active {
+  background: #43B02A; border-color: #43B02A; color: #fff;
+}
+.gt-market-tab-blocked { opacity: 0.5; }
+.gt-blocked-dot { font-size: 0.7rem; }
+
+/* ─── Explorer Header ─────────────────────────────────────────── */
+.gt-explorer-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;
+}
+.gt-tf-toggle {
+  display: flex; gap: 4px; background: #f3f4f6;
+  border-radius: 8px; padding: 3px;
+}
+.gt-tf-btn {
+  background: transparent; border: none; border-radius: 6px;
+  padding: 5px 14px; font-size: 0.8rem; font-weight: 600;
+  cursor: pointer; color: var(--text-muted); transition: all 0.15s;
+}
+.gt-tf-btn.active { background: #43B02A; color: #fff; }
+
+/* ─── Market Content ──────────────────────────────────────────── */
+.gt-market-content { min-height: 200px; }
+.gt-blocked-notice {
+  display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+  padding: 3rem 2rem; text-align: center; color: var(--text-muted);
+}
+.gt-blocked-icon { font-size: 2.5rem; }
+.gt-blocked-text { font-size: 0.9rem; max-width: 480px; }
+
+/* ─── KPI Row ─────────────────────────────────────────────────── */
+.gt-kpi-row {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 1rem;
+}
+.gt-kpi-card {
+  background: #f9fafb; border: 1px solid var(--border);
+  border-radius: 10px; padding: 0.9rem 1rem; text-align: center;
+}
+.gt-kpi-label { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; margin-bottom: 0.25rem; }
+.gt-kpi-value { font-size: 1.6rem; font-weight: 800; color: var(--text); }
+.gt-kpi-unit { font-size: 0.85rem; color: var(--text-muted); font-weight: 400; }
+
+/* ─── Chart + Queries Layout ──────────────────────────────────── */
+.gt-chart-section {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+}
+.gt-queries-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.75rem; }
+
+/* ─── Top Queries ─────────────────────────────────────────────── */
+.gt-query-row {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 5px 0; border-bottom: 1px solid #f3f4f6; font-size: 0.8rem;
+}
+.gt-query-rank {
+  width: 18px; text-align: right; font-size: 0.72rem;
+  color: var(--text-muted); font-weight: 700; flex-shrink: 0;
+}
+.gt-query-term { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gt-query-bar-wrap {
+  width: 80px; height: 6px; background: #f3f4f6; border-radius: 3px; flex-shrink: 0;
+}
+.gt-query-bar-fill { height: 6px; border-radius: 3px; background: #43B02A; }
+.gt-query-score { width: 28px; text-align: right; font-size: 0.72rem; color: var(--text-muted); }
+
+/* ─── Rising Queries ──────────────────────────────────────────── */
+.gt-rising-grid {
+  display: flex; flex-wrap: wrap; gap: 0.5rem; padding-top: 0.25rem;
+}
+.gt-rising-item {
+  display: flex; align-items: center; gap: 0.5rem; padding: 6px 12px;
+  border-radius: 8px; font-size: 0.8rem; border: 1px solid;
+}
+.gt-rising-breakout {
+  background: #fef2f2; border-color: #fca5a5;
+}
+.gt-rising-up {
+  background: #fefce8; border-color: #fde68a;
+}
+.gt-rising-term { font-weight: 600; color: var(--text); }
+.gt-badge-breakout {
+  font-size: 0.68rem; font-weight: 800; background: #dc2626; color: #fff;
+  border-radius: 20px; padding: 2px 8px; white-space: nowrap;
+}
+.gt-badge-rising {
+  font-size: 0.68rem; font-weight: 700; background: #f59e0b; color: #fff;
+  border-radius: 20px; padding: 2px 8px; white-space: nowrap;
+}
+
+/* ─── Drop Zone ───────────────────────────────────────────────── */
+.gt-dropzone {
+  border: 2px dashed #d1d5db; border-radius: 12px;
+  background: #f9fafb; cursor: pointer; transition: all 0.15s;
+  padding: 2rem; text-align: center;
+}
+.gt-dropzone:hover, .gt-dropzone-hover {
+  border-color: #43B02A; background: #f0fdf4;
+}
+.gt-dropzone-inner { pointer-events: none; }
+.gt-dropzone-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+.gt-dropzone-label { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
+.gt-dropzone-link { color: #43B02A; text-decoration: underline; }
+.gt-dropzone-sub { font-size: 0.78rem; color: var(--text-muted); }
+
+/* ─── Methods Grid ────────────────────────────────────────────── */
+.gt-methods-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 0.75rem;
+}
+.gt-method-card {
+  border: 1.5px solid var(--border); border-radius: 10px;
+  padding: 1.1rem; display: flex; flex-direction: column; gap: 0.6rem;
+}
+.gt-method-best { border-color: #43B02A; background: #f0fdf4; }
+.gt-method-badge {
+  font-size: 0.65rem; font-weight: 800; background: #43B02A; color: #fff;
+  border-radius: 20px; padding: 2px 10px; align-self: flex-start;
+}
+.gt-method-badge-free { background: #f59e0b; }
+.gt-method-badge-manual { background: #6b7280; }
+.gt-method-title { font-size: 0.95rem; font-weight: 700; color: var(--text); }
+.gt-method-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+.gt-method-steps {
+  font-size: 0.78rem; color: var(--text); line-height: 1.6;
+  padding-left: 1.2rem; margin: 0;
+}
+.gt-method-steps code {
+  background: #1D1D1B; color: #43B02A; border-radius: 4px;
+  padding: 1px 6px; font-size: 0.72rem; font-family: monospace;
+}
+
+@media (max-width: 900px) {
+  .gt-kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .gt-chart-section { grid-template-columns: 1fr; }
+  .gt-methods-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .gt-kpi-row { grid-template-columns: 1fr 1fr; }
+}

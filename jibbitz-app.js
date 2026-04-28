@@ -56,6 +56,9 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     } else if (tab === 'emotion' && !window._emotionInitialized) {
       window._emotionInitialized = true;
       initEmotion();
+    } else if (tab === 'gtrends' && !window._gtrendsInitialized) {
+      window._gtrendsInitialized = true;
+      initGoogleTrends();
     }
   });
 });
