@@ -195,6 +195,22 @@ const RECENT_CAMPAIGNS = [
     channel: "Experiential",
     engagement: "Medium",
   },
+  {
+    brand: "Adidas",
+    title: "Greenwashing Ruling — Climate Claims Banned",
+    description: "Nuremberg-Fürth Regional Court (March 25, 2026) found Adidas guilty of misleading consumers with vague 'climate neutral by 2050' claims. Court ordered the company to stop using the phrase without detailing how the goal would be achieved. Adidas had already quietly adjusted its website in Aug 2024. Verdict is not yet final but signals tightening enforcement across EU. Implication for Crocs: any sustainability claims must be specific, time-bound, and substantiated — not aspirational.",
+    date: "2026-03-25",
+    channel: "Legal / PR",
+    engagement: "Very High",
+  },
+  {
+    brand: "Industry",
+    title: "EU Green Claims Enforcement — September 2026 Deadline",
+    description: "EU Member States must transpose the Empowering Consumers for the Green Transition Directive by March 2026, with rules applying from September 2026. Bans vague claims like 'eco-friendly', carbon-offset-only claims, and unverified sustainability labels. Separately, from July 2026, large brands are prohibited from destroying unsold footwear on the EU market. Note: the broader Green Claims Directive has been paused, but existing Unfair Commercial Practices rules still apply and are being enforced (see Adidas ruling above). All competitors selling in EU are affected.",
+    date: "2026-03-01",
+    channel: "Regulatory",
+    engagement: "High",
+  },
 ];
 
 // Pillar categories for radar/gap analysis
