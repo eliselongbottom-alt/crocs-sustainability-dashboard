@@ -1,5 +1,11 @@
 // Jibbitz Trends - Application Logic
 
+// Merge live-fetched entries from fetch_jibbitz_news.py (if available)
+if (typeof JIBBITZ_LIVE_TRENDS !== 'undefined' && JIBBITZ_LIVE_TRENDS.length > 0) {
+  const existingIds = new Set(JIBBITZ_TRENDS.map(t => t.id));
+  JIBBITZ_LIVE_TRENDS.forEach(t => { if (!existingIds.has(t.id)) JIBBITZ_TRENDS.push(t); });
+}
+
 let jbTrendsData = [];
 
 function initJibbitz() {
