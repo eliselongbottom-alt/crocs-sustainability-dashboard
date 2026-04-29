@@ -365,17 +365,6 @@ const COLLAB_SCORECARD = [
     status: "complete",
   },
   {
-    collab: "Bad Bunny",
-    date: "2024",
-    partner: "Bad Bunny (licensed)",
-    horizon: "Long",
-    impressionsMetric: "2.1B impressions · significant social engagement",
-    financialMetric: "9-pt brand affinity lift (18–34) · 340% branded search spike · New customer cohort: 2.3× higher 90-day LTV vs. baseline · MMM attributes incremental halo revenue in 8 weeks post-launch",
-    ltvSignal: "2.3× 90-day LTV in new customer cohort — the framework benchmark",
-    scoreMovement: "+6pts Brand Health Score (modeled)",
-    status: "benchmark",
-  },
-  {
     collab: "Moo Deng (Original)",
     date: "Oct 2024",
     partner: "Khao Kheow Zoo",

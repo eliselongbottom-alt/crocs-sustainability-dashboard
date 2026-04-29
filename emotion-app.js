@@ -487,19 +487,7 @@ function renderBrandHealthScore() {
         </div>
       </div>
     </div>
-    <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:8px;padding:1rem;">
-      <div style="font-size:0.75rem;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem;">The narrative shift this framework enables</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;font-size:0.82rem;">
-        <div style="background:#fef2f2;border-left:3px solid #ef4444;padding:0.75rem;border-radius:0 6px 6px 0;">
-          <div style="font-weight:700;color:#b91c1c;margin-bottom:4px;">BEFORE (impressions only)</div>
-          <div style="color:#374151;font-style:italic;">${bhs.narrative.before}</div>
-        </div>
-        <div style="background:#f0fdf4;border-left:3px solid #43B02A;padding:0.75rem;border-radius:0 6px 6px 0;">
-          <div style="font-weight:700;color:#166534;margin-bottom:4px;">AFTER (Brand Health Score)</div>
-          <div style="color:#374151;font-style:italic;">${bhs.narrative.after}</div>
-        </div>
-      </div>
-    </div>`;
+`;
 }
 
 // ─── Pillar 2: Customer Value ────────────────────────────────────────────────
@@ -537,7 +525,6 @@ function renderCollabScorecard() {
 
   const statusConfig = {
     complete:   { label: 'COMPLETE', color: '#43B02A' },
-    benchmark:  { label: 'BENCHMARK EXAMPLE', color: '#3b82f6' },
     active:     { label: 'ACTIVE', color: '#f59e0b' },
   };
 
