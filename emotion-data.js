@@ -366,17 +366,6 @@ const COLLAB_SCORECARD = [
     scoreMovement: "+6pts Brand Momentum",
     status: "complete",
   },
-  {
-    collab: "Moo Deng (Original)",
-    date: "Oct 2024",
-    partner: "Khao Kheow Zoo",
-    horizon: "Short",
-    impressionsMetric: "1.8M social likes · 32 PR pickups · Sold out in 4 hours",
-    financialMetric: "3 restocks · 340% Crocs.com traffic from non-US markets · Strong LTV signal in international customer cohorts",
-    ltvSignal: "International customer acquisition above-average LTV — case for global simultaneous restock",
-    scoreMovement: "+4pts Brand Momentum (international)",
-    status: "complete",
-  },
 ];
 
 // ─── Pillar 3: Capability Status Table ──────────────────────────────────────
