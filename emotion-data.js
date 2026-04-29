@@ -2,35 +2,9 @@
 
 const EMOTION_LAST_UPDATED = "2026-04-18";
 
-// ─── Brand Emotion Profile (Plutchik's Wheel) ───────────────────────────────
-// Rubric-estimated: directional scores based on qualitative review of
-// Crocs' social content tone (TikTok, Instagram, Reddit), press coverage
-// sentiment, and product reviews. Not from a paid social listening tool.
-// Score = estimated share of brand conversation carrying this emotion (0–100).
-const EMOTION_BREAKDOWN = {
-  current: {
-    Joy:          75,  // overwhelmingly positive, playful, fun social content
-    Trust:        65,  // reliable product; sustainability skepticism drags this
-    Anticipation: 58,  // collab drops, new colorways, Jibbitz culture
-    Surprise:     45,  // ugly-cool positioning inherently creates surprise
-    Anger:        16,  // haters + tariff/pricing concerns
-    Fear:         14,  // pricing anxiety from tariff exposure
-    Sadness:       8,  // minimal
-    Disgust:      10,  // aesthetic detractors ("they're ugly")
-  },
-};
-
 // ─── Methodology & Sourcing ─────────────────────────────────────────────────
 const EMOTION_METHODOLOGY = {
   sections: [
-    {
-      id: "radar",
-      title: "Brand Emotion Profile",
-      method: "Plutchik's Wheel of Emotions (8 primary emotions)",
-      source: "Rubric-estimated — directional scores based on qualitative review of Crocs social content tone (TikTok, Instagram, Reddit), press coverage sentiment, and product reviews. Not from a paid social listening tool.",
-      production: "NLP emotion classification (e.g. IBM Watson Tone Analyzer, Symanto, or custom model) applied to social mentions, news, and reviews",
-      framework: "Robert Plutchik's psychoevolutionary theory of emotion (1980) — the industry standard for brand emotion analysis",
-    },
     {
       id: "macro",
       title: "Macro Environmental Scan",

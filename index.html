@@ -43,7 +43,6 @@
     <nav class="tab-nav">
       <button class="tab-btn" data-tab="sustainability">Sustainability Tracker</button>
       <button class="tab-btn active" data-tab="jibbitz">Jibbitz Trends</button>
-      <button class="tab-btn" data-tab="affinity">Affinity Tracking</button>
       <button class="tab-btn" data-tab="trends">Consumer Trends</button>
       <button class="tab-btn" data-tab="genz">Gen Z Intelligence</button>
       <button class="tab-btn" data-tab="emotion">Emotion Intel</button>
@@ -208,77 +207,6 @@
 
     <!-- Jibbitz Marketing Action Roadmap -->
     <section class="card roadmap-section" id="jibbitzRoadmap"></section>
-  </main>
-
-  <!-- ═══ TAB: AFFINITY TRACKING ═══ -->
-  <main id="tab-affinity" class="tab-content">
-
-    <!-- Category Overview (charts + top signals) -->
-    <section class="card affinity-overview-card">
-      <div class="affinity-overview-header">
-        <div>
-          <h3>Affinity Category Overview</h3>
-          <p class="actions-subtitle">Signal distribution and average scores across all 7 tracked categories</p>
-        </div>
-        <div class="affinity-overview-badge" id="affinityTotalBadge"></div>
-      </div>
-      <div class="affinity-overview-charts">
-        <div class="affinity-overview-chart-col">
-          <div class="affinity-overview-chart-label">Signal Distribution</div>
-          <canvas id="affinityCatDonut"></canvas>
-        </div>
-        <div class="affinity-overview-chart-col">
-          <div class="affinity-overview-chart-label">Avg Relevance &amp; Trend Strength by Category</div>
-          <canvas id="affinityCatBar"></canvas>
-        </div>
-      </div>
-      <div class="affinity-top-signals-strip" id="affinityTopSignals"></div>
-    </section>
-
-    <!-- Top Crocs Affinities Highlight -->
-    <section class="card">
-      <h3>Top Crocs Affinities</h3>
-      <p class="actions-subtitle">Highest-relevance signals across all categories — prioritize these for partnership and campaign conversations</p>
-      <div class="affinity-highlights-row" id="affinityTopHighlights"></div>
-    </section>
-
-    <!-- Filter Controls + Feed -->
-    <section class="card">
-      <div class="affinity-feed-header">
-        <div>
-          <h3>Affinity Signal Feed</h3>
-          <p class="actions-subtitle">All tracked cultural signals, sorted by Crocs relevance score</p>
-        </div>
-        <div class="affinity-filters">
-          <div class="affinity-filter-group">
-            <span class="affinity-filter-label">Category</span>
-            <div class="affinity-filter-pills">
-              <button class="affinity-filter-cat active" data-cat="all" onclick="setAffinityFilter('all')">All</button>
-              <button class="affinity-filter-cat" data-cat="sport" onclick="setAffinityFilter('sport')" style="--pill-active-color: #3b82f6;">🏆 Sport</button>
-              <button class="affinity-filter-cat" data-cat="style" onclick="setAffinityFilter('style')" style="--pill-active-color: #8b5cf6;">✨ Style</button>
-              <button class="affinity-filter-cat" data-cat="entertainment" onclick="setAffinityFilter('entertainment')" style="--pill-active-color: #ec4899;">🎬 Entertainment</button>
-            </div>
-          </div>
-          <div class="affinity-filter-group">
-            <span class="affinity-filter-label">Type</span>
-            <div class="affinity-filter-pills">
-              <button class="affinity-filter-type active" data-type="all" onclick="setAffinityTypeFilter('all')">All</button>
-              <button class="affinity-filter-type" data-type="celebrity" onclick="setAffinityTypeFilter('celebrity')">Celebrity</button>
-              <button class="affinity-filter-type" data-type="trend" onclick="setAffinityTypeFilter('trend')">Trend</button>
-              <button class="affinity-filter-type" data-type="news" onclick="setAffinityTypeFilter('news')">News</button>
-              <button class="affinity-filter-type" data-type="event" onclick="setAffinityTypeFilter('event')">Event</button>
-              <button class="affinity-filter-type" data-type="activation" onclick="setAffinityTypeFilter('activation')">Activation</button>
-              <button class="affinity-filter-type" data-type="moment" onclick="setAffinityTypeFilter('moment')">Moment</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="affinity-feed" id="affinityFeedGrid"></div>
-    </section>
-
-    <!-- Affinity & Partnerships Marketing Action Roadmap -->
-    <section class="card roadmap-section" id="affinityRoadmap"></section>
-
   </main>
 
   <!-- ═══ TAB: CONSUMER TRENDS ═══ -->
@@ -483,13 +411,6 @@
       </div>
     </section>
 
-    <!-- Brand Emotion Profile -->
-    <section class="card chart-card">
-      <h3>Brand Emotion Profile</h3>
-      <p class="actions-subtitle" style="margin-bottom:1rem;">Crocs' estimated emotional footprint across Plutchik's 8 primary emotions — rubric-estimated from public social content, press, and reviews. Not from a paid social listening tool.</p>
-      <canvas id="emotionRadarChart"></canvas>
-    </section>
-
     <!-- Macro Environmental Signals -->
     <section class="card">
       <h3>Macro Environmental Scan</h3>
@@ -643,11 +564,9 @@
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script src="data.js"></script>
   <script src="jibbitz-data.js"></script>
-  <script src="affinity-data.js"></script>
   <script src="trends-data.js"></script>
   <script src="app.js"></script>
   <script src="jibbitz-app.js"></script>
-  <script src="affinity-app.js"></script>
   <script src="trends-app.js"></script>
   <script src="genz-app.js"></script>
   <script src="emotion-data.js"></script>

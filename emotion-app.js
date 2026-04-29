@@ -1,7 +1,6 @@
 // Emotion Intelligence — Application Logic
 
 function initEmotion() {
-  renderEmotionRadar();
   renderMacroSignals();
   renderMessagingResonance();
   renderCapabilityStatus();
@@ -42,47 +41,6 @@ function renderMethodologyTable() {
       </div>
     </div>
   `).join('');
-}
-
-// ─── Brand Emotion Profile (Plutchik's Wheel) ────────────────────────────────
-function renderEmotionRadar() {
-  const ctx = document.getElementById('emotionRadarChart');
-  if (!ctx) return;
-
-  const labels = Object.keys(EMOTION_BREAKDOWN.current);
-  const values = Object.values(EMOTION_BREAKDOWN.current);
-
-  if (window._emotionRadarChart) window._emotionRadarChart.destroy();
-  window._emotionRadarChart = new Chart(ctx, {
-    type: 'radar',
-    data: {
-      labels,
-      datasets: [
-        {
-          label: 'Crocs — rubric estimate',
-          data: values,
-          borderColor: '#43B02A',
-          backgroundColor: '#43B02A20',
-          borderWidth: 2.5,
-          pointRadius: 4,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      scales: {
-        r: {
-          beginAtZero: true,
-          max: 100,
-          ticks: { stepSize: 25, font: { size: 10 } },
-          pointLabels: { font: { size: 11 } },
-        },
-      },
-      plugins: {
-        legend: { position: 'bottom', labels: { usePointStyle: true, padding: 14, font: { size: 11 } } },
-      },
-    },
-  });
 }
 
 // ─── Macro Environmental Signals ────────────────────────────────────────────
