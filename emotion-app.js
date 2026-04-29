@@ -420,7 +420,15 @@ function renderMessagingResonance() {
   const container = document.getElementById('messagingResonanceGrid');
   if (!container) return;
 
-  container.innerHTML = MESSAGING_RESONANCE.map(m => {
+  container.innerHTML = `
+    <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:8px;padding:0.75rem 1rem;margin-bottom:1rem;font-size:0.78rem;color:#6b7280;line-height:1.5;">
+      <strong style="color:#374151;">Scoring methodology</strong> — 5-dimension Gen Z messaging rubric (Kantar / YPulse / Ipsos framework):
+      Authenticity + Identity signal + Memorability + Emotional specificity + Cultural fit (each 0–20).
+      Resonance weights authenticity and cultural fit more heavily than raw intensity.
+      <span style="color:#f59e0b;font-weight:600;">Play Hard. Rest Easy</span> and
+      <span style="color:#f59e0b;font-weight:600;">That Crocs Feeling</span> scored via rubric — no primary research yet.
+    </div>
+  ` + MESSAGING_RESONANCE.map(m => {
     const resonanceColor = m.resonance >= 75 ? '#43B02A' : m.resonance >= 55 ? '#f59e0b' : '#ef4444';
     return `
     <div class="msg-card ${m.flag ? 'msg-card-flagged' : ''}">
@@ -444,6 +452,7 @@ function renderMessagingResonance() {
     </div>`;
   }).join('');
 }
+
 
 // ─── Brand Health Score ──────────────────────────────────────────────────────
 function renderBrandHealthScore() {

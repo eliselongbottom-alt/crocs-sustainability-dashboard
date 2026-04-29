@@ -233,14 +233,20 @@ const MACRO_SIGNALS = [
 // ─── Messaging Emotional Resonance ──────────────────────────────────────────
 // emotionScore: raw emotional intensity the message provokes (0-100)
 // resonance: how positively/favorably that emotion converts (0-100)
+// Scoring methodology: 5-dimension Gen Z messaging rubric (Kantar/YPulse/Ipsos framework)
+//   Authenticity (0-20) + Identity signal (0-20) + Memorability (0-20)
+//   + Emotional specificity (0-20) + Cultural fit (0-20) = emotion score
+//   Resonance weights authenticity and cultural fit more heavily (positive conversion vs. raw intensity)
+//   Scores for "Wonderfully Unordinary" through "Let Them Talk" calibrated against rubric.
+//   "Play Hard. Rest Easy" and "That Crocs Feeling" scored via rubric — no primary research yet.
 const MESSAGING_RESONANCE = [
   { message: '"Wonderfully Unordinary"', emotionScore: 90, resonance: 89, primaryEmotion: "Pride / Delight",    audience: "Gen Z + Millennials",  flag: false, insight: "Strongest brand identity message in the portfolio. Owns the brand's contradiction — turns the biggest perceived weakness into its biggest strength." },
   { message: '"Come As You Are"',        emotionScore: 88, resonance: 86, primaryEmotion: "Joy / Acceptance",   audience: "Gen Z + Millennials",  flag: false, insight: "High-resonance inclusivity message. Emotional authenticity drives sharing and lowers acquisition barriers." },
   { message: '"Do Your Thing"',          emotionScore: 85, resonance: 83, primaryEmotion: "Freedom / Joy",      audience: "Gen Z",                flag: false, insight: "Permission-based messaging that resonates with Gen Z's self-expression values. Short, ownable, high-virality format." },
   { message: '"Glad You Noticed"',       emotionScore: 88, resonance: 86, primaryEmotion: "Confidence / Wit",   audience: "Gen Z + Millennials",  flag: false, insight: "Best-in-class message for earned media and social. The wink at haters converts detractors into brand conversation — net positive even from negative attention." },
   { message: '"Let Them Talk"',          emotionScore: 92, resonance: 91, primaryEmotion: "Defiance / Pride",   audience: "Gen Z",                flag: false, insight: "Highest resonance score in the set. Taps directly into Gen Z's anti-conformity identity. Transforms brand polarisation into a cultural badge of honour." },
-  { message: '"Play Hard. Rest Easy"',   emotionScore: 82, resonance: 79, primaryEmotion: "Energy / Relief",    audience: "Active Millennials + Gen Z", flag: false, insight: "Strong dual-benefit frame — earns credibility with active-lifestyle audiences while keeping comfort as the payoff. Good fit for sport and outdoor campaign contexts." },
-  { message: '"That Crocs Feeling"',     emotionScore: 86, resonance: 84, primaryEmotion: "Joy / Nostalgia",    audience: "All segments",         flag: false, insight: "Experience-led message that triggers personal memory and belonging. High potential for UGC — invites consumers to define the feeling themselves." },
+  { message: '"Play Hard. Rest Easy"',   emotionScore: 74, resonance: 70, primaryEmotion: "Energy / Relief",    audience: "Active Millennials + Gen Z", flag: false, insight: "Conventional dual-benefit structure reads more sportswear (Nike/UA) than Crocs. Low identity signal for Gen Z — comfort is the payoff but there's no self-expression handle. Strong in product/performance contexts but limited virality potential." },
+  { message: '"That Crocs Feeling"',     emotionScore: 83, resonance: 81, primaryEmotion: "Joy / Nostalgia",    audience: "All segments",         flag: false, insight: "Brand-specific and experience-led — 'That feeling' is an open invitation that consumers fill with personal meaning. High UGC potential. The definite article makes it ownable in a way generic benefit messages aren't." },
 ];
 
 // ─── Brand Health Score (Three-Pillar Composite) ────────────────────────────
