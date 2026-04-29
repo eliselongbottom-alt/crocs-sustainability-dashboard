@@ -51,8 +51,18 @@ function initJibbitz() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  window._jbInitialized = true;
-  initJibbitz();
+  // Initialise whichever tab is active on load
+  const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab;
+  if (activeTab === 'jibbitz' || !activeTab) {
+    window._jbInitialized = true;
+    initJibbitz();
+  } else if (activeTab === 'trends') {
+    window._trendsInitialized = true;
+    initTrends();
+  } else if (activeTab === 'sustainability') {
+    window._sustainabilityInitialized = true;
+    renderAll();
+  }
 });
 
 // --- Tab Navigation ---
