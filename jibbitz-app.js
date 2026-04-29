@@ -8,8 +8,32 @@ if (typeof JIBBITZ_LIVE_TRENDS !== 'undefined' && JIBBITZ_LIVE_TRENDS.length > 0
 
 let jbTrendsData = [];
 
+// Relevance score: weights velocity, trend momentum, and age over static jibbitz score.
+// Downtrending entries (declining searchTrend + low velocity) naturally sink to the bottom.
+function calcRelevanceScore(t) {
+  const trend = t.searchTrend || [];
+  const last3avg = trend.length >= 3 ? trend.slice(-3).reduce((a, b) => a + b, 0) / 3 : 50;
+  const prev3avg = trend.length >= 6 ? trend.slice(-6, -3).reduce((a, b) => a + b, 0) / 3 : last3avg;
+  const momentum = last3avg - prev3avg; // positive = rising, negative = fading
+  const agePenalty = Math.min(40, Math.max(0, (t.daysTrending - 21) * 1.5));
+  const stageBonus = { evaluation: 0, watching: -10, launched: -40 }[t.stage] ?? 0;
+  return (t.velocity * 0.40) + (momentum * 0.35) + (t.jibbitzScore * 0.10) - agePenalty + stageBonus;
+}
+
+function getTrendStatus(t) {
+  const trend = t.searchTrend || [];
+  const last3avg = trend.length >= 3 ? trend.slice(-3).reduce((a, b) => a + b, 0) / 3 : 50;
+  const prev3avg = trend.length >= 6 ? trend.slice(-6, -3).reduce((a, b) => a + b, 0) / 3 : last3avg;
+  const momentum = last3avg - prev3avg;
+  if (t.velocity < 25 && momentum < -15) return 'missed';
+  if (momentum < -10 || t.velocity < 35) return 'downtrending';
+  if (t.velocity >= 80) return 'actnow';
+  if (t.velocity >= 60) return 'heating';
+  return 'watching';
+}
+
 function initJibbitz() {
-  jbTrendsData = [...JIBBITZ_TRENDS].sort((a, b) => b.jibbitzScore - a.jibbitzScore);
+  jbTrendsData = [...JIBBITZ_TRENDS].sort((a, b) => calcRelevanceScore(b) - calcRelevanceScore(a));
   renderJbPipeline();
   renderJbTrends(jbTrendsData);
   renderJbVelocityChart();
@@ -98,8 +122,15 @@ function renderJbTrends(data) {
   const grid = document.getElementById('jbTrendsGrid');
   grid.innerHTML = data.map(t => {
     const stageInfo = JIBBITZ_PIPELINE.find(p => p.stage === t.stage) || {};
-    const urgencyClass = t.velocity >= 80 ? 'jb-urgent-badge' : t.velocity >= 60 ? 'jb-warm-badge' : 'jb-watch-badge';
-    const urgencyLabel = t.velocity >= 80 ? 'ACT NOW' : t.velocity >= 60 ? 'HEATING UP' : 'WATCHING';
+    const trendStatus = getTrendStatus(t);
+    const statusMap = {
+      missed:       { cls: 'jb-missed-badge',       label: '⚠ MISSED IT' },
+      downtrending: { cls: 'jb-downtrend-badge',    label: '↓ DOWNTRENDING' },
+      actnow:       { cls: 'jb-urgent-badge',        label: '🔥 ACT NOW' },
+      heating:      { cls: 'jb-warm-badge',          label: '↑ HEATING UP' },
+      watching:     { cls: 'jb-watch-badge',         label: 'WATCHING' },
+    };
+    const { cls: urgencyClass, label: urgencyLabel } = statusMap[trendStatus];
     const volumeStr = t.socialVolume >= 1000000 ? (t.socialVolume / 1000000).toFixed(1) + 'M' : (t.socialVolume / 1000).toFixed(0) + 'K';
 
     return `

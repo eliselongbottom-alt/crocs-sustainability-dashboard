@@ -650,6 +650,8 @@ tr.is-crocs:hover { background: #D4EDCF; }
 .jb-urgent-badge { background: #fee2e2; color: #991b1b; animation: pulse-badge 2s ease-in-out infinite; }
 .jb-warm-badge { background: #fef3c7; color: #92400e; }
 .jb-watch-badge { background: #f3f4f6; color: #6b7280; }
+.jb-downtrend-badge { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
+.jb-missed-badge { background: #fafafa; color: #9ca3af; border: 1px solid #e5e7eb; text-decoration: line-through; }
 
 @keyframes pulse-badge {
   0%, 100% { opacity: 1; }
