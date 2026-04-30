@@ -1,7 +1,6 @@
 // Sustainability Marketing Dashboard - Application Logic
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Sustainability tab renders on demand (not the default tab)
   window._sustainabilityInitialized = false;
 });
 
@@ -24,7 +23,6 @@ function renderAll() {
 }
 
 // --- Shared Roadmap Renderer ---
-// items: [{ horizon, priority, type, title, description, kpi }]
 function renderRoadmap(containerId, items) {
   const container = document.getElementById(containerId);
   if (!container) return;
@@ -66,7 +64,6 @@ function renderRoadmap(containerId, items) {
 
 // --- Sustainability Roadmap ---
 function renderSustainabilityRoadmap() {
-  const carbonTrendItem = EMERGING_THEMES.find(t => t.label === "Carbon Labeling") || { weight: 82 };
   const items = [
     // 1–3 months
     {
@@ -74,24 +71,24 @@ function renderSustainabilityRoadmap() {
       priority: "high",
       type: "Campaign",
       title: "Launch Carbon Transparency Content Series",
-      description: `Crocs scores ${GAP_DATA.crocs[0]} vs peer avg ${GAP_DATA.peerAverage[0]} on carbon transparency. Publish a 3-part social series showing Crocs' real carbon reduction numbers.`,
-      kpi: "Close transparency perception gap by 15pts",
+      description: "Crocs achieved 10% emissions reduction per pair vs. 2021 baseline (confirmed). Publish a 3-part social series showing real carbon reduction progress using investor-page data.",
+      kpi: "15+ press mentions referencing verified data points",
     },
     {
       horizon: "1-3",
       priority: "high",
       type: "Content",
-      title: "Counter High-Engagement Peer Campaigns",
-      description: "Nike and Allbirds' recent campaigns achieved Very High engagement. Analyse formats and launch a rapid-response content cycle within 30 days.",
-      kpi: "2x current sustainability content engagement rate",
+      title: "Counter EU Greenwashing Enforcement Risk",
+      description: "Adidas was found guilty of misleading 'climate neutral' claims by a Nuremberg court (March 2026). Audit all Crocs sustainability language for vague or unsubstantiated claims before September 2026 EU enforcement deadline.",
+      kpi: "All public sustainability claims reviewed and substantiated",
     },
     {
       horizon: "1-3",
       priority: "high",
       type: "PR",
-      title: "Announce Bio-Based Materials Commitment",
-      description: "Only 2 of 8 peers lack a public bio-based materials pledge. A pledge announcement costs nothing and signals direction.",
-      kpi: "10+ earned media placements",
+      title: "Amplify Bio-Circular Progress Story",
+      description: "25% bio-circular content achieved in 2024 (confirmed, investors.crocs.com/esg). This is a genuinely strong story that's under-told. A commitment announcement for the 50% by 2030 target costs nothing and signals direction.",
+      kpi: "10+ earned media placements citing verified bio-content figure",
     },
     // 3–6 months
     {
@@ -99,7 +96,7 @@ function renderSustainabilityRoadmap() {
       priority: "high",
       type: "Product",
       title: "Pilot Consumer Take-Back Programme",
-      description: `6 of 8 peers run circular/take-back initiatives. Launch a 3-city pilot with in-store drop-off.`,
+      description: "Allbirds' ReRun resale marketplace and Nike Refurbished in 300+ stores show this model works. Croslite's single-material construction is ideal for closed-loop recycling. Launch a 3-city pilot with in-store drop-off.",
       kpi: "500 units collected, media coverage in 5 outlets",
     },
     {
@@ -107,7 +104,7 @@ function renderSustainabilityRoadmap() {
       priority: "high",
       type: "Partnership",
       title: "Pursue Third-Party Certification",
-      description: `Crocs scores ${GAP_DATA.crocs[5]} vs peer avg ${GAP_DATA.peerAverage[5]} on third-party certs. Begin B Corp or equivalent assessment process.`,
+      description: "Allbirds is B Corp certified since 2016. Puma has SBTi-aligned targets and Vision 2030. Nike has SBTi approval. No equivalent third-party validation exists for Crocs. Begin B Corp assessment or SBTi commitment process.",
       kpi: "Certification application submitted by Q3",
     },
     {
@@ -115,7 +112,7 @@ function renderSustainabilityRoadmap() {
       priority: "medium",
       type: "Campaign",
       title: "Consumer Education Digital Series",
-      description: "Deploy a 6-episode digital series on Croslite material, recyclability, and responsible sourcing.",
+      description: "Deploy a 6-episode digital series on Croslite material, bio-content, and responsible sourcing — using Crocs' playful brand voice. Bio-based Croslite (sugarcane-derived) is a genuinely differentiated story.",
       kpi: "5M organic impressions",
     },
     // 6–12 months
@@ -124,7 +121,7 @@ function renderSustainabilityRoadmap() {
       priority: "high",
       type: "Product",
       title: "Launch Circular Economy Programme Nationally",
-      description: "Scale take-back pilot nationwide with rewards programme for returned Crocs.",
+      description: "Scale take-back pilot nationwide with rewards programme for returned Crocs. Croslite's single-material composition should yield high recycling efficiency vs. multi-material shoes.",
       kpi: "10,000 units, 8% repeat purchase uplift",
     },
     {
@@ -132,7 +129,7 @@ function renderSustainabilityRoadmap() {
       priority: "medium",
       type: "Campaign",
       title: "Regenerative Agriculture Brand Story",
-      description: "Commission a short documentary on bio-based material sourcing.",
+      description: "Commission a short documentary on bio-based Croslite sugarcane sourcing. Allbirds' regenerative wool sourcing from New Zealand farms has become a central brand pillar — Crocs' sugarcane sourcing is a parallel opportunity.",
       kpi: "50M views, 3 award submissions",
     },
     {
@@ -140,7 +137,7 @@ function renderSustainabilityRoadmap() {
       priority: "medium",
       type: "Research",
       title: "Carbon Labelling on Packaging",
-      description: `Carbon labelling trend strength: ${carbonTrendItem.weight}/100. Test carbon label on 3 SKUs.`,
+      description: "Allbirds has labeled carbon footprint on all products since 2020. EU and California are both advancing mandatory carbon labeling legislation. Commission LCA on top 3 SKUs to test Crocs carbon label.",
       kpi: "12% positive sentiment lift among eco-conscious segment",
     },
   ];
@@ -159,42 +156,36 @@ function refreshData() {
 // --- Positioning Summary ---
 function renderPositioningSummary() {
   const crocs = BRANDS.crocs;
-  const allScores = Object.values(BRANDS).map(b => b.overallScore).sort((a, b) => b - a);
-  const rank = allScores.indexOf(crocs.overallScore) + 1;
-  const total = allScores.length;
-  const avgScore = Math.round(allScores.reduce((a, b) => a + b, 0) / total);
-  const gap = crocs.overallScore - avgScore;
-
-  const items = [
-    { label: "Industry Rank", value: `#${rank} of ${total}`, detail: "Among tracked peer brands" },
-    { label: "Overall Score", value: `${crocs.overallScore}/100`, detail: `Peer average: ${avgScore}` },
-    { label: "vs. Peer Average", value: `${gap > 0 ? "+" : ""}${gap} pts`, detail: gap >= 0 ? "Above average" : "Below average - opportunity" },
-    { label: "Campaign Volume Trend", value: crocs.trend === "up" ? "Rising" : crocs.trend === "down" ? "Falling" : "Steady", detail: `${crocs.campaignVolume} campaigns this period` },
-    { label: "Consumer Sentiment", value: `${crocs.sentimentScore}%`, detail: "Positive sustainability perception" },
-  ];
+  const items = crocs.confirmedFacts.slice(0, 5).map(fact => {
+    const [label, ...rest] = fact.split(" — ");
+    return { label: label.trim(), detail: rest.join(" — ").trim() || "" };
+  });
 
   const grid = document.getElementById("positioningGrid");
   grid.innerHTML = items.map(item => `
     <div class="positioning-item">
-      <div class="label">${item.label}</div>
-      <div class="value">${item.value}</div>
-      <div class="detail">${item.detail}</div>
+      <div class="value" style="font-size:0.85rem;line-height:1.3;">${item.label}</div>
+      ${item.detail ? `<div class="detail">${item.detail}</div>` : ""}
     </div>
-  `).join("");
+  `).join("") + `
+    <div class="positioning-item">
+      <div class="label">Source</div>
+      <div class="value" style="font-size:0.8rem;font-weight:400;">${crocs.source}</div>
+      <div class="detail">2024 ESG Report (investors.crocs.com)</div>
+    </div>
+  `;
 }
 
 // --- KPI Cards ---
 function renderKPIs() {
   const brands = Object.values(BRANDS);
-  const avgVolume = Math.round(brands.reduce((s, b) => s + b.campaignVolume, 0) / brands.length);
-  const topScorer = brands.reduce((a, b) => a.overallScore > b.overallScore ? a : b);
-  const positiveCount = brands.filter(b => b.sentiment === "positive").length;
+  const crocs = BRANDS.crocs;
 
   const kpis = [
     { value: brands.length, label: "Brands Tracked", change: null },
-    { value: avgVolume, label: "Avg Campaign Volume", change: "+12% QoQ", dir: "up" },
-    { value: topScorer.name, label: "Current Leader", change: `Score: ${topScorer.overallScore}`, dir: "up" },
-    { value: `${positiveCount}/${brands.length}`, label: "Positive Sentiment", change: "Industry improving", dir: "up" },
+    { value: "25%", label: "Crocs Bio-Circular Content", change: "2024 actual — investors.crocs.com", dir: "up" },
+    { value: "Net Zero 2040", label: "Crocs Climate Target", change: "Scope 1, 2, and 3", dir: "up" },
+    { value: "Sep 2026", label: "EU Enforcement Deadline", change: "Green Claims rules take effect", dir: null },
   ];
 
   const row = document.getElementById("kpiRow");
@@ -207,56 +198,23 @@ function renderKPIs() {
   `).join("");
 }
 
-// --- Trend Chart ---
+// --- Trend Chart (replaced — no verified volume data available) ---
 function renderTrendChart() {
-  const ctx = document.getElementById("trendChart").getContext("2d");
-  const months = ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"];
-
-  const brandColors = {
-    crocs: { border: "#43B02A", bg: "rgba(67,176,42,0.15)" },
-    nike: { border: "#111", bg: "rgba(17,17,17,0.05)" },
-    adidas: { border: "#0066b2", bg: "rgba(0,102,178,0.05)" },
-    allbirds: { border: "#006A4E", bg: "rgba(0,106,78,0.05)" },
-    puma: { border: "#e4002b", bg: "rgba(228,0,43,0.05)" },
-    birkenstock: { border: "#8b6914", bg: "rgba(139,105,20,0.05)" },
-  };
-
-  const highlightBrands = ["crocs", "nike", "adidas", "allbirds", "puma", "birkenstock"];
-
-  const datasets = highlightBrands.map(key => {
-    const b = BRANDS[key];
-    const colors = brandColors[key] || { border: "#999", bg: "rgba(153,153,153,0.05)" };
-    return {
-      label: b.name,
-      data: b.monthlyVolume,
-      borderColor: colors.border,
-      backgroundColor: colors.bg,
-      borderWidth: key === "crocs" ? 3 : 1.5,
-      pointRadius: key === "crocs" ? 4 : 2,
-      fill: key === "crocs",
-      tension: 0.3,
-    };
-  });
-
-  if (window._trendChart) window._trendChart.destroy();
-  window._trendChart = new Chart(ctx, {
-    type: "line",
-    data: { labels: months, datasets },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { position: "bottom", labels: { usePointStyle: true, padding: 16, font: { size: 11 } } },
-      },
-      scales: {
-        y: { beginAtZero: true, title: { display: true, text: "Campaign / Mention Volume" } },
-      },
-    },
-  });
+  const card = document.getElementById("trendChart").closest(".chart-card");
+  card.innerHTML = `
+    <h3>Sustainability Messaging Volume</h3>
+    <div class="no-data-notice" style="padding:2rem 1rem;text-align:center;color:#6b7280;font-size:0.9rem;line-height:1.6;">
+      Campaign volume data not available.<br>
+      Only verified sourced data is shown in this dashboard — estimated volume indices have been removed.
+    </div>
+  `;
 }
 
 // --- Pillar Chart ---
 function renderPillarChart() {
-  const ctx = document.getElementById("pillarChart").getContext("2d");
+  const ctx = document.getElementById("pillarChart");
+  if (!ctx) return;
+  const chartCtx = ctx.getContext("2d");
 
   const pillarCounts = {};
   Object.values(BRANDS).forEach(b => {
@@ -273,7 +231,7 @@ function renderPillarChart() {
   const colors = hasCrocs.map(h => h ? "#43B02A" : "#C8E6B8");
 
   if (window._pillarChart) window._pillarChart.destroy();
-  window._pillarChart = new Chart(ctx, {
+  window._pillarChart = new Chart(chartCtx, {
     type: "bar",
     data: {
       labels,
@@ -306,31 +264,25 @@ function renderPillarChart() {
 let scorecardData = [];
 
 function renderScorecard() {
-  scorecardData = Object.values(BRANDS).sort((a, b) => b.overallScore - a.overallScore);
+  scorecardData = Object.values(BRANDS).sort((a, b) => a.name.localeCompare(b.name));
   renderScorecardRows(scorecardData);
 }
 
 function renderScorecardRows(data) {
   const tbody = document.getElementById("scorecardBody");
   tbody.innerHTML = data.map(b => {
-    const sentimentClass = b.sentiment === "positive" ? "sentiment-positive" :
-                           b.sentiment === "neutral" ? "sentiment-neutral" : "sentiment-mixed";
     const trendClass = b.trend === "up" ? "trend-up" : b.trend === "down" ? "trend-down" : "trend-flat";
     const trendArrow = b.trend === "up" ? "&#9650;" : b.trend === "down" ? "&#9660;" : "&#9644;";
     const rowClass = b.isSelf ? 'class="is-crocs"' : "";
+    const factsList = b.confirmedFacts && b.confirmedFacts.length > 0
+      ? `<ul style="margin:0;padding-left:1rem;font-size:0.78rem;color:#374151;">${b.confirmedFacts.slice(0, 2).map(f => `<li>${f}</li>`).join("")}</ul>`
+      : `<span style="font-size:0.78rem;color:#9ca3af;">No confirmed facts on file</span>`;
 
     return `<tr ${rowClass}>
-      <td><strong>${b.name}</strong>${b.isSelf ? " (You)" : ""}</td>
-      <td>
-        <div class="score-bar">
-          <span class="score-bar-fill" style="width:${b.overallScore}px"></span>
-          <span>${b.overallScore}</span>
-        </div>
-      </td>
-      <td>${b.campaignVolume}</td>
+      <td><strong>${b.name}</strong>${b.isSelf ? " (You)" : ""}<br><span style="font-size:0.72rem;color:#9ca3af;">${b.source || ""}</span></td>
       <td><div class="pillar-tags">${b.pillars.map(p => `<span class="pillar-tag">${p}</span>`).join("")}</div></td>
-      <td><span class="sentiment-badge ${sentimentClass}">${b.sentimentScore}% ${b.sentiment}</span></td>
-      <td style="max-width:250px;font-size:0.8rem;">${b.recentInitiative}</td>
+      <td>${factsList}</td>
+      <td style="max-width:220px;font-size:0.8rem;">${b.recentInitiative}</td>
       <td><span class="trend-arrow ${trendClass}">${trendArrow}</span></td>
     </tr>`;
   }).join("");
@@ -350,10 +302,14 @@ function sortTable() {
   const sortBy = document.getElementById("sortSelect").value;
   const sorted = [...scorecardData];
   switch (sortBy) {
-    case "name": sorted.sort((a, b) => a.name.localeCompare(b.name)); break;
-    case "volume": sorted.sort((a, b) => b.campaignVolume - a.campaignVolume); break;
-    case "sentiment": sorted.sort((a, b) => b.sentimentScore - a.sentimentScore); break;
-    default: sorted.sort((a, b) => b.overallScore - a.overallScore);
+    case "trend":
+      sorted.sort((a, b) => {
+        const order = { up: 0, flat: 1, down: 2 };
+        return (order[a.trend] || 1) - (order[b.trend] || 1);
+      });
+      break;
+    default:
+      sorted.sort((a, b) => a.name.localeCompare(b.name));
   }
   renderScorecardRows(sorted);
 }
@@ -362,64 +318,20 @@ function sortTable() {
 function renderThemeBubbles() {
   const container = document.getElementById("themeBubbles");
   container.innerHTML = EMERGING_THEMES.map(t => {
-    const size = 0.7 + (t.weight / 100) * 0.6;
-    return `<span class="theme-bubble" style="background:${t.color}22;color:${t.color};border:1px solid ${t.color}44;font-size:${size}rem;" title="Trend strength: ${t.weight}/100">${t.label}</span>`;
+    return `<span class="theme-bubble" style="background:${t.color}22;color:${t.color};border:1px solid ${t.color}44;font-size:0.85rem;">${t.label}</span>`;
   }).join("");
 }
 
-// --- Gap Analysis Radar ---
+// --- Gap Analysis (removed — required estimated benchmark data) ---
 function renderGapChart() {
-  const ctx = document.getElementById("gapChart").getContext("2d");
-
-  if (window._gapChart) window._gapChart.destroy();
-  window._gapChart = new Chart(ctx, {
-    type: "radar",
-    data: {
-      labels: GAP_DIMENSIONS,
-      datasets: [
-        {
-          label: "Crocs",
-          data: GAP_DATA.crocs,
-          borderColor: "#43B02A",
-          backgroundColor: "rgba(67,176,42,0.2)",
-          borderWidth: 2,
-          pointRadius: 4,
-        },
-        {
-          label: "Peer Average",
-          data: GAP_DATA.peerAverage,
-          borderColor: "#6b7280",
-          backgroundColor: "rgba(107,114,128,0.1)",
-          borderWidth: 1.5,
-          borderDash: [4, 4],
-          pointRadius: 3,
-        },
-        {
-          label: "Category Leader",
-          data: GAP_DATA.leader,
-          borderColor: "#006A4E",
-          backgroundColor: "rgba(0,106,78,0.05)",
-          borderWidth: 1,
-          borderDash: [2, 2],
-          pointRadius: 2,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      scales: {
-        r: {
-          beginAtZero: true,
-          max: 100,
-          ticks: { stepSize: 25, font: { size: 10 } },
-          pointLabels: { font: { size: 11 } },
-        },
-      },
-      plugins: {
-        legend: { position: "bottom", labels: { usePointStyle: true, padding: 12, font: { size: 11 } } },
-      },
-    },
-  });
+  const card = document.getElementById("gapChart").closest(".card");
+  card.innerHTML = `
+    <h3>Crocs Gap Analysis</h3>
+    <div class="no-data-notice" style="padding:2rem 1rem;text-align:center;color:#6b7280;font-size:0.9rem;line-height:1.6;">
+      Gap scores removed — this chart required estimated benchmark figures that cannot be independently verified.<br>
+      Use the Pillar Focus Breakdown and Competitor Scorecard to identify positioning opportunities.
+    </div>
+  `;
 }
 
 // --- Recommended Actions ---
@@ -428,7 +340,6 @@ function renderActions() {
   const peers = Object.values(BRANDS).filter(b => !b.isSelf);
   const actions = [];
 
-  // Strategy page ID mapping
   const dimToStrategy = {
     "Carbon Transparency": "carbon-transparency",
     "Circular Programs": "circular-programs",
@@ -438,108 +349,85 @@ function renderActions() {
     "Bio-Based Materials": "adopt-pillar",
   };
 
-  // 1. Gap analysis: find biggest gaps vs peer average
-  GAP_DIMENSIONS.forEach((dim, i) => {
-    const gap = GAP_DATA.peerAverage[i] - GAP_DATA.crocs[i];
-    const leaderGap = GAP_DATA.leader[i] - GAP_DATA.crocs[i];
-    if (gap > 10) {
-      actions.push({
-        priority: gap > 20 ? "high" : "medium",
-        type: "Close Gap",
-        title: `Strengthen ${dim}`,
-        rationale: `Crocs scores ${GAP_DATA.crocs[i]} vs. peer avg ${GAP_DATA.peerAverage[i]} and leader ${GAP_DATA.leader[i]}. ${gap > 20 ? "This is a critical blind spot competitors are exploiting." : "Closing this gap would improve competitive positioning."}`,
-        score: gap,
-        metric: { label: `${GAP_DATA.crocs[i]} → ${GAP_DATA.peerAverage[i]} target`, pct: Math.round((GAP_DATA.crocs[i] / GAP_DATA.peerAverage[i]) * 100) },
-        strategyId: dimToStrategy[dim] || null,
-      });
-    }
-  });
-
-  // 2. Missing pillars that multiple competitors use
+  // 1. Pillar gap analysis — based on real pillar arrays
   const pillarCounts = {};
   peers.forEach(b => b.pillars.forEach(p => { pillarCounts[p] = (pillarCounts[p] || 0) + 1; }));
   Object.entries(pillarCounts)
     .filter(([p]) => !crocs.pillars.includes(p))
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 3)
+    .slice(0, 4)
     .forEach(([pillar, count]) => {
       const brandsUsing = peers.filter(b => b.pillars.includes(pillar)).map(b => b.name);
       actions.push({
         priority: count >= 4 ? "high" : "medium",
         type: "Adopt Pillar",
         title: `Add "${pillar}" to sustainability messaging`,
-        rationale: `${count} of ${peers.length} peers actively market this pillar (${brandsUsing.slice(0, 3).join(", ")}${brandsUsing.length > 3 ? "..." : ""}). Crocs has no presence here — adding it would broaden appeal and fill a messaging gap.`,
-        score: count * 10,
+        rationale: `${count} of ${peers.length} peers actively market this pillar (${brandsUsing.slice(0, 3).join(", ")}${brandsUsing.length > 3 ? "..." : ""}). Crocs has no visible presence here.`,
         metric: { label: `${count}/${peers.length} peers active`, pct: Math.round((count / peers.length) * 100) },
         strategyId: "adopt-pillar",
       });
     });
 
-  // 3. Emerging themes Crocs should watch
-  const topThemes = EMERGING_THEMES.filter(t => t.weight >= 75).slice(0, 2);
-  const themeToStrategy = { "Carbon Labeling": "carbon-labeling", "Regenerative Agriculture": "regenerative-agriculture" };
-  topThemes.forEach(theme => {
-    actions.push({
-      priority: theme.weight >= 85 ? "high" : "medium",
-      type: "Emerging Trend",
-      title: `Develop a ${theme.label} initiative`,
-      rationale: `"${theme.label}" has a trend strength of ${theme.weight}/100 and is gaining rapid traction industry-wide. Early movers here will own the narrative before it becomes table stakes.`,
-      score: theme.weight,
-      metric: { label: `Trend strength: ${theme.weight}/100`, pct: theme.weight },
-      strategyId: themeToStrategy[theme.label] || null,
-    });
+  // 2. EU enforcement action — based on verified regulatory event
+  actions.push({
+    priority: "high",
+    type: "Regulatory",
+    title: "Audit all sustainability claims for EU Green Claims compliance",
+    rationale: "EU rules take effect September 2026. Adidas was found guilty of misleading claims in March 2026 (Nuremberg-Fürth court). All vague phrases like 'eco-friendly' or 'climate neutral' must be substantiated or removed.",
+    metric: { label: "EU enforcement: Sep 2026", pct: 85 },
+    strategyId: "third-party-certs",
   });
 
-  // 4. Volume gap vs leaders
-  const avgPeerVolume = Math.round(peers.reduce((s, b) => s + b.campaignVolume, 0) / peers.length);
-  if (crocs.campaignVolume < avgPeerVolume) {
-    const volumeGap = avgPeerVolume - crocs.campaignVolume;
-    const topCompetitor = peers.reduce((a, b) => a.campaignVolume > b.campaignVolume ? a : b);
-    actions.push({
-      priority: volumeGap > 20 ? "high" : "medium",
-      type: "Increase Visibility",
-      title: `Scale campaign volume from ${crocs.campaignVolume} to ${avgPeerVolume}+`,
-      rationale: `Crocs runs ${crocs.campaignVolume} campaigns vs. peer avg of ${avgPeerVolume}. ${topCompetitor.name} leads with ${topCompetitor.campaignVolume}. Higher volume correlates with stronger sentiment scores across tracked brands.`,
-      score: volumeGap,
-      metric: { label: `${crocs.campaignVolume}/${avgPeerVolume} peer avg`, pct: Math.round((crocs.campaignVolume / avgPeerVolume) * 100) },
-      strategyId: "campaign-volume",
-    });
-  }
+  // 3. Circular programs — based on real peer data
+  const hasCircular = peers.filter(b => b.pillars.some(p => p.toLowerCase().includes("circular") || p.toLowerCase().includes("repair") || p.toLowerCase().includes("longevity")));
+  actions.push({
+    priority: "high",
+    type: "Close Gap",
+    title: "Strengthen Circular Programs",
+    rationale: `${hasCircular.length} peers (${hasCircular.map(b => b.name).join(", ")}) actively market circular initiatives. Croslite's single-material composition is an ideal circularity advantage that's under-marketed.`,
+    metric: { label: `${hasCircular.length}/${peers.length} peers active`, pct: Math.round((hasCircular.length / peers.length) * 100) },
+    strategyId: "circular-programs",
+  });
 
-  // 5. Learn from top-performing peer campaigns
-  const highEngagement = RECENT_CAMPAIGNS.filter(c => c.brand !== "Crocs" && c.engagement === "Very High");
-  if (highEngagement.length > 0) {
-    const examples = highEngagement.map(c => `${c.brand}'s "${c.title}"`).join(" and ");
+  // 4. Third-party certifications — based on real cert data
+  const certifiedPeers = peers.filter(b => b.confirmedFacts && b.confirmedFacts.some(f => f.toLowerCase().includes("b corp") || f.toLowerCase().includes("sbti") || f.toLowerCase().includes("certified")));
+  actions.push({
+    priority: "high",
+    type: "Close Gap",
+    title: "Pursue Third-Party Certifications",
+    rationale: `Allbirds is B Corp certified (since 2016) and Puma has SBTi-aligned Vision 2030 targets. Nike has SBTi-approved targets. Crocs has no equivalent independent certification — a meaningful credibility gap as EU enforcement tightens.`,
+    metric: { label: `${certifiedPeers.length} peers certified`, pct: Math.round((certifiedPeers.length / peers.length) * 100) },
+    strategyId: "third-party-certs",
+  });
+
+  // 5. Carbon transparency — based on peer actions
+  const carbonLabelPeers = peers.filter(b => b.pillars.some(p => p.toLowerCase().includes("carbon") || p.toLowerCase().includes("transparency")));
+  actions.push({
+    priority: "medium",
+    type: "Close Gap",
+    title: "Strengthen Carbon Transparency",
+    rationale: `Allbirds labels carbon footprint on every product since 2020. Crocs' confirmed 10% per-pair emissions reduction is a strong story — but it's not being told at the product level.`,
+    metric: { label: `Allbirds set industry gold standard`, pct: 70 },
+    strategyId: "carbon-transparency",
+  });
+
+  // 6. Learn from verified campaigns
+  const verifiedCampaigns = RECENT_CAMPAIGNS.filter(c => c.brand !== "Crocs" && c.brand !== "Industry");
+  if (verifiedCampaigns.length > 0) {
     actions.push({
       priority: "medium",
       type: "Competitive Response",
-      title: `Study and respond to high-engagement peer campaigns`,
-      rationale: `${examples} achieved "Very High" engagement. Analyze their formats, channels, and messaging frameworks to inform Crocs' next campaign cycle.`,
-      score: 30,
-      metric: { label: `${highEngagement.length} campaigns to study`, pct: 60 },
+      title: "Study and respond to verified high-engagement peer events",
+      rationale: `${RECENT_CAMPAIGNS.length} verified regulatory and legal events tracked. The Adidas greenwashing ruling is a direct signal: Crocs must substantiate all claims with specific, time-bound data.`,
+      metric: { label: `${RECENT_CAMPAIGNS.length} verified events`, pct: 60 },
       strategyId: "peer-campaigns",
     });
   }
 
-  // 6. Sentiment improvement opportunity
-  const sentimentLeader = peers.reduce((a, b) => a.sentimentScore > b.sentimentScore ? a : b);
-  if (sentimentLeader.sentimentScore - crocs.sentimentScore > 8) {
-    actions.push({
-      priority: "low",
-      type: "Brand Perception",
-      title: `Close sentiment gap with ${sentimentLeader.name}`,
-      rationale: `${sentimentLeader.name} leads consumer sentiment at ${sentimentLeader.sentimentScore}% vs. Crocs' ${crocs.sentimentScore}%. Their approach: ${sentimentLeader.recentInitiative.substring(0, 80)}...`,
-      score: sentimentLeader.sentimentScore - crocs.sentimentScore,
-      metric: { label: `${crocs.sentimentScore}% → ${sentimentLeader.sentimentScore}% target`, pct: Math.round((crocs.sentimentScore / sentimentLeader.sentimentScore) * 100) },
-      strategyId: "sentiment-gap",
-    });
-  }
-
-  // Sort: high first, then by score
+  // Sort: high first
   const priorityOrder = { high: 0, medium: 1, low: 2 };
-  actions.sort((a, b) => (priorityOrder[a.priority] - priorityOrder[b.priority]) || (b.score - a.score));
+  actions.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
 
-  // Render
   const grid = document.getElementById("actionsGrid");
   grid.innerHTML = actions.map(a => {
     const linkOpen = a.strategyId ? `<a href="strategy.html?id=${a.strategyId}" class="action-card-link">` : '';

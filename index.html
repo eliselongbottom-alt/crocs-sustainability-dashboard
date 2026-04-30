@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crocs Marketing Intelligence Dashboard</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-  <link rel="stylesheet" href="styles.css?v=20260430">
+  <link rel="stylesheet" href="styles.css?v=20260430b">
 </head>
 <body>
 
@@ -88,10 +88,8 @@
       <div class="table-controls">
         <input type="text" id="searchInput" placeholder="Filter brands..." onkeyup="filterTable()">
         <select id="sortSelect" onchange="sortTable()">
-          <option value="overall">Sort: Overall Score</option>
           <option value="name">Sort: Name</option>
-          <option value="volume">Sort: Campaign Volume</option>
-          <option value="sentiment">Sort: Consumer Sentiment</option>
+          <option value="trend">Sort: Trend Direction</option>
         </select>
       </div>
       <div class="table-wrap">
@@ -99,10 +97,8 @@
           <thead>
             <tr>
               <th>Brand</th>
-              <th>Overall Score</th>
-              <th>Campaign Volume</th>
               <th>Key Pillars</th>
-              <th>Consumer Sentiment</th>
+              <th>Confirmed ESG Facts</th>
               <th>Recent Initiative</th>
               <th>Trend</th>
             </tr>
@@ -556,17 +552,17 @@
 
   <!-- SheetJS for Excel parsing (used by Google Trends tab) -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-  <script src="data.js?v=20260430"></script>
-  <script src="jibbitz-data.js?v=20260430"></script>
-  <script src="jibbitz-live-data.js?v=20260430"></script>
-  <script src="trends-data.js?v=20260430"></script>
-  <script src="app.js?v=20260430"></script>
-  <script src="jibbitz-app.js?v=20260430"></script>
-  <script src="trends-app.js?v=20260430"></script>
-  <script src="genz-app.js?v=20260430"></script>
-  <script src="emotion-data.js?v=20260430"></script>
-  <script src="emotion-app.js?v=20260430"></script>
-  <script src="google-trends-data.js?v=20260430"></script>
-  <script src="google-trends-app.js?v=20260430"></script>
+  <script src="data.js?v=20260430b"></script>
+  <script src="jibbitz-data.js?v=20260430b"></script>
+  <script src="jibbitz-live-data.js?v=20260430b"></script>
+  <script src="trends-data.js?v=20260430b"></script>
+  <script src="app.js?v=20260430b"></script>
+  <script src="jibbitz-app.js?v=20260430b"></script>
+  <script src="trends-app.js?v=20260430b"></script>
+  <script src="genz-app.js?v=20260430b"></script>
+  <script src="emotion-data.js?v=20260430b"></script>
+  <script src="emotion-app.js?v=20260430b"></script>
+  <script src="google-trends-data.js?v=20260430b"></script>
+  <script src="google-trends-app.js?v=20260430b"></script>
 </body>
 </html>
