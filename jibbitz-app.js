@@ -8,6 +8,31 @@ if (typeof JIBBITZ_LIVE_TRENDS !== 'undefined' && JIBBITZ_LIVE_TRENDS.length > 0
 
 let jbTrendsData = [];
 
+function regionalHTML(t) {
+  if (!t.regional) return '';
+  const hasData = Object.values(t.regional).some(v => v > 0);
+  if (!hasData) return `
+    <div class="jb-regional">
+      <div class="jb-regional-title">Regional Relevance</div>
+      <div class="jb-no-data">Insufficient Google search volume to show regional breakdown — trend is spreading via social media, not search.</div>
+    </div>`;
+  return `
+    <div class="jb-regional">
+      <div class="jb-regional-title">Regional Relevance <span class="jb-source-tag">Google Trends</span></div>
+      <div class="jb-regional-grid">
+        ${Object.entries(t.regional).map(([region, score]) => `
+          <div class="jb-regional-item">
+            <div class="jb-regional-bar-wrap">
+              <div class="jb-regional-bar" style="height:${score}%;background:${score >= 80 ? '#43B02A' : score >= 55 ? '#f59e0b' : '#e0e0e0'}"></div>
+            </div>
+            <div class="jb-regional-score">${score}</div>
+            <div class="jb-regional-label">${region}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
+}
+
 // Maps qualitative momentum label to a numeric weight for sorting.
 function momentumScore(t) {
   return { surging: 85, rising: 65, steady: 45, fading: 20, peaked: 8 }[t.momentum] ?? 45;
@@ -190,28 +215,7 @@ function renderJbTrends(data) {
           `).join('')}
         </div>
       </div>` : ''}
-      ${t.regional ? (() => {
-        const hasData = Object.values(t.regional).some(v => v > 0);
-        return hasData ? `
-      <div class="jb-regional">
-        <div class="jb-regional-title">Regional Relevance <span class="jb-source-tag">Google Trends</span></div>
-        <div class="jb-regional-grid">
-          ${Object.entries(t.regional).map(([region, score]) => `
-            <div class="jb-regional-item">
-              <div class="jb-regional-bar-wrap">
-                <div class="jb-regional-bar" style="height:${score}%;background:${score >= 80 ? '#43B02A' : score >= 55 ? '#f59e0b' : '#e0e0e0'}"></div>
-              </div>
-              <div class="jb-regional-score">${score}</div>
-              <div class="jb-regional-label">${region}</div>
-            </div>
-          `).join('')}
-        </div>
-      </div>` : `
-      <div class="jb-regional">
-        <div class="jb-regional-title">Regional Relevance</div>
-        <div class="jb-no-data">Insufficient Google search volume to show regional breakdown — trend is spreading via social media, not search.</div>
-      </div>`;
-      })() : ''}
+      ${regionalHTML(t)}
       <div class="jb-stage-banner" style="background:${stageInfo.color}15;border-left:3px solid ${stageInfo.color};color:${stageInfo.color}">
         ${stageInfo.icon || ''} ${t.stageDetail}
       </div>
