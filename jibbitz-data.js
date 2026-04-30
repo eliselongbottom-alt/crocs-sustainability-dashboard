@@ -1,5 +1,5 @@
 // Jibbitz Trends - Data Layer
-// In production, feed from social listening APIs (Brandwatch, Sprout Social, Google Trends)
+// Sources: Google Trends RSS, NPR Pop Culture, Variety, Billboard, Hypebeast, BuzzFeed Trending, TMZ
 
 const JIBBITZ_LAST_UPDATED = "2026-04-29";
 
@@ -9,7 +9,7 @@ const JIBBITZ_LAST_UPDATED = "2026-04-29";
 // momentum: editorial assessment of current trend trajectory — "surging" | "rising" | "steady" | "fading" | "peaked"
 // jibbitzScore: editorial 0-100 rating of commercial charm potential — not a pulled metric
 // searchTrend: relative interest curve (0-100), directional only, not API-sourced
-// To add a real trend: share the story details and Claude will build the entry accurately.
+// source field: lists the outlets where this trend was confirmed — fetched on last updated date above
 
 const JIBBITZ_TRENDS = [
   {
@@ -300,6 +300,40 @@ const JIBBITZ_TRENDS = [
     searchTrend: [0, 2, 5, 10, 22, 42, 60, 74, 84, 92, 98, 100, 98, 95],
     regional: { US: 85, JP: 75, CN: 60, KR: 78, IN: 65, UK: 70, FR: 62, DE: 55 },
     audience: { "Gen Z": 90, "Millennials": 88, "Parents": 55, "Kids": 45 },
+  },
+  {
+    id: "devil-wears-prada-2",
+    name: "The Devil Wears Prada 2",
+    category: "fashion",
+    confidence: "verified",
+    confidenceNote: "Real production — sequel confirmed and actively filming. Original cast returning: Meryl Streep, Anne Hathaway, Emily Blunt, Stanley Tucci. Director David Frankel back. Anna Wintour (the real Miranda Priestly) appeared on Vogue's May 2026 cover alongside Meryl Streep with the tagline 'When Miranda met Anna...' Projected $175–190M global opening weekend. Budget ~$100M. Covered by Variety.",
+    description: "The sequel to one of fashion's most quotable films is filming now, and Anna Wintour just posed with Meryl Streep for Vogue's May cover. The original is still a 'cultural touchstone' two decades on — this sequel is reigniting every fashion-obsessed corner of the internet. The charm concept doesn't need character rights: a tiny cerulean blue swatch card, a runway magazine, or a stiletto heel says everything without a single logo. Pure fashion-irony energy.",
+    source: "Variety / Vogue",
+    daysTrending: 14,
+    momentum: "surging",
+    jibbitzScore: 88,
+    stage: "evaluation",
+    stageDetail: "No character licensing needed — fashion-adjacent concepts (cerulean swatch, stiletto, magazine) are generic. The Wintour/Streep Vogue moment is happening now. Window: move before the film releases and conversation peaks.",
+    searchTrend: [0, 0, 2, 5, 10, 20, 38, 55, 72, 85, 92, 96, 100, 98],
+    regional: { US: 95, JP: 65, CN: 60, KR: 72, IN: 58, UK: 95, FR: 98, DE: 88 },
+    audience: { "Gen Z": 85, "Millennials": 96, "Parents": 68, "Kids": 20 },
+  },
+  {
+    id: "michael-jackson-biopic",
+    name: "'Michael' Biopic",
+    category: "pop-culture",
+    confidence: "verified",
+    confidenceNote: "Real film — 'Michael', directed by Antoine Fuqua, starring Jaafar Jackson (MJ's nephew). Now in release. NPR reviewed it noting the film covers his rise to stardom while omitting controversial aspects. Variety review: 'The thrill isn't gone... Jaafar Jackson nails his mix of delicacy and steel.' Covered by NPR, Variety.",
+    description: "Antoine Fuqua's MJ biopic has Jaafar Jackson channelling his uncle with enough electricity to reopen the debate about the king of pop all over again. The film focuses on the rise — Thriller era, moonwalk, Pepsi commercial — which means the whole internet is rewatching iconic MJ footage and fighting about his legacy in the comments. The charm challenge is real: sequined glove and fedora are iconic, but MJ Estate licensing is the barrier. An original 'moonwalk shoe' silhouette without explicit branding could thread the needle.",
+    source: "NPR / Variety",
+    daysTrending: 21,
+    momentum: "rising",
+    jibbitzScore: 78,
+    stage: "watching",
+    stageDetail: "Licensing from the MJ Estate is the key blocker — evaluate whether an unbranded moonwalk-shoe or sequined-glove silhouette clears legal. If yes, this is a high-ceiling moment while the film is in theaters.",
+    searchTrend: [0, 0, 5, 15, 35, 58, 75, 88, 95, 100, 98, 94, 90, 87],
+    regional: { US: 95, JP: 70, CN: 65, KR: 72, IN: 78, UK: 92, FR: 88, DE: 85 },
+    audience: { "Gen Z": 82, "Millennials": 95, "Parents": 85, "Kids": 45 },
   },
   {
     id: "mob-wife-revival",
