@@ -1,16 +1,21 @@
 // Gen Z Intelligence — Application Logic
 
 function initGenZ() {
-  renderGenZStats();
-  renderGenZPlatformChart();
-  renderGenZTimeChart();
-  renderGenZSpendChart();
-  renderGenZValuesList();
-  renderGenZCrocsAngles();
-  renderGenZInfluenceList();
-  renderGenZFormatsList();
-  renderGenZGlobalLocal();
-  renderGenZTakeaways();
+  const fns = [
+    renderGenZStats,
+    renderGenZPlatformChart,
+    renderGenZTimeChart,
+    renderGenZSpendChart,
+    renderGenZValuesList,
+    renderGenZCrocsAngles,
+    renderGenZInfluenceList,
+    renderGenZFormatsList,
+    renderGenZGlobalLocal,
+    renderGenZTakeaways,
+  ];
+  fns.forEach(fn => {
+    try { fn(); } catch (e) { console.error('[GenZ] Error in ' + fn.name + ':', e); }
+  });
 }
 
 // ─── Key Stats ──────────────────────────────────────────────────────────────
@@ -206,18 +211,20 @@ function renderGenZInfluenceList() {
   const container = document.getElementById('genzInfluenceCards');
   if (!container) return;
 
-  // Replace the chart canvas too
+  // Hide the chart canvas card (the one above this section)
   const chartCtx = document.getElementById('genzInfluenceChart');
   if (chartCtx) {
-    const chartParent = chartCtx.closest('.card') || chartCtx.parentElement;
-    if (chartParent) chartParent.style.display = 'none';
+    const chartCard = chartCtx.closest('.card') || chartCtx.parentElement;
+    if (chartCard) chartCard.style.display = 'none';
   }
 
   const tierColors = { high: '#43B02A', medium: '#f59e0b', low: '#9ca3af' };
   const tierLabels = { high: 'High impact', medium: 'Medium impact', low: 'Lower impact' };
 
-  container.innerHTML = `
-    <h3>What Influences Their Purchases</h3>
+  // Render into the parent .card so content isn't constrained by the grid CSS on the inner div
+  const card = container.closest('.card') || container.parentElement;
+  card.innerHTML = `
+    <h3>Influence Source Deep Dive</h3>
     <p class="actions-subtitle" style="margin-bottom:0.75rem;">Ranked by editorial tier. Key entries anchored to survey data — cited per source below.</p>
     <div style="display:flex;flex-direction:column;gap:0.65rem;">
       ${GENZ_DATA.influenceSources.map(item => {
@@ -272,6 +279,7 @@ function renderGenZFormatsList() {
 
 function renderGenZGlobalLocal() {
   const glData = GENZ_DATA.globalVsLocal;
+  if (!glData) return;
 
   const statsContainer = document.getElementById('genzGLStats');
   if (statsContainer) {
@@ -283,11 +291,12 @@ function renderGenZGlobalLocal() {
       </div>`).join('');
   }
 
-  const ctx = document.getElementById('genzGLChart');
-  if (ctx) { ctx.style.display = 'none'; }
+  // Hide the entire chart wrap div, not just the canvas
+  const chartWrap = document.querySelector('.genz-gl-chart-wrap');
+  if (chartWrap) chartWrap.style.display = 'none';
 
   const insightEl = document.getElementById('genzGLInsight');
-  if (insightEl) {
+  if (insightEl && glData.crocsInsight) {
     insightEl.innerHTML = `
       <div class="genz-gl-insight-inner">
         <span class="genz-gl-insight-label">Crocs Implication</span>
