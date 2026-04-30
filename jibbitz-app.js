@@ -190,9 +190,11 @@ function renderJbTrends(data) {
           `).join('')}
         </div>
       </div>` : ''}
-      ${t.regional ? `
+      ${t.regional ? (() => {
+        const hasData = Object.values(t.regional).some(v => v > 0);
+        return hasData ? `
       <div class="jb-regional">
-        <div class="jb-regional-title">Regional Relevance</div>
+        <div class="jb-regional-title">Regional Relevance <span class="jb-source-tag">Google Trends</span></div>
         <div class="jb-regional-grid">
           ${Object.entries(t.regional).map(([region, score]) => `
             <div class="jb-regional-item">
@@ -204,7 +206,12 @@ function renderJbTrends(data) {
             </div>
           `).join('')}
         </div>
-      </div>` : ''}
+      </div>` : `
+      <div class="jb-regional">
+        <div class="jb-regional-title">Regional Relevance</div>
+        <div class="jb-no-data">Insufficient Google search volume to show regional breakdown — trend is spreading via social media, not search.</div>
+      </div>`;
+      })() : ''}
       <div class="jb-stage-banner" style="background:${stageInfo.color}15;border-left:3px solid ${stageInfo.color};color:${stageInfo.color}">
         ${stageInfo.icon || ''} ${t.stageDetail}
       </div>

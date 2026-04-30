@@ -806,6 +806,20 @@ tr.is-crocs:hover { background: #D4EDCF; }
   font-weight: 600;
 }
 
+.jb-no-data {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 0.4rem 0;
+}
+
+.jb-source-tag {
+  font-size: 0.62rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-left: 0.4rem;
+}
+
 .jb-stage-banner {
   font-size: 0.78rem;
   padding: 0.6rem 0.8rem;
