@@ -243,12 +243,13 @@ function sortTrends() {
   renderJbTrends(sorted);
 }
 
-// --- Velocity Chart ---
+// --- Search Interest Trajectory Chart ---
 function renderJbVelocityChart() {
   const ctx = document.getElementById('jbVelocityChart').getContext('2d');
   const days = Array.from({length: 14}, (_, i) => `Day ${i + 1}`);
 
-  const top5 = [...JIBBITZ_TRENDS].sort((a, b) => b.jibbitzScore - a.jibbitzScore).slice(0, 5);
+  // Show top 5 by current relevance score (most actionable right now)
+  const top5 = [...JIBBITZ_TRENDS].sort((a, b) => calcRelevanceScore(b) - calcRelevanceScore(a)).slice(0, 5);
   const colors = ['#43B02A', '#ef4444', '#3b82f6', '#f59e0b', '#8b5cf6'];
 
   const datasets = top5.map((t, i) => ({
@@ -270,67 +271,44 @@ function renderJbVelocityChart() {
       responsive: true,
       plugins: {
         legend: { position: 'bottom', labels: { usePointStyle: true, padding: 16, font: { size: 11 } } },
+        tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${c.raw} relative interest` } },
       },
       scales: {
-        y: { beginAtZero: true, max: 100, title: { display: true, text: 'Relative Search Interest' } },
+        y: { beginAtZero: true, max: 100, title: { display: true, text: 'Relative Interest (directional)' } },
       },
     },
   });
 }
 
-// --- Category Chart ---
+// --- Momentum Distribution Chart ---
 function renderJbCategoryChart() {
   const ctx = document.getElementById('jbCategoryChart').getContext('2d');
 
-  const catCounts = {};
-  const catScores = {};
-  JIBBITZ_TRENDS.forEach(t => {
-    catCounts[t.category] = (catCounts[t.category] || 0) + 1;
-    catScores[t.category] = (catScores[t.category] || 0) + t.jibbitzScore;
-  });
+  const order = ['surging', 'rising', 'steady', 'fading', 'peaked'];
+  const labels = ['⚡ Surging', '↑ Rising', '→ Steady', '↓ Fading', '● Peaked'];
+  const colors = ['#43B02A', '#86efac', '#f59e0b', '#fb923c', '#9ca3af'];
 
-  const cats = Object.keys(catCounts);
-  const avgScores = cats.map(c => Math.round(catScores[c] / catCounts[c]));
-  const counts = cats.map(c => catCounts[c]);
-
-  const catColors = {
-    'animals': '#43B02A', 'pop-culture': '#8b5cf6', 'food': '#f59e0b',
-    'memes': '#ef4444', 'sports': '#3b82f6', 'characters': '#ec4899'
-  };
+  const counts = order.map(m => JIBBITZ_TRENDS.filter(t => t.momentum === m).length);
 
   if (window._jbCategoryChart) window._jbCategoryChart.destroy();
   window._jbCategoryChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'doughnut',
     data: {
-      labels: cats.map(c => formatCategory(c).replace(/^.+? /, '')),
-      datasets: [
-        {
-          label: 'Avg Jibbitz Score',
-          data: avgScores,
-          backgroundColor: cats.map(c => catColors[c] || '#999'),
-          borderRadius: 6,
-          yAxisID: 'y',
-        },
-        {
-          label: 'Trend Count',
-          data: counts,
-          type: 'line',
-          borderColor: '#1D1D1B',
-          backgroundColor: '#1D1D1B',
-          pointRadius: 5,
-          borderWidth: 2,
-          yAxisID: 'y1',
-        }
-      ],
+      labels,
+      datasets: [{
+        data: counts,
+        backgroundColor: colors,
+        borderWidth: 2,
+        borderColor: '#fff',
+        hoverOffset: 6,
+      }],
     },
     options: {
       responsive: true,
+      cutout: '58%',
       plugins: {
-        legend: { position: 'bottom', labels: { usePointStyle: true, padding: 16, font: { size: 11 } } },
-      },
-      scales: {
-        y: { beginAtZero: true, max: 100, title: { display: true, text: 'Avg Jibbitz Score' } },
-        y1: { beginAtZero: true, position: 'right', grid: { display: false }, title: { display: true, text: 'Count' } },
+        legend: { position: 'bottom', labels: { usePointStyle: true, padding: 14, font: { size: 11 } } },
+        tooltip: { callbacks: { label: c => ` ${c.label}: ${c.raw} trend${c.raw !== 1 ? 's' : ''}` } },
       },
     },
   });
