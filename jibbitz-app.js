@@ -8,27 +8,31 @@ if (typeof JIBBITZ_LIVE_TRENDS !== 'undefined' && JIBBITZ_LIVE_TRENDS.length > 0
 
 let jbTrendsData = [];
 
-// Relevance score: weights velocity, trend momentum, and age over static jibbitz score.
-// Downtrending entries (declining searchTrend + low velocity) naturally sink to the bottom.
+// Maps qualitative momentum label to a numeric weight for sorting.
+function momentumScore(t) {
+  return { surging: 85, rising: 65, steady: 45, fading: 20, peaked: 8 }[t.momentum] ?? 45;
+}
+
+// Relevance score: weights momentum signal and search trend trajectory over static jibbitz score.
 function calcRelevanceScore(t) {
   const trend = t.searchTrend || [];
   const last3avg = trend.length >= 3 ? trend.slice(-3).reduce((a, b) => a + b, 0) / 3 : 50;
   const prev3avg = trend.length >= 6 ? trend.slice(-6, -3).reduce((a, b) => a + b, 0) / 3 : last3avg;
-  const momentum = last3avg - prev3avg; // positive = rising, negative = fading
+  const trendDelta = last3avg - prev3avg;
   const agePenalty = Math.min(40, Math.max(0, (t.daysTrending - 21) * 1.5));
   const stageBonus = { evaluation: 0, watching: -10, launched: -40 }[t.stage] ?? 0;
-  return (t.velocity * 0.40) + (momentum * 0.35) + (t.jibbitzScore * 0.10) - agePenalty + stageBonus;
+  return (momentumScore(t) * 0.40) + (trendDelta * 0.35) + (t.jibbitzScore * 0.10) - agePenalty + stageBonus;
 }
 
 function getTrendStatus(t) {
   const trend = t.searchTrend || [];
   const last3avg = trend.length >= 3 ? trend.slice(-3).reduce((a, b) => a + b, 0) / 3 : 50;
   const prev3avg = trend.length >= 6 ? trend.slice(-6, -3).reduce((a, b) => a + b, 0) / 3 : last3avg;
-  const momentum = last3avg - prev3avg;
-  if (t.velocity < 25 && momentum < -15) return 'missed';
-  if (momentum < -10 || t.velocity < 35) return 'downtrending';
-  if (t.velocity >= 80) return 'actnow';
-  if (t.velocity >= 60) return 'heating';
+  const trendDelta = last3avg - prev3avg;
+  if (t.momentum === 'peaked' && trendDelta < -10) return 'missed';
+  if (t.momentum === 'peaked' || t.momentum === 'fading') return 'downtrending';
+  if (t.momentum === 'surging') return 'actnow';
+  if (t.momentum === 'rising') return 'heating';
   return 'watching';
 }
 
@@ -110,7 +114,7 @@ function renderJbPipeline() {
   JIBBITZ_PIPELINE.forEach(p => counts[p.stage] = 0);
   JIBBITZ_TRENDS.forEach(t => counts[t.stage] = (counts[t.stage] || 0) + 1);
 
-  const urgentCount = JIBBITZ_TRENDS.filter(t => t.velocity >= 80 && t.stage === 'evaluation').length;
+  const urgentCount = JIBBITZ_TRENDS.filter(t => t.momentum === 'surging' && t.stage === 'evaluation').length;
 
   container.innerHTML = JIBBITZ_PIPELINE.map(p => `
     <div class="jb-pipeline-card" style="border-top:3px solid ${p.color}">
@@ -141,7 +145,8 @@ function renderJbTrends(data) {
       watching:     { cls: 'jb-watch-badge',         label: 'WATCHING' },
     };
     const { cls: urgencyClass, label: urgencyLabel } = statusMap[trendStatus];
-    const volumeStr = t.socialVolume >= 1000000 ? (t.socialVolume / 1000000).toFixed(1) + 'M' : (t.socialVolume / 1000).toFixed(0) + 'K';
+    const momentumLabels = { surging: '⚡ Surging', rising: '↑ Rising', steady: '→ Steady', fading: '↓ Fading', peaked: '● Peaked' };
+    const momentumLabel = momentumLabels[t.momentum] || t.momentum;
 
     return `
     <div class="jb-trend-card">
@@ -159,16 +164,12 @@ function renderJbTrends(data) {
           <div class="jb-score-bar"><div class="jb-score-fill" style="width:${t.jibbitzScore}%;background:${scoreColor(t.jibbitzScore)}"></div></div>
         </div>
         <div class="jb-metric">
-          <div class="jb-metric-value">${volumeStr}</div>
-          <div class="jb-metric-label">Social Volume</div>
+          <div class="jb-metric-value" style="font-size:0.85rem;">${momentumLabel}</div>
+          <div class="jb-metric-label">Momentum</div>
         </div>
         <div class="jb-metric">
-          <div class="jb-metric-value">${t.velocity}</div>
-          <div class="jb-metric-label">Velocity</div>
-        </div>
-        <div class="jb-metric">
-          <div class="jb-metric-value">${t.sentiment}%</div>
-          <div class="jb-metric-label">Sentiment</div>
+          <div class="jb-metric-value">${t.daysTrending}d</div>
+          <div class="jb-metric-label">Trending</div>
         </div>
       </div>
       <div class="jb-trend-footer">
@@ -235,9 +236,8 @@ function sortTrends() {
   const sortBy = document.getElementById('jbSortSelect').value;
   const sorted = [...jbTrendsData];
   switch (sortBy) {
-    case 'velocity': sorted.sort((a, b) => b.velocity - a.velocity); break;
-    case 'volume': sorted.sort((a, b) => b.socialVolume - a.socialVolume); break;
-    case 'sentiment': sorted.sort((a, b) => b.sentiment - a.sentiment); break;
+    case 'momentum': sorted.sort((a, b) => momentumScore(b) - momentumScore(a)); break;
+    case 'age': sorted.sort((a, b) => a.daysTrending - b.daysTrending); break;
     default: sorted.sort((a, b) => b.jibbitzScore - a.jibbitzScore);
   }
   renderJbTrends(sorted);
@@ -351,7 +351,7 @@ function renderJbPipelineBoard() {
         ${items.map(t => `
           <div class="jb-board-item">
             <div class="jb-board-item-name">${t.name}</div>
-            <div class="jb-board-item-score">Score: ${t.jibbitzScore} · ${t.velocity >= 80 ? '⚡' : t.velocity >= 60 ? '🔥' : '👁️'} ${t.velocity}</div>
+            <div class="jb-board-item-score">Score: ${t.jibbitzScore} · ${{ surging: '⚡', rising: '↑', steady: '→', fading: '↓', peaked: '●' }[t.momentum] || ''} ${t.momentum}</div>
             <div class="jb-board-item-detail">${t.stageDetail}</div>
           </div>
         `).join('')}
@@ -363,8 +363,8 @@ function renderJbPipelineBoard() {
 
 // --- Jibbitz Roadmap ---
 function renderJibbitzRoadmap() {
-  const mooDeng = JIBBITZ_TRENDS.find(t => t.id === 'moo-deng-2') || { velocity: 96 };
-  const pandaTwins = JIBBITZ_TRENDS.find(t => t.id === 'panda-twins') || { velocity: 85 };
+  const mooDeng = JIBBITZ_TRENDS.find(t => t.id === 'moo-deng-2') || { momentum: 'fading' };
+  const pandaTwins = JIBBITZ_TRENDS.find(t => t.id === 'panda-twins') || { momentum: 'surging' };
   const pedro = JIBBITZ_TRENDS.find(t => t.id === 'pedro-raccoon') || { daysTrending: 30 };
   const capybara = JIBBITZ_TRENDS.find(t => t.id === 'capybara-hot-spring') || {};
 
@@ -375,7 +375,7 @@ function renderJibbitzRoadmap() {
       priority: "high",
       type: "Product",
       title: "Fast-Track Moo Deng Baby & Panda Twins",
-      description: `Both are in design with velocity ${mooDeng.velocity} and ${pandaTwins.velocity}. Rush to production — window closes fast.`,
+      description: `Moo Deng is ${mooDeng.momentum}, Panda Twins are ${pandaTwins.momentum}. Rush to production — window closes fast.`,
       kpi: "Launch within 45 days, target 50K units sell-through in week 1",
     },
     {
@@ -541,9 +541,9 @@ function buildDesignBriefHTML(trend) {
   const topAudience = Object.entries(trend.audience)
     .sort((a, b) => b[1] - a[1]).slice(0, 2);
 
-  const urgency = trend.velocity >= 80
+  const urgency = trend.momentum === 'surging'
     ? { label: 'Rush — Act Now', rec: 'Target 30-day concept-to-brief window. This trend has a short cultural shelf life.', bg: '#fef2f2', border: '#ef4444', color: '#b91c1c' }
-    : trend.velocity >= 60
+    : trend.momentum === 'rising'
     ? { label: 'Fast-track', rec: 'Target 60-day window. Trend is still accelerating — prioritise over standard pipeline.', bg: '#fffbeb', border: '#f59e0b', color: '#92400e' }
     : { label: 'Standard timeline', rec: 'No urgency. Re-evaluate in 3–4 weeks before committing resources.', bg: '#f3f4f6', border: '#9ca3af', color: '#6b7280' };
 
