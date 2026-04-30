@@ -923,27 +923,70 @@ const TREND_ITEMS = [
 ];
 
 // ─── Gen Z Intelligence Data ────────────────────────────────────────────────
+// Sources used in this section:
+//   Pew Research Center, "Teens, Social Media and Technology 2024" (free, Dec 2024)
+//   Deloitte Global Gen Z & Millennial Survey 2024 (free PDF, n=22,841 across 44 countries)
+//   Klarna Shopping Pulse 2024 (cited via Exploding Topics with primary attribution)
+//   Morning Consult Gen Z research 2024 (cited via Exploding Topics with primary attribution)
+//   GWI "Audiences to Watch: Gen Z in 2026" (headline insights, registration-gated)
+//   eMarketer "Gen Z: What marketers need to know" (April 2025, partial free access)
+//   US Census Bureau / eMarketer population estimate (2023)
+//
+// Methodology note (values ranking): Rankings synthesised from citation frequency and
+// data weight across the above sources. Where Deloitte provides survey percentages those
+// are shown inline. Rankings without a specific percentage reflect editorial consensus
+// across multiple sources — noted per entry.
 
 const GENZ_DATA = {
 
   keyStats: [
-    { label: 'Global Gen Z Population', value: '2B+',    sub: 'Born 1997–2012' },
-    { label: 'Daily Screen Time',        value: '9.1 hrs', sub: 'Avg across all devices' },
-    { label: 'US Household Spend Influence', value: '$600B', sub: 'Annual purchasing influence' },
-    { label: 'Social Commerce Buyers',   value: '54%',    sub: 'Purchased via social in last 30 days' },
+    {
+      label: 'US Gen Z Population',
+      value: '~70M',
+      sub: 'Born 1997–2012',
+      source: 'US Census Bureau / eMarketer 2023',
+      sourceUrl: 'https://www.insiderintelligence.com/insights/generation-z-facts/',
+    },
+    {
+      label: 'Online "Almost Constantly"',
+      value: '46%',
+      sub: 'of US teens — double the 24% in 2014–15',
+      source: 'Pew Research Center, Dec 2024',
+      sourceUrl: 'https://www.pewresearch.org/internet/2024/12/12/teens-social-media-and-technology-2024/',
+    },
+    {
+      label: 'Pay More for Sustainable',
+      value: '64%',
+      sub: 'of Gen Z willing to pay more for sustainable products',
+      source: 'Deloitte Global Gen Z Survey 2024',
+      sourceUrl: 'https://www.deloitte.com/global/en/issues/work/content/genz-millennialsurvey.html',
+    },
+    {
+      label: 'Buy Through Influencers',
+      value: '52%',
+      sub: 'make purchases via influencers they follow — more than the 43% who buy direct from retailers',
+      source: 'Klarna Shopping Pulse 2024',
+      sourceUrl: 'https://explodingtopics.com/blog/gen-z-stats',
+    },
   ],
 
-  mediaConsumption: [
-    { platform: 'TikTok',              hoursPerDay: 3.8, color: '#1D1D1B' },
-    { platform: 'YouTube',             hoursPerDay: 2.6, color: '#EF4444' },
-    { platform: 'Gaming',              hoursPerDay: 2.2, color: '#43B02A' },
-    { platform: 'Instagram',           hoursPerDay: 1.9, color: '#E1306C' },
-    { platform: 'Netflix / Streaming', hoursPerDay: 1.8, color: '#8B5CF6' },
-    { platform: 'Podcasts',            hoursPerDay: 0.9, color: '#F59E0B' },
-    { platform: 'X / Twitter',         hoursPerDay: 0.6, color: '#3B82F6' },
-    { platform: 'Snapchat',            hoursPerDay: 0.5, color: '#FACC15' },
+  // Platform reach = % of US teens who use each platform (Pew Research Dec 2024)
+  // Daily use = % who visit daily (Pew Research Dec 2024; Instagram/Snapchat: "roughly half" — shown as 50%)
+  platformUsage: [
+    { platform: 'YouTube',    reach: 90, daily: 73, color: '#EF4444' },
+    { platform: 'TikTok',    reach: 63, daily: 60, color: '#1D1D1B' },
+    { platform: 'Instagram', reach: 63, daily: 50, color: '#E1306C' },
+    { platform: 'Snapchat',  reach: 55, daily: 50, color: '#FACC15' },
+    { platform: 'Facebook',  reach: 32, daily: null, color: '#3B82F6' },
+    { platform: 'X/Twitter', reach: 17, daily: null, color: '#6B7280' },
+    { platform: 'Reddit',    reach: 14, daily: null, color: '#F59E0B' },
   ],
+  platformSource: 'Pew Research Center, "Teens, Social Media and Technology 2024" — pewresearch.org',
+  platformUrl: 'https://www.pewresearch.org/internet/2024/12/12/teens-social-media-and-technology-2024/',
 
+  // Time and spend distributions are modeled editorial estimates — no single free source
+  // publishes a clean breakdown. Proportions are consistent with patterns across GWI,
+  // eMarketer, and Morning Consult qualitative framing. Label as approximate.
   timeSpending: [
     { activity: 'Social Media',        pct: 27, color: '#EF4444' },
     { activity: 'Gaming',              pct: 17, color: '#43B02A' },
@@ -964,15 +1007,74 @@ const GENZ_DATA = {
     { category: 'Other',                  pct: 5,  color: '#9CA3AF' },
   ],
 
+  // Values ranking methodology: Deloitte-anchored values use survey %s. Others ranked by
+  // citation frequency across GWI, eMarketer, and Morning Consult qualitative framing.
+  // Not a consumer survey — directional editorial synthesis.
   values: [
-    { value: 'Authenticity',    rank: 1, desc: 'Reject performative brands; demand real, unfiltered voices' },
-    { value: 'Mental Health',   rank: 2, desc: 'Openly prioritise wellbeing — brands that ignore this feel tone-deaf' },
-    { value: 'Individuality',   rank: 3, desc: 'Express unique identity through personal style and taste' },
-    { value: 'Sustainability',  rank: 4, desc: 'Expect brands to act, not just talk — greenwashing is noticed immediately' },
-    { value: 'Community',       rank: 5, desc: 'Build tight-knit micro-communities both online and in person' },
-    { value: 'Inclusivity',     rank: 6, desc: 'Demand representation across race, body type, gender and ability' },
-    { value: 'Value for Money', rank: 7, desc: 'Price-conscious overall, but will splurge on identity-defining purchases' },
-    { value: 'Humour & Play',   rank: 8, desc: 'Memes and absurdist content are the dominant cultural love language' },
+    {
+      value: 'Authenticity',
+      rank: 1,
+      desc: 'Reject performative brands; demand real, unfiltered voices — the #1 brand attribute cited across GWI, eMarketer, and Morning Consult research',
+      dataPoint: null,
+      sources: ['GWI Gen Z 2026 (headline)', 'eMarketer 2025', 'Morning Consult 2024'],
+      methodology: 'editorial-consensus',
+    },
+    {
+      value: 'Mental Health',
+      rank: 2,
+      desc: '40% feel stressed or anxious most of the time. 89% say a sense of purpose is important to their job satisfaction and wellbeing.',
+      dataPoint: '40% stressed/anxious most of the time',
+      sources: ['Deloitte Global Gen Z Survey 2024'],
+      methodology: 'survey-data',
+    },
+    {
+      value: 'Financial Security',
+      rank: 3,
+      desc: 'Cost of living is Gen Z\'s #1 stated concern (34%). 48% feel unable to save for the future. More than a quarter struggle to cover monthly bills.',
+      dataPoint: '34% cite cost of living as top concern',
+      sources: ['Deloitte Global Gen Z Survey 2024'],
+      methodology: 'survey-data',
+    },
+    {
+      value: 'Sustainability',
+      rank: 4,
+      desc: '64% willing to pay more for sustainable products. 62% felt worried or anxious about climate change in the past month. 20% cite climate change as a top social concern.',
+      dataPoint: '64% willing to pay more for sustainable products',
+      sources: ['Deloitte Global Gen Z Survey 2024'],
+      methodology: 'survey-data',
+    },
+    {
+      value: 'Individuality',
+      rank: 5,
+      desc: 'Express unique identity through personal style and self-expression — consistently cited as a core brand alignment driver across Gen Z research',
+      dataPoint: null,
+      sources: ['GWI Gen Z 2026 (headline)', 'eMarketer 2025'],
+      methodology: 'editorial-consensus',
+    },
+    {
+      value: 'Community',
+      rank: 6,
+      desc: 'Build tight-knit micro-communities online and in person — platform behavior data (Pew) shows daily habitual use driven by social connection',
+      dataPoint: null,
+      sources: ['GWI Gen Z 2026 (headline)', 'Pew Research 2024'],
+      methodology: 'editorial-consensus',
+    },
+    {
+      value: 'Inclusivity',
+      rank: 7,
+      desc: 'Demand representation across race, body type, gender and ability — noted as a key brand evaluation criterion',
+      dataPoint: null,
+      sources: ['eMarketer 2025', 'Morning Consult 2024'],
+      methodology: 'editorial-consensus',
+    },
+    {
+      value: 'Humour & Play',
+      rank: 8,
+      desc: 'Memes and absurdist content travel furthest on Gen Z platforms — Crocs\' weird brand heritage is a structural advantage here',
+      dataPoint: null,
+      sources: ['Morning Consult 2024'],
+      methodology: 'editorial-consensus',
+    },
   ],
 
   crocsAngles: [
@@ -983,17 +1085,85 @@ const GENZ_DATA = {
     { icon: '🌍', title: 'Sustainability Positioning',  tier: 'medium', detail: 'Sustainability is a top-ranked Gen Z value. Crocs\' confirmed 25% bio-circular content (2024) and 10% per-pair emissions reduction are under-communicated to this audience.' },
   ],
 
+  // Influence tiers anchored to real data where available. Tier classification is editorial.
   influenceSources: [
-    { source: 'Micro-influencers / Creators (10K–500K)',  tier: 'high',   color: '#43B02A', crocs: 'The core Jibbitz seeding playbook — authentic creators in customisation, style, and fandom niches outperform celebrity deals at a fraction of cost.' },
-    { source: 'Peer & Friend Recommendations',            tier: 'high',   color: '#43B02A', crocs: 'Make sharing effortless — UGC challenges, referral hooks, and shareable Jibbitz combos activate the most trusted influence channel.' },
-    { source: 'Algorithm Discovery (FYP / Explore)',      tier: 'high',   color: '#43B02A', crocs: 'Organic posts that perform well should be boosted immediately. Paid amplification of native content outperforms produced ad creative 3–5×.' },
-    { source: 'Short-Form Video (TikTok / Reels)',        tier: 'high',   color: '#f59e0b', crocs: 'The primary media format for this cohort. Every Crocs campaign needs a TikTok-native cut under 30 seconds before anything else is made.' },
-    { source: 'Micro-Dramas & Branded Series',           tier: 'medium', color: '#f59e0b', crocs: 'Fastest-growing format in APAC — huge opportunity. A Crocs "Jibbitz Diaries" episodic series could be a breakout format in 2026.' },
-    { source: 'Macro Celebrities (1M+ following)',        tier: 'medium', color: '#f59e0b', crocs: 'High reach, lower trust for purchase decisions. Best deployed for cultural awareness moments, not direct conversion campaigns.' },
-    { source: 'Brand-Owned Social Content',               tier: 'medium', color: '#3b82f6', crocs: 'Effective only if it feels native and unpolished. Over-produced brand content is scrolled past — Crocs\' irreverent tone is an asset here.' },
-    { source: 'Online Reviews & Ratings',                 tier: 'medium', color: '#3b82f6', crocs: 'Star ratings and UGC reviews are silent conversion drivers. Encourage reviews post-purchase, especially for Jibbitz bundles.' },
-    { source: 'In-Feed / Social Ads',                    tier: 'low',    color: '#9ca3af', crocs: 'Only effective if the first 1.5 seconds is visually arresting — lead with the charm close-up or unexpected colourway.' },
-    { source: 'TV / Print / Out-of-Home',                tier: 'low',    color: '#9ca3af', crocs: 'Largely ignored by Gen Z. Reserve for mass cultural moments only — Super Bowl, major festival sponsorships where the context adds credibility.' },
+    {
+      source: 'Influencers & Creators (any size)',
+      tier: 'high', color: '#43B02A',
+      stat: '52% of Gen Z make purchases through influencers they follow — more than the 43% who buy directly from retailers. Gen Z is the only generation where influencers outperform retailers as a purchase channel.',
+      statSource: 'Klarna Shopping Pulse 2024',
+      crocs: 'The core Jibbitz seeding playbook. Micro-creators in customisation, style, and fandom niches drive authentic reach at a fraction of celebrity deal costs.',
+    },
+    {
+      source: 'Review & Haul Videos',
+      tier: 'high', color: '#43B02A',
+      stat: '53% of Gen Z bought a product after watching a review video. 40% bought after a haul video. 37% after "get ready with me" content.',
+      statSource: 'Morning Consult Gen Z research 2024',
+      crocs: '"Unboxing my Jibbitz haul" and Crocs customisation review content are native to this format. Seed creators for UGC reviews specifically.',
+    },
+    {
+      source: 'Peer & Friend Recommendations',
+      tier: 'high', color: '#43B02A',
+      stat: 'Peer recommendations are consistently rated the most trusted information source for purchase decisions across Gen Z research (GWI, eMarketer, Morning Consult).',
+      statSource: 'Editorial consensus — GWI 2026, eMarketer 2025',
+      crocs: 'Make sharing effortless — UGC challenges, referral hooks, and shareable Jibbitz combos activate the most trusted influence channel.',
+    },
+    {
+      source: 'TikTok Discovery (FYP / Explore)',
+      tier: 'high', color: '#f59e0b',
+      stat: '104% increase in Gen Z using TikTok to find products and brand information since Q4 2020. TikTok as a news/discovery source is up 90% in the same period.',
+      statSource: 'GWI platform tracking (cited via Exploding Topics, primary: GWI)',
+      crocs: '63% of US teens use TikTok — 60% daily. Organic TikTok posts that perform should be amplified with paid spend rather than producing separate ad creative.',
+    },
+    {
+      source: 'Short-Form Video (Reels / Shorts)',
+      tier: 'high', color: '#f59e0b',
+      stat: '90% of US teens use YouTube; 63% use Instagram. Short-form native formats (Reels, Shorts) dominate within these platforms for Gen Z.',
+      statSource: 'Pew Research Center, "Teens, Social Media and Technology 2024"',
+      crocs: 'Every Crocs campaign needs a sub-30-second TikTok/Reels cut optimised for mobile before any other format is made.',
+    },
+    {
+      source: 'Micro-Dramas & Episodic Series',
+      tier: 'medium', color: '#f59e0b',
+      stat: 'Fastest-growing branded content format in APAC — cited by GWI and eMarketer as a breakout format for Gen Z engagement. No specific % available from free sources.',
+      statSource: 'Editorial consensus — GWI 2026 (gated), eMarketer 2025',
+      crocs: 'A Crocs "Jibbitz Diaries" episodic TikTok series — different Gen Z characters, identity through customisation — is a natural fit for this format.',
+    },
+    {
+      source: 'Macro Celebrities (1M+ following)',
+      tier: 'medium', color: '#f59e0b',
+      stat: 'High reach, but lower purchase-intent trust for Gen Z vs. micro-creators and peers. Best deployed for cultural awareness, not direct conversion.',
+      statSource: 'Editorial consensus — eMarketer 2025, Morning Consult 2024',
+      crocs: 'Reserved for major cultural moments — festival season, collab launches — where scale and visibility outweigh conversion efficiency.',
+    },
+    {
+      source: 'Online Reviews & Ratings',
+      tier: 'medium', color: '#3b82f6',
+      stat: '"Storytime" content and review formats are among the highest-converting content types. 67% of Gen Z enjoy watching storytime videos.',
+      statSource: 'Morning Consult Gen Z research 2024',
+      crocs: 'Star ratings and UGC reviews are silent conversion drivers. Encourage reviews post-purchase, especially for Jibbitz bundles.',
+    },
+    {
+      source: 'Brand-Owned Social Content',
+      tier: 'medium', color: '#3b82f6',
+      stat: 'Gen Z favours UGC over professional productions — brand-owned content competes on "feels native" not production value.',
+      statSource: 'eMarketer 2025 (qualitative framing, free access)',
+      crocs: 'Crocs\' irreverent tone is an asset here. One raw creator-style post for every polished campaign asset.',
+    },
+    {
+      source: 'In-Feed / Social Ads',
+      tier: 'low', color: '#9ca3af',
+      stat: 'Gen Z is the most ad-aware and ad-skeptical generation. In-feed ads require an immediately arresting hook — the first 1.5 seconds determine skip or watch.',
+      statSource: 'eMarketer 2025 (qualitative framing, free access)',
+      crocs: 'Lead with a Jibbitz charm close-up or unexpected colourway pop — no logos, no intros. Native-looking creative consistently outperforms produced ads.',
+    },
+    {
+      source: 'TV / Print / Out-of-Home',
+      tier: 'low', color: '#9ca3af',
+      stat: 'Facebook usage among US teens collapsed from 71% (2014) to 32% (2024). Traditional media is increasingly irrelevant for this cohort.',
+      statSource: 'Pew Research Center, "Teens, Social Media and Technology 2024"',
+      crocs: 'Reserve for mass cultural moments only — Super Bowl, major festival sponsorships where the context adds credibility beyond the medium.',
+    },
   ],
 
   contentFormats: [
@@ -1018,11 +1188,41 @@ const GENZ_DATA = {
   },
 
   keyTakeaways: [
-    { num: '01', icon: '🤝', color: '#43B02A', title: 'Build a Micro-Influencer Army, Not a Celebrity Roster', insight: 'Gen Z consistently trusts people who look like them over untouchable stars. Micro-influencers drive purchase decisions at a fraction of celebrity cost — particularly in niche communities where Jibbitz naturally lives.', action: 'Shift 40% of influencer budget from macro to micro partnerships. Target creators in Jibbitz-adjacent niches: customisation, cottagecore, K-pop fandom, sports lifestyle.' },
-    { num: '02', icon: '🎬', color: '#EC4899', title: 'Invest in Micro-Drama & Episodic Branded Content', insight: 'Micro-dramas are the fastest-growing Gen Z content format, rising sharply in APAC. Crocs has untapped storytelling DNA for this format — personality, identity, and belonging are natural themes.', action: 'Commission a 6-episode TikTok series. Concept: "The Jibbitz Diaries" — different Gen Z characters expressing identity through Crocs customisation. Launch in JP and KR first.' },
-    { num: '03', icon: '📍', color: '#3B82F6', title: 'Make Every Key Market Feel Like a Local Brand', insight: 'Gen Z values local relevance and trusts local micro-creators far more than global celebrities for purchase decisions. Most Crocs campaigns are global executions that miss local conversion opportunities.', action: 'Launch a "Local Voices" programme — 5 micro-influencer partners per key market (JP, KR, IN, UK, FR, DE, BR). Give them Jibbitz kits and creative freedom, not brand scripts.' },
-    { num: '04', icon: '⚡', color: '#F59E0B', title: 'Own the Algorithm, Not Just the Ad Slot', insight: 'Algorithm-driven discovery (FYP, Explore pages) is how Gen Z finds new brands. Boosting organic content that already performs out-converts produced ad creative. The feed is the media channel.', action: 'Implement a "Spark & Amplify" strategy: let UGC and creator content run organically for 24–48 hours, identify top performers, then deploy paid spend behind them.' },
-    { num: '05', icon: '👁️', color: '#EF4444', title: 'The First 1.5 Seconds Are Everything', insight: 'In-feed ad skip rates are high across platforms. Traditional advertising largely fails with Gen Z. Native short-form video with an immediate hook — no intros, no logos — is the only format that earns attention.', action: 'All paid creative must open with the most visually arresting frame — Jibbitz charm close-up, unexpected colourway pop, a reaction. No brand logos, no intros, no fade-ins.' },
-    { num: '06', icon: '🦩', color: '#1D1D1B', title: 'Protect the Authenticity Advantage at All Costs', insight: 'Authenticity is the top-ranked Gen Z value across published research. Crocs\' willingness to be weird, meme-able and unapologetic is a rare brand asset that most heritage brands would kill for. Over-producing content will destroy it.', action: 'Establish a "Keep It Real" creative principle: one raw, creator-style social post for every produced campaign asset. Give the social team permission to post unpolished content.' },
+    {
+      num: '01', icon: '🤝', color: '#43B02A',
+      title: 'Influencers Have Overtaken Retailers as Gen Z\'s Purchase Channel',
+      insight: '52% of Gen Z make purchases through influencers they follow — more than the 43% who buy directly from retailers. Gen Z is the only generation where influencer reach exceeds direct retail as a purchase driver. (Klarna Shopping Pulse 2024)',
+      action: 'Shift 40% of influencer budget from macro to micro partnerships. Target creators in Jibbitz-adjacent niches: customisation, cottagecore, K-pop fandom, sports lifestyle.',
+    },
+    {
+      num: '02', icon: '🎬', color: '#EC4899',
+      title: 'Review & Haul Videos Are the Highest-Converting Content Format',
+      insight: '53% of Gen Z have bought a product after watching a review video; 40% after a haul video; 37% after a "get ready with me" format. These native creator formats outperform produced brand content. (Morning Consult 2024)',
+      action: 'Seed 20 micro-creators with Jibbitz kits and brief them to make unboxing/haul content. Do not script it. Amplify the top performers with paid spend.',
+    },
+    {
+      num: '03', icon: '📍', color: '#3B82F6',
+      title: 'Make Every Key Market Feel Like a Local Brand',
+      insight: 'TikTok product discovery has grown 104% among Gen Z since Q4 2020, but purchase decisions are driven by local relevance and peer trust — not global campaigns. 63% of US teens use TikTok daily. (GWI 2024; Pew Research 2024)',
+      action: 'Launch a "Local Voices" programme — 5 micro-influencer partners per key market (JP, KR, IN, UK, FR, DE, BR). Give them Jibbitz kits and creative freedom, not brand scripts.',
+    },
+    {
+      num: '04', icon: '⚡', color: '#F59E0B',
+      title: 'Own the Algorithm, Not Just the Ad Slot',
+      insight: 'Algorithm-driven discovery (FYP, Explore pages) is Gen Z\'s primary brand discovery mechanism. 46% are online "almost constantly" — double the rate of a decade ago. (Pew Research 2024). Organic content that earns the algorithm outperforms paid placements.',
+      action: 'Implement a "Spark & Amplify" strategy: let UGC and creator content run organically for 24–48 hours, identify top performers, then deploy paid spend behind them.',
+    },
+    {
+      num: '05', icon: '🌍', color: '#43B02A',
+      title: 'Sustainability Is a Purchase Driver — But Must Be Verified',
+      insight: '64% of Gen Z are willing to pay more for sustainable products (Deloitte 2024). 62% felt climate anxiety in the past month. But Gen Z also has the strongest greenwashing radar — the Adidas ruling (March 2026) is a live example of the consequence of vague claims.',
+      action: 'Communicate Crocs\' confirmed sustainability data (25% bio-circular 2024, 10% per-pair emissions reduction) in product-level language Gen Z encounters — on product pages, in creator briefings, on Jibbitz packaging.',
+    },
+    {
+      num: '06', icon: '🦩', color: '#1D1D1B',
+      title: 'Protect the Authenticity Advantage at All Costs',
+      insight: 'Authenticity is the #1 Gen Z brand value cited across GWI, eMarketer, and Morning Consult research. 75% of Gen Z actively monitor their own screen time (Sago 2024) — they are self-aware media consumers who can spot performative content instantly. Crocs\' weird-brand heritage is a rare structural advantage.',
+      action: 'Establish a "Keep It Real" creative principle: one raw, creator-style social post for every produced campaign asset. Give the social team permission to post unpolished content.',
+    },
   ],
 };
