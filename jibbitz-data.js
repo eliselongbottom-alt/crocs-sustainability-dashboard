@@ -360,32 +360,3 @@ const JIBBITZ_PIPELINE = [
   { stage: "launched", label: "Launched", icon: "🚀", color: "#43B02A" },
 ];
 
-const JIBBITZ_WINS = [
-  {
-    name: "Punch the Monkey",
-    launchDate: "2026-03-01",
-    socialLikes: "2.4M",
-    prPickups: 47,
-    salesImpact: "Best-selling single Jibbitz in Q1 2026",
-    highlight: "Most-liked Crocs social post of all time",
-    lessonsLearned: "Speed was everything — 8 days from trend detection to launch. The emotional connection (baby animal + stuffed toy) drove sharing.",
-  },
-  {
-    name: "Moo Deng (Original)",
-    launchDate: "2024-10-15",
-    socialLikes: "1.8M",
-    prPickups: 32,
-    salesImpact: "Sold out in 4 hours, 3 restocks",
-    highlight: "Drove 340% spike in Crocs.com traffic from non-US markets",
-    lessonsLearned: "International viral moments = global demand. Ship to all regions simultaneously on restock.",
-  },
-  {
-    name: "Grimace Shake",
-    launchDate: "2023-07-20",
-    socialLikes: "980K",
-    prPickups: 18,
-    salesImpact: "Top 5 Jibbitz for July-Aug 2023",
-    highlight: "Cross-promoted by McDonald's socials (free reach)",
-    lessonsLearned: "Brand collabs amplify both ways. The licensing investment paid for itself in earned media.",
-  },
-];

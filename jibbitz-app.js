@@ -43,7 +43,6 @@ function initJibbitz() {
   renderJbVelocityChart();
   renderJbCategoryChart();
   renderJbPipelineBoard();
-  renderJbWins();
   renderJibbitzRoadmap();
 
   // Show last-updated timestamp
@@ -469,26 +468,6 @@ function renderJibbitzRoadmap() {
     <p class="actions-subtitle">Prioritised actions across three planning horizons</p>
     <div class="roadmap-grid">${grid}</div>
   `;
-}
-
-// --- Wins ---
-function renderJbWins() {
-  const grid = document.getElementById('jbWinsGrid');
-  grid.innerHTML = JIBBITZ_WINS.map(w => `
-    <div class="jb-win-card">
-      <div class="jb-win-header">
-        <div class="jb-win-name">🏆 ${w.name}</div>
-        <div class="jb-win-date">${new Date(w.launchDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
-      </div>
-      <div class="jb-win-highlight">${w.highlight}</div>
-      <div class="jb-win-stats">
-        <div class="jb-win-stat"><strong>${w.socialLikes}</strong><span>Social Likes</span></div>
-        <div class="jb-win-stat"><strong>${w.prPickups}</strong><span>PR Pickups</span></div>
-      </div>
-      <div class="jb-win-impact">${w.salesImpact}</div>
-      <div class="jb-win-lesson"><strong>Lesson:</strong> ${w.lessonsLearned}</div>
-    </div>
-  `).join('');
 }
 
 // ─── Design Brief Modal ────────────────────────────────────────────────────
